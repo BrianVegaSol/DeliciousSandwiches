@@ -1,5 +1,6 @@
 package com.pluarlsight;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -33,33 +34,68 @@ o Would you like the sandwich toasted?
 o Confirm - create the receipt file and go back to the home screen
 o Cancel - delete order and go back to the home screen
     */
-    StringBuilder sb = new StringBuilder();
+    static StringBuilder homeSB = new StringBuilder();
 
-    public static void homeMenu () {
-        while (onHomeMenu) {
-            System.out.println();
-            byte homeInput = scan.nextByte();
+
+    public static void homeMenu() {
+        byte homeInput = -1;
+        System.out.println("Welcome to Delicious Sandwiches!");
+        while (true) {
+            System.out.println("""
+                    What would you like to do?
+                     1) New Order
+                     0) Exit - exit the application""");
+            try{
+                homeInput = scan.nextByte();
+            } catch (InputMismatchException e) {
+                System.err.println("What did you say???");
+                break;
+            }
             switch (homeInput) {
                 case 0:
-                    onHomeMenu = false;
-                    break;
+                    System.out.println("Thank you for visiting Delicious Sandwiches! Have a great day! :D");
+                    scan.close();
+                    return;
                 case 1:
                     orderMenu();
                     break;
+                default:
+                    System.out.println("Sorry! I didn't quite catch that");
+                    continue;
             }
         }
 
         //scan.close();
     }
 
-    public static void orderMenu () {
-
+    public static void orderMenu() {
+        System.out.println("""
+                Welcome to the Order Menu!
+                Select one of the following to get started!
+                o 1) Add Sandwich
+                o 2) Add Drink
+                o 3) Add Chips
+                o 4) Checkout
+                o 0) Cancel Order
+                """);
+        byte orderInput = scan.nextByte();
+        while (true) {
+            switch (orderInput) {
+                case 0:
+                    return;
+                case 1:
+                    //
+                    break;
+                default:
+                    System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
+                    continue;
+            }
+        }
     }
 
-    public void addSandwich () {
+    public void addSandwich() {
 
     }
-
 
 
 }

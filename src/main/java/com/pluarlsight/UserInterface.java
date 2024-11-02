@@ -91,8 +91,8 @@ o Cancel - delete order and go back to the home screen
                     return;
                 case 1:
                     System.out.println("How many sandwiches would you like?");
-                    quantity = scan.nextByte();;
-                    sandwichMenu(quantity);
+                    quantity = scan.nextByte();
+                    Bread.sandwichMenu(quantity);
                     break;
                 default:
                     System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
@@ -101,9 +101,28 @@ o Cancel - delete order and go back to the home screen
         }
     }
 
-    public static void sandwichMenu(byte numOfSandwiches) {
-
-    }
+    /*public static void sandwichMenu(byte numOfSandwiches) {
+        byte sandwichesMade = 0;
+        while (sandwichesMade < numOfSandwiches) {
+            byte sandwichInput;
+            System.out.println("""
+                    Select your bread
+                    =================
+                    1) White
+                    2) Wheat
+                    3) Rye
+                    4) Wrap
+                    """);
+            sandwichInput = scan.nextByte();
+            switch (sandwichInput) {
+                case 1:
+                    Bread.getBreadType();
+                    Bread b = new Bread();
+                    break;
+            }
+            sandwichesMade ++;
+        }
+    }*/
 
     public static void addDrink (byte numOfDrinks) {
 

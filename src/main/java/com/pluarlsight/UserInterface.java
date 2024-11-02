@@ -47,10 +47,6 @@ o Cancel - delete order and go back to the home screen
                      0) Exit - exit the application""");
             try{
                 homeInput = scan.nextByte();
-            } catch (InputMismatchException e) {
-                System.err.println("What did you say???");
-                break;
-            }
             switch (homeInput) {
                 case 0:
                     System.out.println("Thank you for visiting Delicious Sandwiches! Have a great day! :D");
@@ -63,11 +59,19 @@ o Cancel - delete order and go back to the home screen
                     System.out.println("Sorry! I didn't quite catch that");
                     continue;
             }
+            if (homeInput == 1) {
+                continue;
+            }
+            break;
+            } catch (InputMismatchException e) {
+                System.err.println("What did you say???");
+                scan.nextLine();
+            }
         }
 
         //scan.close();
     }
-
+    //TODO need to add an if (!= 0) then continue OR another try catch
     public static void orderMenu() {
         System.out.println("""
                 Welcome to the Order Menu!

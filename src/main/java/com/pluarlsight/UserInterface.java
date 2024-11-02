@@ -84,11 +84,15 @@ o Cancel - delete order and go back to the home screen
                 """);
         byte orderInput = scan.nextByte();
         while (true) {
+            //might be a bad idea doing this xO
+            byte quantity;
             switch (orderInput) {
                 case 0:
                     return;
                 case 1:
-                    //
+                    System.out.println("How many sandwiches would you like?");
+                    quantity = scan.nextByte();;
+                    sandwichMenu(quantity);
                     break;
                 default:
                     System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
@@ -97,9 +101,16 @@ o Cancel - delete order and go back to the home screen
         }
     }
 
-    public void addSandwich() {
+    public static void sandwichMenu(byte numOfSandwiches) {
 
     }
 
+    public static void addDrink (byte numOfDrinks) {
+
+    }
+
+    public static void addChips (byte numOfChips) {
+
+    }
 
 }

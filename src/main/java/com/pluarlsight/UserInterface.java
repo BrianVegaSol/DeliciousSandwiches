@@ -104,11 +104,11 @@ o Cancel - delete order and go back to the home screen
                     case 0:
                         System.err.print("Cancelling order");
                         System.err.print(".");
-                        Thread.sleep(1200);
+                        Thread.sleep(800);
                         System.err.print(".");
-                        Thread.sleep(1200);
+                        Thread.sleep(800);
                         System.err.print(".");
-                        Thread.sleep(1200);
+                        Thread.sleep(800);
                         //FIXME Might cause issues, check here
                         Order.ordersMap.clear();
                         System.out.println("\n");

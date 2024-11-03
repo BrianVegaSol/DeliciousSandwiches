@@ -137,7 +137,7 @@ public class Bread {
             //FIXME Remote for final product
             System.out.println(bread);
             //FIXME Add toppingsMenu() here???
-            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m");
+            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
             sandwichesMade++;
         }
         //TODO return Bread Object???;

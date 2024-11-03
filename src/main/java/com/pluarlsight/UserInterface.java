@@ -34,8 +34,6 @@ o Confirm - create the receipt file and go back to the home screen
 o Cancel - delete order and go back to the home screen
     */
     static StringBuilder homeSB = new StringBuilder();
-
-
     public static void homeMenu() {
         byte homeInput = -1;
         System.out.println("Welcome to Delicious Sandwiches!");
@@ -79,26 +77,48 @@ o Cancel - delete order and go back to the home screen
     // B O N U S Have a persistent "You have a Pending Confirmed Order" Message at the top of the screen along with
     // New Function in the switch that allows user to see the Checkout Screen Details!
     public static void orderMenu() {
+        byte errCounter = 0;
         while (true) {
             System.out.println("""
                     Welcome to the Order Menu!
+                    ===========================================
                     Select one of the following to get started!
                     o 1) Add Sandwich
                     o 2) Add Drink
                     o 3) Add Chips
                     o 4) Checkout
                     o 0) Cancel Order
+                    ===========================================
                     """);
             try {
                 byte orderInput = scan.nextByte();
-                //might be a bad idea doing this xO
-                byte quantity;
+                //FIXME might be a bad idea doing this xO
+                byte quantity = 0;
                 switch (orderInput) {
                     case 0:
                         return;
                     case 1:
-                        System.out.println("How many sandwiches would you like?");
-                        quantity = scan.nextByte();
+                        while (true) {
+                            System.out.println("How many sandwiches did you want?");
+                            try {
+                                quantity = scan.nextByte();
+                                break;
+                            } catch (InputMismatchException e) {
+                                errCounter ++;
+                                if (errCounter < 3) {
+                                    System.err.println("My sorry,");
+                                    scan.nextLine();
+                                }
+                                if (errCounter == 3) {
+                                    System.err.println("PLEASE ENTER A VALID POSITIVE NUMBER\nNow lets try this again");
+                                    scan.nextLine();
+                                }
+                                if (errCounter > 3){
+                                    System.err.println("ENTER A VALID\nP O S I T I V E\nN U M B E R");
+                                    scan.nextLine();
+                                }
+                            }
+                        }
                         if (quantity < 1) {
                             System.out.println("No sandwiches? Alright\n");
                             //orderInput = -1;

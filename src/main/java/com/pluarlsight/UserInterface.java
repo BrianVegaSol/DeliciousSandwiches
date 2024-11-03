@@ -79,7 +79,9 @@ o Cancel - delete order and go back to the home screen
     public static void orderMenu() {
         byte errCounter = 0;
         while (true) {
-            System.out.println("\033[34m"+"Welcome to the Order Menu!"+"\033[0m");
+            homeSB.append("\033[34m").append("Welcome to the Order Menu!").append("\033[0m");
+            System.out.println(homeSB.toString());
+            homeSB.setLength(0);
             System.out.println("""
                     ===========================================
                     Select one of the following to get started!

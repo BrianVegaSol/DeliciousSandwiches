@@ -102,6 +102,16 @@ o Cancel - delete order and go back to the home screen
                 byte quantity = 0;
                 switch (orderInput) {
                     case 0:
+                        System.err.print("Cancelling order");
+                        System.err.print(".");
+                        Thread.sleep(1200);
+                        System.err.print(".");
+                        Thread.sleep(1200);
+                        System.err.print(".");
+                        Thread.sleep(1200);
+                        //FIXME Might cause issues, check here
+                        Order.ordersMap.clear();
+                        System.out.println("\n");
                         return;
                     case 1:
                         //EXPLAIN Validation for Number of Sandwiches
@@ -163,6 +173,7 @@ o Cancel - delete order and go back to the home screen
                     // Only show Unique entries and keep tally of quantity of items and total cost, sub-dividing all sections
                     //FIXME Print All Entries in ordersMap
                     case 4:
+                        //TODO When backing out, sout Did you want something else?
                         break;
                     default:
                         System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
@@ -176,6 +187,8 @@ o Cancel - delete order and go back to the home screen
             } catch (InputMismatchException e) {
                 System.err.println("What did you say???");
                 scan.nextLine();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }

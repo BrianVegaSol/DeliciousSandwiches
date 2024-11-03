@@ -4,10 +4,10 @@ public class Toppings {
     private int numOfToppings;
     private MeatType meatType;
     private MeatSize meatSize;
-    private Cheeses cheese;
+    /*private Cheeses cheese;
     private RegularToppings regTops;
     private Sauces sauce;
-    private Sides side;
+    private Sides side;*/
 
     //EXPLAIN Meat Enums ->
     private enum MeatType {

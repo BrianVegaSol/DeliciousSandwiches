@@ -81,29 +81,35 @@ public class Bread {
         //FIXME +1 may break this
         while (sandwichesMade < (numOfSandwiches)) {
             //byte sandwichInput;
-            System.out.println("""
-                    What type of bread would you like?
-                    ==================================
-                    1) White
-                    2) Wheat
-                    3) Rye
-                    4) Wrap
-                    ==================================
-                    """);
+            while (true) {
+                System.out.println("""
+                        What type of bread would you like?
+                        ==================================
+                        1) White
+                        2) Wheat
+                        3) Rye
+                        4) Wrap
+                        ==================================
+                        """);
+
             try {
                 //FIXME should be at the top?
                 int breadTypeInput = scanBread.nextInt();
                 type = BreadType.values()[breadTypeInput - 1];
+                break;
             /*switch (sandwichInput) {
                 case 1:
                     BreadType white = BreadType.WHITE;
                     break;
                 case 2:*/
-            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                 System.err.println("Sorry! We don't have that in stock right now!");
                 scanBread.nextLine();
             }
-                System.out.println("""
+        }
+            while (true) {
+
+            System.out.println("""
                         What size of bread would you like?
                         ==================================
                         1) 4"
@@ -113,9 +119,11 @@ public class Bread {
                         """);
             try {
             breadSizeInput = scanBread.nextInt();
+            break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
                 System.err.println("Sorry! We don't make them that long!");
                 scanBread.nextLine();
+            }
             }
                 size = BreadSize.values()[breadSizeInput - 1];
                 Bread bread = new Bread(type, size, numOfSandwiches);

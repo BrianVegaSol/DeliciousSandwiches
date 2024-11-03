@@ -56,7 +56,12 @@ public class OtherProduct {
         Scanner scan = new Scanner(System.in);
         int drinkInput = -1;
         while(true) {
-        System.out.println("What size do you want?");
+        System.out.println("""
+                What size do you want?
+                1) Small
+                2) Medium
+                3) Large
+                """);
         //TODO Make this try catch a method
         try {
             drinkInput = scan.nextInt();

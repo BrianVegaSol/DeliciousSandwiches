@@ -133,6 +133,18 @@ o Cancel - delete order and go back to the home screen
                         break;
                     //FIXME
                     case 2:
+                        byte numDrinks;
+                        while (true) {
+                            System.out.println("How many Deli-Colas did you want?");
+                            try {
+                                numDrinks = scan.nextByte();
+                                break;
+                            } catch (InputMismatchException e ) {
+                                System.err.println("I'm sorry,");
+                                scan.nextLine();
+                            }
+                        }
+                        OtherProduct.addDrink(numDrinks);
                         break;
                     //FIXME
                     case 3:

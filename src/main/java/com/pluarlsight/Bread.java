@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Bread {
-    //TODO Strongly considering adding the Drink and Chips here to save space
+    //FIXME Separate Bread and make this Sandwich
     // might need to make the enums not private
     private int numOfSandwiches;
     private BreadType breadType;
@@ -135,6 +135,7 @@ public class Bread {
             Order.ordersMap.put(Order.itemOrderNumber++,bread);
             //FIXME Remote for final product
             System.out.println(bread);
+            //FIXME Add toppingsMenu() here???
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m");
             sandwichesMade++;
         }

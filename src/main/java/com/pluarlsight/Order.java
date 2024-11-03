@@ -22,6 +22,10 @@ public class Order{
         this.toppings = toppings;
     }
 
+    public void sandwichBuilder(Bread bread, Toppings toppings){
+
+    }
+
 //Unless theres a better way to do this, like having an Order Builder
 //Where there is a centralized method that takes in all situations for cases like
 //no sandwich/toppings/drink only chips
@@ -33,11 +37,6 @@ public String orderNoDrinkNoChips (Bread sand, Toppings top) {
 public String formatReceipt (HashMap<LocalDateTime, Order> orders) {
     return sb.append("s")//.append(var).
             //.append()
-
-
-
-
-
             .toString();
 }
 //needs to be names LocalDateTime.now().txt

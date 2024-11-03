@@ -202,4 +202,13 @@ o Cancel - delete order and go back to the home screen
             sandwichesMade ++;
         }
     }*/
+
+    public static void addDrink(byte numOfDrinks) {
+
+    }
+
+    public static void addChips(byte numOfChips) {
+
+    }
+
 }

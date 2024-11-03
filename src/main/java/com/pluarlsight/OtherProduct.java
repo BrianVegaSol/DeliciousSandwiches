@@ -47,35 +47,55 @@ public class OtherProduct {
         }
     }
 
-    //FIXME Account for if numDrinks < 1
+    //FIXME
     // toString to display and test
-    // NO MENU FOR SIIIIIZEEEEE
+    // no while to look for #drinks
     public static void addDrink(byte numOfDrinks) {
         //TODO Make Val a meThod that takes 2 prompts
         DeliCola size;
         Scanner scan = new Scanner(System.in);
+        byte drinksMade = 0;
         int drinkInput = -1;
-        while(true) {
-        System.out.println("What size do you want?");
-        //TODO Make this try catch a method
-        try {
-            drinkInput = scan.nextInt();
-            break;
-        } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
-            System.err.println("Sorry, we don't offer that size here!");
-            scan.nextLine();
+        while (drinksMade < (numOfDrinks)) {
+            while (true) {
+                System.out.println("""
+                        What size do you want?
+                        1) Small
+                        2) Medium
+                        3) Large
+                        """);
+                //TODO Make this try catch a method
+                try {
+                    drinkInput = scan.nextInt();
+                    break;
+                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Sorry, we don't offer that size here!");
+                    scan.nextLine();
+                }
+            }
+            size = OtherProduct.DeliCola.values()[drinkInput - 1];
+            //TODO Add DateTime and Object to HashMap
+            OtherProduct drink = new OtherProduct(size);
+            Order.ordersMap.put(Order.itemOrderNumber++, drink);
+            System.out.println(drink);
+            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
+            drinksMade++;
         }
-        }
-
-        size = OtherProduct.DeliCola.values()[drinkInput - 1];
-        //TODO Add DateTime and Object to HashMap
-        OtherProduct drink = new OtherProduct(size);
+        //TODO Move success sout here when Checkout is functional and does BONUS???
     }
 
    /* public static validation () {
         return;
     }*/
+    @Override
     public String toString() {
-        return "";
+        StringBuilder sb = new StringBuilder();
+                                                                //FIXME if key breaks
+        return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+                .append("\n\nDrink Details")
+                .append("\n===========================================")
+                .append("\nSize: ").append(deliCola.menuName)
+                .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
+                .toString();
     }
 }

@@ -6,7 +6,8 @@ import java.util.HashMap;
 
 public class Order{
     StringBuilder sb = new StringBuilder();
-    HashMap<LocalDateTime, Order> ordersMap;
+    static HashMap<Integer, Object> ordersMap = new HashMap<>();
+    static Integer itemOrderNumber = -1;
     private Bread bread;
     private Toppings toppings;
     //Make this take in the two ArrList<Obj>

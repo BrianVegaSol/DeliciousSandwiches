@@ -132,16 +132,26 @@ public class Bread {
             double total = 0;
             total += bread.breadSize.itemPrice;
             //TODO Need to add to orderMap
-            System.out.println(bread.printBread(bread));
+            Order.ordersMap.put(Order.itemOrderNumber++,bread);
+            //FIXME Remote for final product
+            System.out.println(bread);
+            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m");
             sandwichesMade++;
         }
         //TODO return Bread Object???;
     }
 
-    public String printBread(Bread bread) {
+@Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        return sb.append("Bread Type: ").append(breadType.name).
-                append("\nBread Size: ").append(breadSize.inches)
+    //homeSB.setLength(0);
+    return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+                //TODO Add a type + Details for when writing to .csv receipt???
+                .append("\n\nBread Details")
+                //TODO .repeat()??? might add more workload
+                .append("\n===========================================")
+                .append("\nType: ").append(breadType.name).append("Bread")
+                .append("\nSize: ").append(breadSize.inches)
                 .append(String.format("\nPrice: $%.2f%n", breadSize.itemPrice))
                 .toString();
     }

@@ -37,7 +37,10 @@ o Cancel - delete order and go back to the home screen
 
     public static void homeMenu() {
         byte homeInput = -1;
-        System.out.println("Welcome to Delicious Sandwiches!");
+        //System.out.println("Welcome to " + "\033[32m" + "Delicious Sandwiches!" + "\033[0m");
+        homeSB.append("\033[32m").append("Welcome to Delicious Sandwiches!").append("\033[0m");
+        System.out.println(homeSB.toString());
+        homeSB.setLength(0);
         while (true) {
             System.out.println("""
                     What would you like to do?
@@ -133,18 +136,39 @@ o Cancel - delete order and go back to the home screen
                         break;
                     //FIXME
                     case 2:
+                        byte numDrinks;
+                        //EXPLAIN Validation for Number Input
+                        while (true) {
+                            System.out.println("How many Deli-Colas did you want?");
+                            try {
+                                numDrinks = scan.nextByte();
+                                break;
+                            } catch (InputMismatchException e) {
+                                System.err.println("I'm sorry,");
+                                scan.nextLine();
+                            }
+                        }
+                        //EXPLAIN Validation for 0 or Negative # of Drinks
+                        if (numDrinks < 1) {
+                            System.out.println("No drinks? Alright\n");
+                        } else {
+                            //EXPLAIN Drinks Menu
+                            OtherProduct.addDrink(numDrinks);
+                        }
                         break;
                     //FIXME
                     case 3:
                         break;
-                    //FIXME
+                    //FIXME/TODO BONUS??? Make the receipt show 5 sandwiches made, exclude duplicates, and tally price for duplicates
+                    // Only show Unique entries and keep tally of quantity of items and total cost, sub-dividing all sections
+                    //FIXME Print All Entries in ordersMap
                     case 4:
                         break;
                     default:
                         System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
                         continue;
                 }
-                //TODO Unnecessary?
+                //FIXME Unnecessary?
                 if (orderInput >= 1 && orderInput <= 4) {
                     continue;
                 }
@@ -178,13 +202,4 @@ o Cancel - delete order and go back to the home screen
             sandwichesMade ++;
         }
     }*/
-
-    public static void addDrink(byte numOfDrinks) {
-
-    }
-
-    public static void addChips(byte numOfChips) {
-
-    }
-
 }

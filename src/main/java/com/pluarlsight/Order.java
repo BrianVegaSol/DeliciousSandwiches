@@ -6,7 +6,7 @@ import java.util.HashMap;
 
 public class Order{
     StringBuilder sb = new StringBuilder();
-    HashMap<LocalDateTime, Order> orders;
+    HashMap<LocalDateTime, Order> ordersMap;
     private Bread bread;
     private Toppings toppings;
     //Make this take in the two ArrList<Obj>

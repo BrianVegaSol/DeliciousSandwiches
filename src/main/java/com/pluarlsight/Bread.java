@@ -10,7 +10,7 @@ public class Bread {
     private BreadType breadType;
     private BreadSize breadSize;
 
-    public Bread (BreadType breadType, BreadSize breadSize, int numOfSandwiches) {
+    public Bread(BreadType breadType, BreadSize breadSize, int numOfSandwiches) {
         this.breadType = breadType;
         this.breadSize = breadSize;
         this.numOfSandwiches = numOfSandwiches;
@@ -41,8 +41,8 @@ public class Bread {
     }
 
     private enum BreadSize {
-        FOUR_INCH(1,5.50, "4\""), EIGHT_INCH(2,7.00, "8\""),
-        TWELVE_INCH(3,8.50, "12\"");
+        FOUR_INCH(1, 5.50, "4\""), EIGHT_INCH(2, 7.00, "8\""),
+        TWELVE_INCH(3, 8.50, "12\"");
 
         private final int menuNum;
         private final double itemPrice;
@@ -78,9 +78,11 @@ public class Bread {
         //FIXME Prooobably gonna break stuff ToT
         BreadType type = BreadType.RYE;
         BreadSize size = BreadSize.FOUR_INCH;
-        //FIXME +1 may break this
+        //EXPLAIN Loop until all sandwiches are made
         while (sandwichesMade < (numOfSandwiches)) {
             //byte sandwichInput;
+            //TODO Make Validations into methods w/ returns
+            //EXPLAIN Validation for type ->
             while (true) {
                 System.out.println("""
                         What type of bread would you like?
@@ -92,24 +94,21 @@ public class Bread {
                         ==================================
                         """);
 
-            try {
-                //FIXME should be at the top?
-                int breadTypeInput = scanBread.nextInt();
-                type = BreadType.values()[breadTypeInput - 1];
-                break;
-            /*switch (sandwichInput) {
-                case 1:
-                    BreadType white = BreadType.WHITE;
+                try {
+                    //FIXME should be at the top?
+                    int breadTypeInput = scanBread.nextInt();
+                    type = BreadType.values()[breadTypeInput - 1];
                     break;
-                case 2:*/
-            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                System.err.println("Sorry! We don't have that in stock right now!");
-                scanBread.nextLine();
+                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Sorry! We don't have that in stock right now!");
+                    scanBread.nextLine();
+                }
             }
-        }
+            //EXPLAIN END <-
+            //EXPLAIN Validation for size ->
             while (true) {
 
-            System.out.println("""
+                System.out.println("""
                         What size of bread would you like?
                         ==================================
                         1) 4"
@@ -117,27 +116,29 @@ public class Bread {
                         3) 12"
                         ==================================
                         """);
-            try {
-            breadSizeInput = scanBread.nextInt();
-            break;
-            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
-                System.err.println("Sorry! We don't make them that long!");
-                scanBread.nextLine();
+                try {
+                    breadSizeInput = scanBread.nextInt();
+                    break;
+                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Sorry! We don't make them that long!");
+                    scanBread.nextLine();
+                }
             }
-            }
-                size = BreadSize.values()[breadSizeInput - 1];
-                Bread bread = new Bread(type, size, numOfSandwiches);
-                double total = 0;
-                total += bread.breadSize.itemPrice;
-                //Need to add to orderArrList
-                System.out.println(bread.printBread(bread));
-                //}
-                sandwichesMade++;
+            //EXPLAIN END <-
+            size = BreadSize.values()[breadSizeInput - 1];
+            Bread bread = new Bread(type, size, numOfSandwiches);
+            //EXPLAIN Trying to tally price for each sandwich here
+            //TODO Only do this if cant access vars in Bread due to being private
+            double total = 0;
+            total += bread.breadSize.itemPrice;
+            //TODO Need to add to orderMap
+            System.out.println(bread.printBread(bread));
+            sandwichesMade++;
         }
         //TODO return Bread Object???;
     }
 
-    public String printBread (Bread bread) {
+    public String printBread(Bread bread) {
         StringBuilder sb = new StringBuilder();
         return sb.append("Bread Type: ").append(breadType.name).
                 append("\nBread Size: ").append(breadSize.inches)
@@ -145,11 +146,10 @@ public class Bread {
                 .toString();
     }
 
-    public double calcBreadPriceTotal () {
+    public double calcBreadPriceTotal() {
         double total = 0;
         return total;
     }
-
 }
 
 

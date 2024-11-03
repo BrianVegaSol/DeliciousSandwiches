@@ -34,6 +34,7 @@ o Confirm - create the receipt file and go back to the home screen
 o Cancel - delete order and go back to the home screen
     */
     static StringBuilder homeSB = new StringBuilder();
+
     public static void homeMenu() {
         byte homeInput = -1;
         System.out.println("Welcome to Delicious Sandwiches!");
@@ -100,13 +101,14 @@ o Cancel - delete order and go back to the home screen
                     case 0:
                         return;
                     case 1:
+                        //EXPLAIN Validation for Number of Sandwiches
                         while (true) {
                             System.out.println("How many sandwiches did you want?");
                             try {
                                 quantity = scan.nextByte();
                                 break;
                             } catch (InputMismatchException e) {
-                                errCounter ++;
+                                errCounter++;
                                 if (errCounter < 3) {
                                     System.err.println("My sorry,");
                                     scan.nextLine();
@@ -115,23 +117,34 @@ o Cancel - delete order and go back to the home screen
                                     System.err.println("PLEASE ENTER A VALID POSITIVE NUMBER\nNow lets try this again");
                                     scan.nextLine();
                                 }
-                                if (errCounter > 3){
+                                if (errCounter > 3) {
                                     System.err.println("ENTER A VALID\nP O S I T I V E\nN U M B E R");
                                     scan.nextLine();
                                 }
                             }
                         }
+                        //EXPLAIN Validation for 0 or Negative # of Sandwiches
                         if (quantity < 1) {
                             System.out.println("No sandwiches? Alright\n");
-                            //orderInput = -1;
                         } else {
+                            //EXPLAIN Sandwich Menu
                             Bread.sandwichMenu(quantity);
                         }
+                        break;
+                    //FIXME
+                    case 2:
+                        break;
+                    //FIXME
+                    case 3:
+                        break;
+                    //FIXME
+                    case 4:
                         break;
                     default:
                         System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
                         continue;
                 }
+                //TODO Unnecessary?
                 if (orderInput >= 1 && orderInput <= 4) {
                     continue;
                 }

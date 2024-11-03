@@ -48,6 +48,10 @@ o Cancel - delete order and go back to the home screen
                 homeInput = scan.nextByte();
                 switch (homeInput) {
                     case 0:
+                        //TODO/FIXME???
+                        // If boolean hasConfirmedOrder = true then sout(Excuse me! You forgot your receipt!)
+                        // User choice of looking at receipt 1) My mistake! and look at receipt details or
+                        // 2) I'm not paying that! And customer dines n' dashes/ leaves / police come
                         System.out.println("Thank you for visiting Delicious Sandwiches! Have a great day! :D");
                         scan.close();
                         return;
@@ -72,6 +76,8 @@ o Cancel - delete order and go back to the home screen
     }
 
     //TODO need to add an if (!= 0) then continue OR another try catch
+    // B O N U S Have a persistent "You have a Pending Confirmed Order" Message at the top of the screen along with
+    // New Function in the switch that allows user to see the Checkout Screen Details!
     public static void orderMenu() {
         while (true) {
             System.out.println("""

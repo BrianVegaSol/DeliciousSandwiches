@@ -1,5 +1,6 @@
 package com.pluarlsight;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Bread {
@@ -62,26 +63,49 @@ public class Bread {
 
 
     public static void sandwichMenu(byte numOfSandwiches) {
-        byte sandwichesMade = 0;
+        if (numOfSandwiches < 1) {
+            System.out.println("No sandwiches? Alright");
+            return;
+        }
+        byte sandwichesMade = 1;
         Scanner scanBread = new Scanner(System.in);
-        while (sandwichesMade < numOfSandwiches) {
-            byte sandwichInput;
+        //FIXME +1 may break this
+        while (sandwichesMade < (numOfSandwiches + 1)) {
+            //byte sandwichInput;
             System.out.println("""
-                    Select your bread
-                    =================
+                    What type of bread would you like?
+                    ==================================
                     1) White
                     2) Wheat
                     3) Rye
                     4) Wrap
                     """);
-            sandwichInput = scanBread.nextByte();
-            switch (sandwichInput) {
+            try {
+                int breadTypeInput = scanBread.nextInt();
+                BreadType type = BreadType.values()[breadTypeInput - 1];
+            /*switch (sandwichInput) {
                 case 1:
                     BreadType white = BreadType.WHITE;
-
                     break;
+                case 2:*/
+                System.out.println("""
+                        What size of bread would you like?
+                        ==================================
+                        1) 4"
+                        2) 8"
+                        3) 12"
+                        """);
+                int breadSizeInput = scanBread.nextInt();
+                BreadSize size = BreadSize.values()[breadSizeInput - 1];
+                Bread bread = new Bread(type, size, numOfSandwiches);
+                //Need to add to orderArrList
+                System.out.println(bread.toString());
+                //}
+                sandwichesMade++;
+                //FIXME may also need ArrayIndexOOB
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
+                System.err.println("Sorry! We don't have that in stock right now!");
             }
-            sandwichesMade ++;
         }
         //TODO return Bread Object???;
     }

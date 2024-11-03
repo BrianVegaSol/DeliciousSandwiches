@@ -72,14 +72,14 @@ public class Bread {
     //TODO Bonus??? Make it so that a customer can edit their order at checkout, must be able to:
     // Minimum have option during creation (sandwich & toppings menus) to Confirm Order before added to HashMap
     public static void sandwichMenu(byte numOfSandwiches) {
-        if (numOfSandwiches < 1) {
-            System.out.println("No sandwiches? Alright");
-            return;
-        }
-        byte sandwichesMade = 1;
+        byte sandwichesMade = 0;
+        int breadSizeInput = -1;
         Scanner scanBread = new Scanner(System.in);
+        //FIXME Prooobably gonna break stuff ToT
+        BreadType type = BreadType.RYE;
+        BreadSize size = BreadSize.FOUR_INCH;
         //FIXME +1 may break this
-        while (sandwichesMade < (numOfSandwiches + 1)) {
+        while (sandwichesMade < (numOfSandwiches)) {
             //byte sandwichInput;
             System.out.println("""
                     What type of bread would you like?
@@ -88,24 +88,36 @@ public class Bread {
                     2) Wheat
                     3) Rye
                     4) Wrap
+                    ==================================
                     """);
             try {
+                //FIXME should be at the top?
                 int breadTypeInput = scanBread.nextInt();
-                BreadType type = BreadType.values()[breadTypeInput - 1];
+                type = BreadType.values()[breadTypeInput - 1];
             /*switch (sandwichInput) {
                 case 1:
                     BreadType white = BreadType.WHITE;
                     break;
                 case 2:*/
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
+                System.err.println("Sorry! We don't have that in stock right now!");
+                scanBread.nextLine();
+            }
                 System.out.println("""
                         What size of bread would you like?
                         ==================================
                         1) 4"
                         2) 8"
                         3) 12"
+                        ==================================
                         """);
-                int breadSizeInput = scanBread.nextInt();
-                BreadSize size = BreadSize.values()[breadSizeInput - 1];
+            try {
+            breadSizeInput = scanBread.nextInt();
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
+                System.err.println("Sorry! We don't make them that long!");
+                scanBread.nextLine();
+            }
+                size = BreadSize.values()[breadSizeInput - 1];
                 Bread bread = new Bread(type, size, numOfSandwiches);
                 double total = 0;
                 total += bread.breadSize.itemPrice;
@@ -113,9 +125,6 @@ public class Bread {
                 System.out.println(bread.printBread(bread));
                 //}
                 sandwichesMade++;
-            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e ) {
-                System.err.println("Sorry! We don't have that in stock right now!");
-            }
         }
         //TODO return Bread Object???;
     }
@@ -124,7 +133,7 @@ public class Bread {
         StringBuilder sb = new StringBuilder();
         return sb.append("Bread Type: ").append(breadType.name).
                 append("\nBread Size: ").append(breadSize.inches)
-                .append(String.format("\nPrice: $%.2f", breadSize.itemPrice))
+                .append(String.format("\nPrice: $%.2f%n", breadSize.itemPrice))
                 .toString();
     }
 

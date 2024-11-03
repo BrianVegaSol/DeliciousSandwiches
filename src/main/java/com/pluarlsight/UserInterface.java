@@ -79,8 +79,8 @@ o Cancel - delete order and go back to the home screen
     public static void orderMenu() {
         byte errCounter = 0;
         while (true) {
+            System.out.println(homeSB.append("\033[34m").append("Welcome to the Order Menu!").append("\033[0m").toString());
             System.out.println("""
-                    Welcome to the Order Menu!
                     ===========================================
                     Select one of the following to get started!
                     o 1) Add Sandwich

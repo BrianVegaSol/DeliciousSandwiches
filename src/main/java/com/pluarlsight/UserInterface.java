@@ -174,6 +174,7 @@ o Cancel - delete order and go back to the home screen
                     //FIXME Print All Entries in ordersMap
                     case 4:
                         //TODO When backing out, sout Did you want something else?
+                        checkout();
                         break;
                     default:
                         System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
@@ -190,6 +191,30 @@ o Cancel - delete order and go back to the home screen
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    public static void checkout () {
+        homeSB.append("\033[36m").append("Welcome to the Checkout Menu!\n")
+                .append("\033[0m")
+                .append("Are you ready to Checkout?\n1) Sure am!\n0) Hold on! I forgot something!");
+        System.out.println(homeSB.toString());
+        homeSB.setLength(0);
+        byte checkoutInput = scan.nextByte();
+        switch (checkoutInput) {
+            case 0:
+                break;
+            case 1:
+                if (Order.ordersMap.isEmpty()) {
+                    System.out.println("Hmmm, it doesn't look like you've ordered anything yet!\n");
+                } else {
+                    //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
+                    Order.ordersMap.forEach((key, value) ->
+                            homeSB.append("\n").append(value));
+                    System.out.println(homeSB + "\n");
+                    homeSB.setLength(0);
+                }
+                break;
         }
     }
 

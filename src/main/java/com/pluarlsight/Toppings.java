@@ -1,5 +1,8 @@
 package com.pluarlsight;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Toppings {
     private int numOfToppings;
     private MeatType meatType;
@@ -8,6 +11,13 @@ public class Toppings {
     private CheeseType cheeseType;
     private CheeseSize cheeseSize;
     private ExtraCheeseSize extraCheeseSize;
+    public static String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
+            "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
+            "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
+            "au jus", "Sauce"};
+    private String removedIngredients; // TODO Use StringBuilder
+    private static StringBuilder sb = new StringBuilder();
+    static Scanner scan = new Scanner(System.in);
     //FIXME Not sure how to handle the Regular toppings since they're already included???
     // Should I ask if the user wants to remove certain toppings instead of asking to add???
     // Hashmap prefilled with RegToppings, have user remove those toppings, then add remaining toppings to???
@@ -36,13 +46,14 @@ public class Toppings {
     // Make toString in Sandwich
     // Add Sandwich to ordersMap
 
+    //TODO Now the plan is to use a String [] and StringBuilder
+
     /*FIXME F I N A L sout Sandwich Order # 1
        Sandwich Details
        Bread
        Included Ingredients
-       Removed Ingredients
+       Removed Ingredients, use StringBuilder for the No pickles, etc ! ! !
      */
-
 
 
     //FIXME Flow Collection removes toppings -> Add to sandwichBuilder() then Sandwich/Bread Object, add the Obj to map
@@ -176,6 +187,101 @@ public class Toppings {
     § Select sauces:
     o Would you like the sandwich toasted?
     */
+
+    public static void toppingsMenu() {
+        //vars
+        sb.append("\033[31m").append("Welcome to to Toppings Menu!").append("\033[0m");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        //FIXME I H A V E to use an Arraylist here, probably even an interactiveToppingsOptions() where
+        // have A N O T H E R method with public static ArrayList<String> prefilledToppingsList() returns filled List
+        // User selects what they want to remove, while (true), have a switch (input) case # remove that index
+        // continue loop of using the ArrList remainingToppings and use toString() to print indices
+        // A current ArrayList remainingToppings and a String [] removed Toppings
+        // return when done removing
+
+        //FIXME OR
+        // Keep it simple, if String [] regToppings isEmpty, {remove from [] and add to String [] removedToppings
+        System.out.println("""
+                Which toppings do you want to remove?
+                1)
+                2)
+                3)
+                4)
+                5)
+                0) None! Keep all the toppings!""");
+        while (true) {
+            //sb
+            byte input = scan.nextByte();
+            switch (input) {
+                case 0:
+
+                    break;
+                case 1:
+
+            }
+        }
+    }
+    // END Remove Toppings
+
+    //EXPLAIN Separate extraToppingsMenu()???
+    public static void extraToppings() {
+        //vars
+        Scanner scan = new Scanner(System.in);
+        sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        System.out.println("""
+                Would you like Extra Meat?
+                1) Yes
+                0) No
+                """);
+
+        while (true) {
+            //sb
+            byte input = scan.nextByte();
+            switch (input) {
+                case 0:
+
+                    break;
+                case 1:
+
+            }
+        }
+    }
+
+    public static String[] allRegularToppings() {
+        return allIngredients;
+    }
+
+    /*public static String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
+            "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
+            "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
+            "au jus", "Sauce"};*/
+    public static String[] remainingRegularToppings() {
+        byte input = -1;
+        while (input != 0) {
+            System.out.println("Welcome to the Toppings Menu");
+            input = scan.nextByte();
+            allIngredients[0] = null;
+            for (int i = 0; i < allIngredients.length; i++) {
+                
+            }
+            switch (input) {
+                case 1:
+
+
+
+                case 20:
+                    //This is your order: print and then ask confirm 1) yes 0) no
+                    break;
+            }
+        }
+
+        String[] remainingToppings = {};
+        return remainingToppings;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

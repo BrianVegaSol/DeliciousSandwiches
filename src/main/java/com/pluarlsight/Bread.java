@@ -134,13 +134,14 @@ public class Bread {
             double total = 0;
             total += bread.breadSize.menuPrice;
             //FIXME Remove when sandwichBuilder() works
-            Order.ordersMap.put(++Order.itemOrderNumber,bread);
-            //FIXME Remote for final product
+            //Order.ordersMap.put(++Order.itemOrderNumber,bread);
+            //FIXME Remove for final product
             System.out.println(bread);
             //FIXME Add toppingsMenu() here???
-            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
+            Toppings.toppingsMenu();
             sandwichesMade++;
         }
+            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
         //TODO return Bread Object???;
     }
 

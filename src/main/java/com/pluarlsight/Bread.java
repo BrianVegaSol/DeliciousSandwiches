@@ -45,6 +45,7 @@ public class Bread {
         EIGHT_INCH (2, "8\"", 7.00) ,
         TWELVE_INCH (3, "12\"", 8.50);
 
+        private String itemType;
         private final int menuNum;
         private String sizeName;
         private final double menuPrice;

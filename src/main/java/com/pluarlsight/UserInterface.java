@@ -213,12 +213,9 @@ o Cancel - delete order and go back to the home screen
                 } else {
                     //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
                     Order.ordersMap.forEach((key, value) ->
-                            homeSB.append("\n").append("toString Order#: ").append(key + 1).
+                            homeSB.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m").
                                     append(value));
                     System.out.println(homeSB + "\n");
-                    System.out.println("Index -1" + Order.ordersMap.get(-1));
-                    System.out.println("Index 0" +Order.ordersMap.get(0));
-                    System.out.println("Index 1" +Order.ordersMap.get(1));
                     homeSB.setLength(0);
                 }
                 break;

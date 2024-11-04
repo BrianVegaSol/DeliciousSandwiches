@@ -17,6 +17,10 @@ public class OtherProduct {
     }
 
 
+    public DeliCola getDeliCola() {
+        return deliCola;
+    }
+
     private enum DeliCola {
         SMALL(1, "Small", 2.00),
         MEDIUM(2, "Medium", 2.50),
@@ -30,6 +34,26 @@ public class OtherProduct {
             this.menuNum = menuNum;
             this.menuName = menuName;
             this.menuPrice = menuPrice;
+        }
+
+        public String getMenuName() {
+            return menuName;
+        }
+
+        public double getMenuPrice() {
+            return menuPrice;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            //FIXME if key breaks
+            return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+                    .append("\n\nDrink Details")
+                    .append("\n===========================================")
+                    .append("\nSize: ").append(getMenuName())
+                    .append(String.format("\nPrice: $%.2f%n", getMenuPrice()))
+                    .toString();
         }
     }
 
@@ -87,7 +111,7 @@ public class OtherProduct {
    /* public static validation () {
         return;
     }*/
-    @Override
+    /*@Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
                                                                 //FIXME if key breaks
@@ -97,5 +121,5 @@ public class OtherProduct {
                 .append("\nSize: ").append(deliCola.menuName)
                 .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
                 .toString();
-    }
+    }*/
 }

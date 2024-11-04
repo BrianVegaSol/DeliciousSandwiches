@@ -214,7 +214,7 @@ o Cancel - delete order and go back to the home screen
                     //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
                     Order.ordersMap.forEach((key, value) ->
                             homeSB.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m").
-                                    append(value));
+                                    append(value.toString()));
                     System.out.println(homeSB + "\n");
                     homeSB.setLength(0);
                 }

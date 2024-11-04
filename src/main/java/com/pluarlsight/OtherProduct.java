@@ -39,8 +39,8 @@ public class OtherProduct {
             return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
                     .append("\n\nDrink Details")
                     .append("\n===========================================")
-                    .append("\nSize: ").append(menuName)
-                    .append(String.format("\nPrice: $%.2f%n", menuPrice))
+                    .append("\nSize: ").append(OtherProduct.DeliCola.valueOf(menuName))
+                    .append(String.format("\nPrice: $%.2f%n", DeliCola.valueOf(menuName).menuPrice))
                     .toString();
         }
     }
@@ -89,7 +89,7 @@ public class OtherProduct {
             //TODO Add DateTime and Object to HashMap
             OtherProduct drink = new OtherProduct(size);
             Order.ordersMap.put(++Order.itemOrderNumber, drink);
-            System.out.println(drink);
+            System.out.println(drink.toString());
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
             drinksMade++;
         }

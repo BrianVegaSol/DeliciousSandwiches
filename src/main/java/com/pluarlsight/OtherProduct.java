@@ -8,18 +8,14 @@ public class OtherProduct {
     private DeliCola deliCola;
     private DelishChips delishChips;
 
-    OtherProduct (DeliCola deliCola) {
+    OtherProduct(DeliCola deliCola) {
         this.deliCola = deliCola;
     }
 
-    OtherProduct (DelishChips delishChips) {
+    OtherProduct(DelishChips delishChips) {
         this.delishChips = delishChips;
     }
 
-
-    public DeliCola getDeliCola() {
-        return deliCola;
-    }
 
     private enum DeliCola {
         SMALL(1, "Small", 2.00),
@@ -36,14 +32,6 @@ public class OtherProduct {
             this.menuPrice = menuPrice;
         }
 
-        public String getMenuName() {
-            return menuName;
-        }
-
-        public double getMenuPrice() {
-            return menuPrice;
-        }
-
         @Override
         public String toString() {
             StringBuilder sb = new StringBuilder();
@@ -51,8 +39,8 @@ public class OtherProduct {
             return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
                     .append("\n\nDrink Details")
                     .append("\n===========================================")
-                    .append("\nSize: ").append(getMenuName())
-                    .append(String.format("\nPrice: $%.2f%n", getMenuPrice()))
+                    .append("\nSize: ").append(menuName)
+                    .append(String.format("\nPrice: $%.2f%n", menuPrice))
                     .toString();
         }
     }
@@ -91,13 +79,13 @@ public class OtherProduct {
                 //TODO Make this try catch a method
                 try {
                     drinkInput = scan.nextInt();
+                    size = OtherProduct.DeliCola.values()[drinkInput - 1];
                     break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                     System.err.println("Sorry, we don't offer that size here!");
                     scan.nextLine();
                 }
             }
-            size = OtherProduct.DeliCola.values()[drinkInput - 1];
             //TODO Add DateTime and Object to HashMap
             OtherProduct drink = new OtherProduct(size);
             Order.ordersMap.put(++Order.itemOrderNumber, drink);

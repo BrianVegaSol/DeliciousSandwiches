@@ -119,6 +119,7 @@ public class Bread {
                         """);
                 try {
                     breadSizeInput = scanBread.nextInt();
+                    size = BreadSize.values()[breadSizeInput - 1];
                     break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                     System.err.println("Sorry! We don't make them that long!");
@@ -126,7 +127,6 @@ public class Bread {
                 }
             }
             //EXPLAIN END <-
-            size = BreadSize.values()[breadSizeInput - 1];
             Bread bread = new Bread(type, size, numOfSandwiches);
             //EXPLAIN Trying to tally price for each sandwich here
             //TODO Only do this if cant access vars in Bread due to being private

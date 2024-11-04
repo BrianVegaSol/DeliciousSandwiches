@@ -4,7 +4,7 @@ import java.security.PublicKey;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-interface OtherProduct {
+public class OtherProduct {
     private DeliCola deliCola;
     private DelishChips delishChips;
 
@@ -17,7 +17,7 @@ interface OtherProduct {
     }
 
 
-    private enum DeliCola implements OtherProduct{
+    private enum DeliCola {
         SMALL(1, "Small", 2.00),
         MEDIUM(2, "Medium", 2.50),
         LARGE(3, "Large", 3.00);
@@ -32,17 +32,6 @@ interface OtherProduct {
             this.menuPrice = menuPrice;
         }
 
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            //FIXME if key breaks
-            return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
-                    .append("\n\nDrink Details")
-                    .append("\n===========================================")
-                    .append("\nSize: ").append(OtherProduct.DeliCola.valueOf(menuName))
-                    .append(String.format("\nPrice: $%.2f%n", DeliCola.valueOf(menuName).menuPrice))
-                    .toString();
-        }
     }
 
     private enum DelishChips {
@@ -99,7 +88,7 @@ interface OtherProduct {
    /* public static validation () {
         return;
     }*/
-    /*@Override
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
                                                                 //FIXME if key breaks
@@ -109,5 +98,5 @@ interface OtherProduct {
                 .append("\nSize: ").append(deliCola.menuName)
                 .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
                 .toString();
-    }*/
+    }
 }

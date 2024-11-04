@@ -83,6 +83,7 @@ o Cancel - delete order and go back to the home screen
     public static void orderMenu() {
         byte errCounter = 0;
         while (true) {
+            //FIXME if hasPendingOrder = true then show italicized message You have a pending order!
             homeSB.append("\033[34m").append("Welcome to the Order Menu!").append("\033[0m");
             System.out.println(homeSB.toString());
             homeSB.setLength(0);
@@ -210,7 +211,8 @@ o Cancel - delete order and go back to the home screen
                 } else {
                     //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
                     Order.ordersMap.forEach((key, value) ->
-                            homeSB.append("\n").append(value));
+                            homeSB.append("\n").append("toString Order#: ").append(Integer.parseInt(key.intValue())).
+                                    append(value));
                     System.out.println(homeSB + "\n");
                     homeSB.setLength(0);
                 }

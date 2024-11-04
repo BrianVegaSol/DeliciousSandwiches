@@ -16,7 +16,7 @@ public class OtherProduct {
         this.delishChips = delishChips;
     }
 
-
+    //EXPLAIN Drink enum ->
     private enum DeliCola {
         SMALL(1, "Small", 2.00),
         MEDIUM(2, "Medium", 2.50),
@@ -33,7 +33,8 @@ public class OtherProduct {
         }
 
     }
-
+    //END
+    //EXPLAIN Chips enum
     private enum DelishChips {
         DELISH_CHIPS(1, "Delish Chips", 1.50);
 
@@ -47,10 +48,8 @@ public class OtherProduct {
             this.menuPrice = menuPrice;
         }
     }
+    //END
 
-    //FIXME
-    // toString to display and test
-    // no while to look for #drinks
     public static void addDrink(byte numOfDrinks) {
         //TODO Make Val a meThod that takes 2 prompts
         DeliCola size;
@@ -91,7 +90,6 @@ public class OtherProduct {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-                                                                //FIXME if key breaks
         return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
                 .append("\n\nDrink Details")
                 .append("\n===========================================")
@@ -99,4 +97,5 @@ public class OtherProduct {
                 .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
                 .toString();
     }
+
 }

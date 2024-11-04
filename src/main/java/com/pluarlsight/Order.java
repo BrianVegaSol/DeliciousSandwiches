@@ -43,8 +43,8 @@ public String formatReceipt (HashMap<LocalDateTime, Order> orders) {
             //.append()
             .toString();
 }
-//needs to be names LocalDateTime.now().txt
-    //where should the file that holds receipts be???
+//TODO needs to be names LocalDateTime.now().txt
+    // where should the file that holds receipts be???
     //file path = receipts\fileName
 public void writeToReceiptFolder () {
 

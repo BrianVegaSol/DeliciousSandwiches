@@ -133,7 +133,7 @@ public class Bread {
             //TODO Only do this if cant access vars in Bread due to being private
             double total = 0;
             total += bread.breadSize.menuPrice;
-            //TODO Need to add to orderMap
+            //FIXME Remove when sandwichBuilder() works
             Order.ordersMap.put(++Order.itemOrderNumber,bread);
             //FIXME Remote for final product
             System.out.println(bread);

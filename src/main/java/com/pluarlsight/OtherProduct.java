@@ -76,7 +76,7 @@ public class OtherProduct {
             size = OtherProduct.DeliCola.values()[drinkInput - 1];
             //TODO Add DateTime and Object to HashMap
             OtherProduct drink = new OtherProduct(size);
-            Order.ordersMap.put(Order.itemOrderNumber++, drink);
+            Order.ordersMap.put(++Order.itemOrderNumber, drink);
             System.out.println(drink);
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
             drinksMade++;

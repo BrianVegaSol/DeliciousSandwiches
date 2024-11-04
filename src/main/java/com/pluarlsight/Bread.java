@@ -133,7 +133,7 @@ public class Bread {
             double total = 0;
             total += bread.breadSize.menuPrice;
             //TODO Need to add to orderMap
-            Order.ordersMap.put(Order.itemOrderNumber++,bread);
+            Order.ordersMap.put(++Order.itemOrderNumber,bread);
             //FIXME Remote for final product
             System.out.println(bread);
             //FIXME Add toppingsMenu() here???

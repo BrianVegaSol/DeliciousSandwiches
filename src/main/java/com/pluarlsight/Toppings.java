@@ -15,7 +15,7 @@ public class Toppings {
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
             "au jus", "Sauce"};
-    private String removedIngredients; // TODO Use StringBuilder
+    //private String removedIngredients; // TODO Use StringBuilder
     private static StringBuilder sb = new StringBuilder();
     static Scanner scan = new Scanner(System.in);
     //FIXME Not sure how to handle the Regular toppings since they're already included???
@@ -249,7 +249,7 @@ public class Toppings {
             }
         }
     }
-
+    //FIXME This should be the ArrayList
     public static String[] allRegularToppings() {
         return allIngredients;
     }
@@ -258,25 +258,44 @@ public class Toppings {
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
             "au jus", "Sauce"};*/
-    public static String[] remainingRegularToppings() {
+    public static String[] remainingRegularToppingsMenu() {
+        ArrayList <String> dynamicToppingsList = new ArrayList<>();
+        boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
-        while (input != 0) {
+        while (runRemainingRegularToppingsMenu) {
             System.out.println("Welcome to the Toppings Menu");
             input = scan.nextByte();
             allIngredients[0] = null;
-            for (int i = 0; i < allIngredients.length; i++) {
-                
+            for (String allIngredient : allIngredients) {
+                if (allIngredient != null) {
+
+                }
             }
             switch (input) {
+                case 0:
+                    //I made a mistake, reset my order
+                    //No worries, lets start over!
+                    //ArrList.clear()
+                    //
+                    break;
                 case 1:
 
 
 
                 case 20:
-                    //This is your order: print and then ask confirm 1) yes 0) no
+                    System.out.println("Let's see what I have here\n");
+                    //sout what's included on top and removed on the bottom Hold the pickles, etc
+                    System.out.println("Is this correct>\n");
+                    //switch if no break;
+                    runRemainingRegularToppingsMenu = false;
+                    break;
                     break;
             }
         }
+        //TODO SIDE PROJECT ADD RNG TO THE RESPONSES
+        //TODO When an item is removed, sout No pickles, got it! (custom messages for each?)
+        // check how many items are missing, then create the size of the removedToppings []
+        // check if removedToppings [] isEmpty, then sout No Toppings Removed!
 
         String[] remainingToppings = {};
         return remainingToppings;

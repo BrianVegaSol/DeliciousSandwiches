@@ -83,6 +83,7 @@ o Cancel - delete order and go back to the home screen
     public static void orderMenu() {
         byte errCounter = 0;
         while (true) {
+            //FIXME if hasPendingOrder = true then show italicized message You have a pending order!
             homeSB.append("\033[34m").append("Welcome to the Order Menu!").append("\033[0m");
             System.out.println(homeSB.toString());
             homeSB.setLength(0);
@@ -102,6 +103,16 @@ o Cancel - delete order and go back to the home screen
                 byte quantity = 0;
                 switch (orderInput) {
                     case 0:
+                        System.err.print("Cancelling order");
+                        System.err.print(".");
+                        Thread.sleep(800);
+                        System.err.print(".");
+                        Thread.sleep(800);
+                        System.err.print(".");
+                        Thread.sleep(800);
+                        //FIXME Might cause issues, check here
+                        Order.ordersMap.clear();
+                        System.out.println("\n");
                         return;
                     case 1:
                         //EXPLAIN Validation for Number of Sandwiches
@@ -163,7 +174,11 @@ o Cancel - delete order and go back to the home screen
                     // Only show Unique entries and keep tally of quantity of items and total cost, sub-dividing all sections
                     //FIXME Print All Entries in ordersMap
                     case 4:
+                        //TODO When backing out, sout Did you want something else?
+                        checkout();
                         break;
+                    //TODO BONUS??? Remove order and fix indices of all order! :) , remember to --itemOrderNumber!
+                        //case 5:
                     default:
                         System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
                         continue;
@@ -176,7 +191,34 @@ o Cancel - delete order and go back to the home screen
             } catch (InputMismatchException e) {
                 System.err.println("What did you say???");
                 scan.nextLine();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
+        }
+    }
+
+    public static void checkout () {
+        homeSB.append("\033[36m").append("Welcome to the Checkout Menu!\n")
+                .append("\033[0m")
+                .append("Are you ready to Checkout?\n1) Sure am!\n0) Hold on! I forgot something!");
+        System.out.println(homeSB.toString());
+        homeSB.setLength(0);
+        byte checkoutInput = scan.nextByte();
+        switch (checkoutInput) {
+            case 0:
+                break;
+            case 1:
+                if (Order.ordersMap.isEmpty()) {
+                    System.out.println("Hmmm, it doesn't look like you've ordered anything yet!\n");
+                } else {
+                    //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
+                    Order.ordersMap.forEach((key, value) ->
+                            homeSB.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m").
+                                    append(value.toString()));
+                    System.out.println(homeSB + "\n");
+                    homeSB.setLength(0);
+                }
+                break;
         }
     }
 

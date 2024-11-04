@@ -8,11 +8,11 @@ public class OtherProduct {
     private DeliCola deliCola;
     private DelishChips delishChips;
 
-    OtherProduct (DeliCola deliCola) {
+    OtherProduct(DeliCola deliCola) {
         this.deliCola = deliCola;
     }
 
-    OtherProduct (DelishChips delishChips) {
+    OtherProduct(DelishChips delishChips) {
         this.delishChips = delishChips;
     }
 
@@ -31,6 +31,7 @@ public class OtherProduct {
             this.menuName = menuName;
             this.menuPrice = menuPrice;
         }
+
     }
 
     private enum DelishChips {
@@ -67,17 +68,17 @@ public class OtherProduct {
                 //TODO Make this try catch a method
                 try {
                     drinkInput = scan.nextInt();
+                    size = OtherProduct.DeliCola.values()[drinkInput - 1];
                     break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                     System.err.println("Sorry, we don't offer that size here!");
                     scan.nextLine();
                 }
             }
-            size = OtherProduct.DeliCola.values()[drinkInput - 1];
             //TODO Add DateTime and Object to HashMap
             OtherProduct drink = new OtherProduct(size);
-            Order.ordersMap.put(Order.itemOrderNumber++, drink);
-            System.out.println(drink);
+            Order.ordersMap.put(++Order.itemOrderNumber, drink);
+            System.out.println(drink.toString());
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
             drinksMade++;
         }

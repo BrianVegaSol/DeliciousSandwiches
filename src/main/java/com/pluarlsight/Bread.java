@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Bread {
-    //TODO Strongly considering adding the Drink and Chips here to save space
+    //FIXME Separate Bread and make this Sandwich
     // might need to make the enums not private
     private int numOfSandwiches;
     private BreadType breadType;
@@ -41,17 +41,19 @@ public class Bread {
     }
 
     private enum BreadSize {
-        FOUR_INCH(1, 5.50, "4\""), EIGHT_INCH(2, 7.00, "8\""),
-        TWELVE_INCH(3, 8.50, "12\"");
+        FOUR_INCH (1, "4\"", 5.50) ,
+        EIGHT_INCH (2, "8\"", 7.00) ,
+        TWELVE_INCH (3, "12\"", 8.50);
 
+        private String itemType;
         private final int menuNum;
-        private final double itemPrice;
-        private String inches;
+        private String sizeName;
+        private final double menuPrice;
 
-        BreadSize(int menuNum, double itemPrice, String inches) {
+        BreadSize(int menuNum, String sizeName, double menuPrice) {
             this.menuNum = menuNum;
-            this.itemPrice = itemPrice;
-            this.inches = inches;
+            this.menuPrice = menuPrice;
+            this.sizeName = sizeName;
         }
     }
 
@@ -118,6 +120,7 @@ public class Bread {
                         """);
                 try {
                     breadSizeInput = scanBread.nextInt();
+                    size = BreadSize.values()[breadSizeInput - 1];
                     break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                     System.err.println("Sorry! We don't make them that long!");
@@ -125,17 +128,17 @@ public class Bread {
                 }
             }
             //EXPLAIN END <-
-            size = BreadSize.values()[breadSizeInput - 1];
             Bread bread = new Bread(type, size, numOfSandwiches);
             //EXPLAIN Trying to tally price for each sandwich here
             //TODO Only do this if cant access vars in Bread due to being private
             double total = 0;
-            total += bread.breadSize.itemPrice;
+            total += bread.breadSize.menuPrice;
             //TODO Need to add to orderMap
-            Order.ordersMap.put(Order.itemOrderNumber++,bread);
+            Order.ordersMap.put(++Order.itemOrderNumber,bread);
             //FIXME Remote for final product
             System.out.println(bread);
-            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m");
+            //FIXME Add toppingsMenu() here???
+            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
             sandwichesMade++;
         }
         //TODO return Bread Object???;
@@ -150,9 +153,9 @@ public class Bread {
                 .append("\n\nBread Details")
                 //TODO .repeat()??? might add more workload
                 .append("\n===========================================")
-                .append("\nType: ").append(breadType.name).append("Bread")
-                .append("\nSize: ").append(breadSize.inches)
-                .append(String.format("\nPrice: $%.2f%n", breadSize.itemPrice))
+                .append("\nType: ").append(breadType.name).append(" Bread")
+                .append("\nSize: ").append(breadSize.sizeName)
+                .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
                 .toString();
     }
 

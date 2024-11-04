@@ -221,7 +221,7 @@ o Cancel - delete order and go back to the home screen
                 break;
         }
     }
-
+    //
     /*public static void sandwichMenu(byte numOfSandwiches) {
         byte sandwichesMade = 0;
         while (sandwichesMade < numOfSandwiches) {

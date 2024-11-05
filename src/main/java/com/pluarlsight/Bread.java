@@ -128,6 +128,8 @@ public class Bread {
                 }
             }
             //EXPLAIN END <-
+            //FIXME Need to move this AFTER calling the Toppings()s to have a complete Sandwich
+            // If dynamicMenu 0) return acts like I think it does, will not add Bread if Toppings order is cancelled
             Bread bread = new Bread(type, size, numOfSandwiches);
             //EXPLAIN Trying to tally price for each sandwich here
             //TODO Only do this if cant access vars in Bread due to being private

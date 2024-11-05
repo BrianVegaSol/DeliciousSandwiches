@@ -289,7 +289,7 @@ public class Toppings {
                     Are there any toppings you'd like to remove from your order?
                     0) Return to Order Menu
                     1) Undo last change
-                    2) I change my mind, can we restart?
+                    2) Restart Topping Removal
                     3) Confirm Order
                     """);
             printDynamicList(currentToppingsList);
@@ -320,13 +320,14 @@ public class Toppings {
                 //FIXME FINAL will proceed with numbers for now, worst case, have to make another ArrList
                 switch (input) {
                     case 0:
+                        System.out.println("Change your mind? No worries");
                         //FIXME Play around with this value, maybe -1 or 18?
                         return null;
                     case 1:
                         //undo
                         break;
                     case 2:
-                        System.out.println("No worries, lets start over!");
+                        System.out.println("Alright, lets start over!");
                         currentToppingsList = dynamicToppingsList();
                         //ArrList.clear()
                         //Clear removedToppings []

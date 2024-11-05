@@ -1,6 +1,7 @@
 package com.pluarlsight;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Toppings {
@@ -250,8 +251,9 @@ public class Toppings {
         }
     }
     //FIXME This should be the ArrayList
-    public static String[] allRegularToppings() {
-        return allIngredients;
+    public static ArrayList<String> dynamicToppingsList() {
+        ArrayList <String> allRegularToppingsList = new ArrayList<>(Arrays.asList(allIngredients));
+        return allRegularToppingsList;
     }
 
     /*public static String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
@@ -263,7 +265,18 @@ public class Toppings {
         boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
         while (runRemainingRegularToppingsMenu) {
-            System.out.println("Welcome to the Toppings Menu");
+            sb.append("\033[31m").append("Welcome to to Regular Toppings Menu!").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+            System.out.println("""
+                    All these toppings are included in your Sandwich Order, free of charge!
+                    Are there any toppings you'd like to remove from your order?
+                    1) s
+                    2) s
+                    19) Undo last change
+                    20) Wait, I messed up! Can we restart?
+                    0) Return to Order Menu
+                    """);
             input = scan.nextByte();
             allIngredients[0] = null;
             for (String allIngredient : allIngredients) {
@@ -271,27 +284,39 @@ public class Toppings {
 
                 }
             }
-            switch (input) {
-                case 0:
-                    //I made a mistake, reset my order
-                    //No worries, lets start over!
-                    //ArrList.clear()
-                    //
-                    break;
-                case 1:
+            if (input >= 0 && input <= 16) {
+                dynamicToppingsList().remove(input);
+            } else {
+                //FIXME AHHHH I JUST REALIIIIZEEDDD
+                // Since the list keeps getting smaller, that makes selecting the menu and error handling harder
+                // Either, I use numbers still and do something like var dynamicInput =
+                // size of dynamicList - current list?
+                // will also need to make anooother list (Probably UGH) unless something like this.list - other this???
+                // OR I use Strings as inputs so if input.toUppercase.equals LETTUCE
+                // then search ArrayList.contains OR use streams to filter
+                switch (input) {
+                    case 17:
+                        //I made a mistake, reset my order
+                        //No worries, lets start over!
+                        //ArrList.clear()
+                        //
+                        break;
+                    case 18:
 
 
+                    case 20:
+                        System.out.println("Let's see what I have here\n");
+                        //sout what's included on top and removed on the bottom Hold the pickles, etc
+                        System.out.println("Is this correct>\n");
+                        //switch if no break;
+                        runRemainingRegularToppingsMenu = false;
+                        break;
 
-                case 20:
-                    System.out.println("Let's see what I have here\n");
-                    //sout what's included on top and removed on the bottom Hold the pickles, etc
-                    System.out.println("Is this correct>\n");
-                    //switch if no break;
-                    runRemainingRegularToppingsMenu = false;
-                    break;
-                    break;
+                }
             }
         }
+
+
         //TODO SIDE PROJECT ADD RNG TO THE RESPONSES
         //TODO When an item is removed, sout No pickles, got it! (custom messages for each?)
         // check how many items are missing, then create the size of the removedToppings []

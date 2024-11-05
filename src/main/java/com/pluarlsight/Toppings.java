@@ -274,7 +274,7 @@ public class Toppings {
             "au jus", "Sauce"};*/
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
-    public static String[] remainingRegularToppingsMenu() {
+    public static int remainingRegularToppingsMenu() {
         ArrayList <String> currentToppingsList = dynamicToppingsList();
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
         boolean runRemainingRegularToppingsMenu = true;
@@ -322,7 +322,7 @@ public class Toppings {
                     case 0:
                         System.out.println("Change your mind? No worries");
                         //FIXME Play around with this value, maybe -1 or 18?
-                        return null;
+                        return -1;
                     case 1:
                         //undo
                         break;
@@ -357,8 +357,8 @@ public class Toppings {
         // check how many items are missing, then create the size of the removedToppings []
         // check if removedToppings [] isEmpty, then sout No Toppings Removed!
 
-        String[] remainingToppings = {};
-        return remainingToppings;
+
+        return 1;
     }
 
     @Override

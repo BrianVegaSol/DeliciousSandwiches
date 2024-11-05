@@ -17,6 +17,7 @@ public class Toppings {
     private static final String [] removedToppings = new String[17]; // TODO Use StringBuilder
     private static StringBuilder sb = new StringBuilder();
     static Scanner scan = new Scanner(System.in);
+    static ArrayList<String> quickFix = new ArrayList<>();
     //FIXME Not sure how to handle the Regular toppings since they're already included???
     // Should I ask if the user wants to remove certain toppings instead of asking to add???
     // Hashmap prefilled with RegToppings, have user remove those toppings, then add remaining toppings to???
@@ -278,9 +279,14 @@ public class Toppings {
     // will be lost but at least A L L  of the items will be present! (feel like a HashMap could've helped somehow)
     // OR Use HashMap, then in display() forEach{ if (value != null) then print
     // Must use an ArrList also, compare String to [], grab index, save to int var, and use int + String! ! !
-    public static void undo (byte lastChangeIndex, ArrayList<String> list) {
+   /* public static void undo (byte lastChangeIndex, ArrayList<String> list) {
         list.add(lastChangeIndex, removedToppings[lastChangeIndex]);
         System.out.println("Added " + list.get(lastChangeIndex) + " back into your sandwich!"); //WRONG
+    }*/
+
+    public static void undo (ArrayList<String> list) {
+        list.add(quickFix.getLast());
+        System.out.println("Added " + list.getLast() + " back into your sandwich!"); //WRONG
     }
 
 
@@ -320,6 +326,7 @@ public class Toppings {
             }*/
             if (input >= 4 && input <= 20) {
                 lastChangeIndex = input;
+                //FIXME Was it not working because I didn't (input - 4) for list here? >.>
                 removedToppings[input] = currentToppingsList.get(input);
                 currentToppingsList.remove(input - 4);
             } else {

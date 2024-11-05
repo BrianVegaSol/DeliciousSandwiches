@@ -250,7 +250,6 @@ public class Toppings {
             }
         }
     }
-    //FIXME This should be the ArrayList
     public static ArrayList<String> dynamicToppingsList() {
         ArrayList <String> allRegularToppingsList = new ArrayList<>(Arrays.asList(allIngredients));
         return allRegularToppingsList;
@@ -260,8 +259,11 @@ public class Toppings {
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
             "au jus", "Sauce"};*/
+    //FIXME 0) return, once back at Topping menu skip adding to Sandwich
+    // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static String[] remainingRegularToppingsMenu() {
-        ArrayList <String> dynamicToppingsList = new ArrayList<>();
+        ArrayList <String> currentToppingsList = dynamicToppingsList();
+        byte viableInputs = (byte) (currentToppingsList.size() - 17);
         boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
         while (runRemainingRegularToppingsMenu) {
@@ -271,21 +273,20 @@ public class Toppings {
             System.out.println("""
                     All these toppings are included in your Sandwich Order, free of charge!
                     Are there any toppings you'd like to remove from your order?
-                    1) s
-                    2) s
-                    19) Undo last change
-                    20) Wait, I messed up! Can we restart?
                     0) Return to Order Menu
+                    1) Undo last change
+                    2) Wait, I messed up! Can we restart?
+                    3) Confirm Order
                     """);
+            //print dynamicMenu
             input = scan.nextByte();
-            allIngredients[0] = null;
             for (String allIngredient : allIngredients) {
                 if (allIngredient != null) {
 
                 }
             }
-            if (input >= 0 && input <= 16) {
-                dynamicToppingsList().remove(input);
+            if (input >= 4 && input <= 20) {
+                dynamicToppingsList().remove(input - 4);
             } else {
                 //FIXME AHHHH I JUST REALIIIIZEEDDD
                 // Since the list keeps getting smaller, that makes selecting the menu and error handling harder
@@ -294,17 +295,22 @@ public class Toppings {
                 // will also need to make anooother list (Probably UGH) unless something like this.list - other this???
                 // OR I use Strings as inputs so if input.toUppercase.equals LETTUCE
                 // then search ArrayList.contains OR use streams to filter
+
+                //FIXME FINAL will proceed with numbers for now, worst case, have to make another ArrList
                 switch (input) {
-                    case 17:
+                    case 0:
+                        //FIXME Play around with this value, maybe -1 or 18?
+                        return null;
+                    case 1:
+                        //undo
+                        break;
+                    case 2:
                         //I made a mistake, reset my order
                         //No worries, lets start over!
                         //ArrList.clear()
                         //
                         break;
-                    case 18:
-
-
-                    case 20:
+                    case 3:
                         System.out.println("Let's see what I have here\n");
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         System.out.println("Is this correct>\n");

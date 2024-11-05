@@ -44,6 +44,7 @@ public String formatReceipt (HashMap<LocalDateTime, Order> orders) {
             .toString();
 }
 //TODO needs to be names LocalDateTime.now().txt
+// String timeNow = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
     // where should the file that holds receipts be???
     //file path = receipts\fileName
 public void writeToReceiptFolder () {

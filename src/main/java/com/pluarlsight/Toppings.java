@@ -14,10 +14,10 @@ public class Toppings {
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
             "au jus", "Sauce"};
-    private static final String [] removedToppings = new String[17]; // TODO Use StringBuilder
+    //private static final String [] removedToppings = new String[17]; // TODO Use StringBuilder
     private static StringBuilder sb = new StringBuilder();
     static Scanner scan = new Scanner(System.in);
-    static ArrayList<String> quickFix = new ArrayList<>();
+    static ArrayList<String> removedToppingsList = new ArrayList<>();
     //FIXME Not sure how to handle the Regular toppings since they're already included???
     // Should I ask if the user wants to remove certain toppings instead of asking to add???
     // Hashmap prefilled with RegToppings, have user remove those toppings, then add remaining toppings to???
@@ -279,7 +279,7 @@ public class Toppings {
     // will be lost but at least A L L  of the items will be present! (feel like a HashMap could've helped somehow)
     // OR Use HashMap, then in display() forEach{ if (value != null) then print
     // Must use an ArrList also, compare String to [], grab index, save to int var, and use int + String! ! !
-    public static void undo (byte lastChangeIndex, ArrayList<String> list) {
+   /* public static void undo (byte lastChangeIndex, ArrayList<String> list) {
         System.out.println("Full []: " + Arrays.toString(allIngredients));
         System.out.println("Pre add from Removed []: " + Arrays.toString(removedToppings));
         //FIXME compare/contains with all [], grab index, add to ArrList to maintain order
@@ -288,12 +288,15 @@ public class Toppings {
         System.out.println("Added " + list.get(lastChangeIndex) + " back into your sandwich!"); //WRONG
 
         System.out.println("After added from Removed []: " + Arrays.toString(removedToppings));
-    }
-
-    /*public static void undo (ArrayList<String> list) {
-        list.add(quickFix.getLast());
-        System.out.println("Added " + list.getLast() + " back into your sandwich!"); //WRONG
     }*/
+
+    public static void undo (ArrayList<String> list) {
+        System.out.println("Full []: " + Arrays.toString(allIngredients));
+        System.out.println("Pre add: " + list);
+        list.add(removedToppingsList.getLast());
+        removedToppingsList.remove(removedToppingsList.getLast());
+        System.out.println("Added " + list.getLast() + " back into your sandwich!"); //WRONG
+    }
 
 
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
@@ -331,10 +334,14 @@ public class Toppings {
                 }
             }*/
             if (input >= 4 && input <= 20) {
-                lastChangeIndex = input;
+                lastChangeIndex = (byte) (input - 4);
                 //FIXME Was it not working because I didn't (input - 4) for list here? >.>
-                removedToppings[input - 4] = currentToppingsList.get(input - 4);
-                currentToppingsList.remove(input - 4);
+                // yes but wrong tool for the job :(
+                //removedToppings[input - 4] = currentToppingsList.get(input - 4);
+                removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
+                currentToppingsList.remove(lastChangeIndex);
+                //TASK make this .get so it doesnt print the whole list for final product
+                System.out.println("Removed " + removedToppingsList.toString() + "from your sandwich!");
             } else {
                 //FIXME AHHHH I JUST REALIIIIZEEDDD
                 // Since the list keeps getting smaller, that makes selecting the menu and error handling harder
@@ -352,24 +359,30 @@ public class Toppings {
                         //FIXME Play around with this value, maybe -1 or 18?
                         return -1;
                     case 1:
-                        if (Arrays.stream(removedToppings).allMatch(Objects::isNull)) {
+                        //FIXME Check if null/empty?
+                        if (removedToppingsList.isEmpty()) {
                             System.out.println("Nothing to undo!");
                         } else {
-                            undo(lastChangeIndex, currentToppingsList);
-                            System.out.println();
+                            undo(currentToppingsList);
+                            System.out.println("What is this printing?");
                         }
                         break;
                     case 2:
                         System.out.println("Alright, lets start over!");
                         currentToppingsList = dynamicToppingsList();
                         //System.out.println(Arrays.toString(removedToppings));
-                        Arrays.fill(removedToppings,null);
+                        //EXPLAIN Legacy
+                        //Arrays.fill(removedToppings,null);
+                        removedToppingsList.clear();
                         //System.out.println(Arrays.toString(removedToppings));
                         //ArrList.clear()
                         //Clear removedToppings []
                         break;
                     case 3:
-                        System.out.println("Let's see what I have here\n");
+                        System.out.println("Let's go over your order\n");
+                        sb.append("Included\n------------------------------------\n")
+                                .append(removedToppingsList.toString())
+                                        .toString();
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         System.out.println("Is this correct>\n");
                         //switch if no break;

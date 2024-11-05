@@ -2,6 +2,7 @@ package com.pluarlsight;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Toppings {
@@ -292,17 +293,18 @@ public class Toppings {
                     3) Confirm Order
                     """);
             printDynamicList(currentToppingsList);
-            input = scan.nextByte();
+            try {
+                input = scan.nextByte();
+            } catch (InputMismatchException e) {
+                System.out.println("What are the options you ask? Let me show you!");
+                scan.nextLine();
+                continue;
+            }
             /*for (String allIngredient : allIngredients) {
                 if (allIngredient != null) {
 
                 }
             }*/
-            for (String allIngredient : allIngredients) {
-                if (allIngredient != null) {
-
-                }
-            }
             if (input >= 4 && input <= 20) {
                 currentToppingsList.remove(input - 4);
             } else {

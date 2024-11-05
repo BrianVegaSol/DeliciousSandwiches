@@ -138,7 +138,7 @@ public class Bread {
             //FIXME Remove for final product
             System.out.println(bread);
             //FIXME Add toppingsMenu() here???
-            Toppings.toppingsMenu();
+            Toppings.remainingRegularToppingsMenu();
             sandwichesMade++;
         }
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");

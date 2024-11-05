@@ -251,8 +251,20 @@ public class Toppings {
         }
     }
     public static ArrayList<String> dynamicToppingsList() {
-        ArrayList <String> allRegularToppingsList = new ArrayList<>(Arrays.asList(allIngredients));
+        ArrayList <String> allRegularToppingsList = new ArrayList<>();
+        allRegularToppingsList.addAll(Arrays.asList(allIngredients));
         return allRegularToppingsList;
+    }
+
+    public static void printDynamicList(ArrayList<String> lists) {
+        System.out.println("List Size: " + lists.size());
+        for (int i = 0; i < lists.size(); i++) {
+            System.out.println(sb.append(i + 4).append(") Remove ").append(lists.get(i))
+                    .toString());
+            sb.setLength(0);
+
+
+        }
     }
 
     /*public static String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
@@ -263,14 +275,14 @@ public class Toppings {
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static String[] remainingRegularToppingsMenu() {
         ArrayList <String> currentToppingsList = dynamicToppingsList();
-        byte viableInputs = (byte) (currentToppingsList.size() - 17);
+        //byte viableInputs = (byte) (currentToppingsList.size() - 17);
         boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
         while (runRemainingRegularToppingsMenu) {
-            sb.append("\033[31m").append("Welcome to to Regular Toppings Menu!").append("\033[0m");
+            sb.append("\033[31m").append("Regular Toppings Menu").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
-            System.out.println("""
+            System.out.print("""
                     All these toppings are included in your Sandwich Order, free of charge!
                     Are there any toppings you'd like to remove from your order?
                     0) Return to Order Menu
@@ -278,8 +290,13 @@ public class Toppings {
                     2) Wait, I messed up! Can we restart?
                     3) Confirm Order
                     """);
-            //print dynamicMenu
+            printDynamicList(currentToppingsList);
             input = scan.nextByte();
+            /*for (String allIngredient : allIngredients) {
+                if (allIngredient != null) {
+
+                }
+            }*/
             for (String allIngredient : allIngredients) {
                 if (allIngredient != null) {
 
@@ -322,6 +339,10 @@ public class Toppings {
             }
         }
 
+
+        //TODO Might just add to Sandwich Object here and make method void as well as take Bread and Extra Toppings
+        // as parameters to this method? OR return Toppings Object so in ?
+        //Sandwich sandwich = new Sandwich
 
         //TODO SIDE PROJECT ADD RNG TO THE RESPONSES
         //TODO When an item is removed, sout No pickles, got it! (custom messages for each?)

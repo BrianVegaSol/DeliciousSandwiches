@@ -137,7 +137,7 @@ public class Bread {
             //Order.ordersMap.put(++Order.itemOrderNumber,bread);
             //FIXME Remove for final product
             //FIXME Add toppingsMenu() here???
-            Toppings.remainingRegularToppingsMenu();
+            //Toppings.remainingRegularToppingsMenu();
             //FIXME Probably need to return -1 for extraToppingsMenu() as well
             // Rerunning itself
             if ((Toppings.remainingRegularToppingsMenu() == -1)) {

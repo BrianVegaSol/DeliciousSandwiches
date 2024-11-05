@@ -84,6 +84,10 @@ public class OtherProduct {
         //TODO Move success sout here when Checkout is functional and does BONUS???
     }
 
+    public static void addChips () {
+
+    }
+
    /* public static validation () {
         return;
     }*/

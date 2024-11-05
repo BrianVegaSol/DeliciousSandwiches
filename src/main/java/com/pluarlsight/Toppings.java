@@ -13,11 +13,11 @@ public class Toppings {
     private CheeseType cheeseType;
     private CheeseSize cheeseSize;
     private ExtraCheeseSize extraCheeseSize;
-    public static String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
+    private static final String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
             "au jus", "Sauce"};
-    //private String removedIngredients; // TODO Use StringBuilder
+    private static final String [] removedToppings = new String[17]; // TODO Use StringBuilder
     private static StringBuilder sb = new StringBuilder();
     static Scanner scan = new Scanner(System.in);
     //FIXME Not sure how to handle the Regular toppings since they're already included???
@@ -263,15 +263,10 @@ public class Toppings {
             System.out.println(sb.append(i + 4).append(") Remove ").append(lists.get(i))
                     .toString());
             sb.setLength(0);
-
-
         }
     }
 
-    /*public static String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
-            "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
-            "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
-            "au jus", "Sauce"};*/
+
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static int remainingRegularToppingsMenu() {
@@ -306,6 +301,7 @@ public class Toppings {
                 }
             }*/
             if (input >= 4 && input <= 20) {
+                removedToppings[input] = currentToppingsList.get(input);
                 currentToppingsList.remove(input - 4);
             } else {
                 //FIXME AHHHH I JUST REALIIIIZEEDDD
@@ -329,6 +325,9 @@ public class Toppings {
                     case 2:
                         System.out.println("Alright, lets start over!");
                         currentToppingsList = dynamicToppingsList();
+                        System.out.println(Arrays.toString(removedToppings));
+                        Arrays.fill(removedToppings,null);
+                        System.out.println(Arrays.toString(removedToppings));
                         //ArrList.clear()
                         //Clear removedToppings []
                         break;

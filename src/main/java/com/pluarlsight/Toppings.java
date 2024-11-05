@@ -288,7 +288,7 @@ public class Toppings {
                     Are there any toppings you'd like to remove from your order?
                     0) Return to Order Menu
                     1) Undo last change
-                    2) Wait, I messed up! Can we restart?
+                    2) I change my mind, can we restart?
                     3) Confirm Order
                     """);
             printDynamicList(currentToppingsList);
@@ -311,6 +311,7 @@ public class Toppings {
                 // Either, I use numbers still and do something like var dynamicInput =
                 // size of dynamicList - current list?
                 // will also need to make anooother list (Probably UGH) unless something like this.list - other this???
+                //TODO Side Project??? Moreso just for practice to use String()s
                 // OR I use Strings as inputs so if input.toUppercase.equals LETTUCE
                 // then search ArrayList.contains OR use streams to filter
 
@@ -323,10 +324,10 @@ public class Toppings {
                         //undo
                         break;
                     case 2:
-                        //I made a mistake, reset my order
-                        //No worries, lets start over!
+                        System.out.println("No worries, lets start over!");
+                        currentToppingsList = dynamicToppingsList();
                         //ArrList.clear()
-                        //
+                        //Clear removedToppings []
                         break;
                     case 3:
                         System.out.println("Let's see what I have here\n");
@@ -334,6 +335,9 @@ public class Toppings {
                         System.out.println("Is this correct>\n");
                         //switch if no break;
                         runRemainingRegularToppingsMenu = false;
+                        break;
+                    default:
+                        System.out.println("Great! That's not a topping we offer, so you're good!\nPlease have a look at the ");
                         break;
 
                 }

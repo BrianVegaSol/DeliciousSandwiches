@@ -282,6 +282,7 @@ public class Toppings {
             sb.append("\033[31m").append("Regular Toppings Menu").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
+            //TODO Color coat these 4 options so they p o p :D AND make the remove options red
             System.out.print("""
                     All these toppings are included in your Sandwich Order, free of charge!
                     Are there any toppings you'd like to remove from your order?
@@ -303,7 +304,7 @@ public class Toppings {
                 }
             }
             if (input >= 4 && input <= 20) {
-                dynamicToppingsList().remove(input - 4);
+                currentToppingsList.remove(input - 4);
             } else {
                 //FIXME AHHHH I JUST REALIIIIZEEDDD
                 // Since the list keeps getting smaller, that makes selecting the menu and error handling harder

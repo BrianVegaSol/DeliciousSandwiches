@@ -280,7 +280,7 @@ public class Toppings {
         boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
         while (runRemainingRegularToppingsMenu) {
-            sb.append("\033[31m").append("Regular Toppings Menu").append("\033[0m");
+            sb.append("\033[35m").append("Regular Toppings Menu").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
             //TODO Color coat these 4 options so they p o p :D AND make the remove options red
@@ -296,7 +296,7 @@ public class Toppings {
             try {
                 input = scan.nextByte();
             } catch (InputMismatchException e) {
-                System.out.println("What are the options you ask? Let me show you!");
+                System.err.print("What are the options you ask? Let me show you the ");
                 scan.nextLine();
                 continue;
             }
@@ -339,7 +339,7 @@ public class Toppings {
                         runRemainingRegularToppingsMenu = false;
                         break;
                     default:
-                        System.out.println("Great! That's not a topping we offer, so you're good!\nPlease have a look at the ");
+                        System.err.print("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
                         break;
 
                 }

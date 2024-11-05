@@ -1,9 +1,6 @@
 package com.pluarlsight;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Toppings {
     private int numOfToppings;
@@ -258,7 +255,7 @@ public class Toppings {
     }
 
     public static void printDynamicList(ArrayList<String> lists) {
-        System.out.println("List Size: " + lists.size());
+        //System.out.println("List Size: " + lists.size());
         for (int i = 0; i < lists.size(); i++) {
             System.out.println(sb.append(i + 4).append(") Remove ").append(lists.get(i))
                     .toString());
@@ -266,15 +263,36 @@ public class Toppings {
         }
     }
 
+    //FIXME N A I V E implementation, would've needed an Arraylist instead of a basic []
+    // then use the lastIndexOf(or whatever gives the newest entry) AND compare it to the original somehow???
+    // perhaps similar to how undo() is currently done
+    // OR search dynamicList() and compare it to current
+
+    //FIXME Would've needed a 2nd ArrList, have it keep order that things were removed in
+    // Next lookup the index that its in from the List/[], save that to an int var
+    // ... would've needed Categories for all the types of regToppings
+    // maybe if 2nd ArrList compared the String value to [], NOPE, since the currentList does NOT preserve order
+    // like a HashMap, would've needed a mix of a HashMap and an ArrayList cx
+
+    //FIXME FINAL just use a 2nd ArrList and insert it back into the currentList, the order compared to the original
+    // will be lost but at least A L L  of the items will be present! (feel like a HashMap could've helped somehow)
+    // OR Use HashMap, then in display() forEach{ if (value != null) then print
+    // Must use an ArrList also, compare String to [], grab index, save to int var, and use int + String! ! !
+    public static void undo (byte lastChangeIndex, ArrayList<String> list) {
+        list.add(lastChangeIndex, removedToppings[lastChangeIndex]);
+        System.out.println("Added " + list.get(lastChangeIndex) + " back into your sandwich!"); //WRONG
+    }
+
 
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static int remainingRegularToppingsMenu() {
         ArrayList <String> currentToppingsList = dynamicToppingsList();
+        byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
-        boolean runRemainingRegularToppingsMenu = true;
+        //boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
-        while (runRemainingRegularToppingsMenu) {
+        while (true) {
             sb.append("\033[35m").append("Regular Toppings Menu").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
@@ -301,6 +319,7 @@ public class Toppings {
                 }
             }*/
             if (input >= 4 && input <= 20) {
+                lastChangeIndex = input;
                 removedToppings[input] = currentToppingsList.get(input);
                 currentToppingsList.remove(input - 4);
             } else {
@@ -320,14 +339,18 @@ public class Toppings {
                         //FIXME Play around with this value, maybe -1 or 18?
                         return -1;
                     case 1:
-                        //undo
+                        if (Arrays.stream(removedToppings).allMatch(Objects::isNull)) {
+                            System.out.println("Nothing to undo!");
+                        } else {
+                            undo(lastChangeIndex, currentToppingsList);
+                        }
                         break;
                     case 2:
                         System.out.println("Alright, lets start over!");
                         currentToppingsList = dynamicToppingsList();
-                        System.out.println(Arrays.toString(removedToppings));
+                        //System.out.println(Arrays.toString(removedToppings));
                         Arrays.fill(removedToppings,null);
-                        System.out.println(Arrays.toString(removedToppings));
+                        //System.out.println(Arrays.toString(removedToppings));
                         //ArrList.clear()
                         //Clear removedToppings []
                         break;
@@ -336,8 +359,9 @@ public class Toppings {
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         System.out.println("Is this correct>\n");
                         //switch if no break;
-                        runRemainingRegularToppingsMenu = false;
-                        break;
+                        return 1;
+                        //runRemainingRegularToppingsMenu = false;
+                        //break;
                     default:
                         System.err.print("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
                         break;
@@ -357,7 +381,7 @@ public class Toppings {
         // check if removedToppings [] isEmpty, then sout No Toppings Removed!
 
 
-        return 1;
+        //return 1;
     }
 
     @Override

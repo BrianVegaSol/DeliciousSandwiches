@@ -256,7 +256,7 @@ public class Toppings {
     }
 
     public static void printDynamicList(ArrayList<String> lists) {
-        //System.out.println("List Size: " + lists.size());
+        System.out.println("List Size: " + lists.size());
         for (int i = 0; i < lists.size(); i++) {
             System.out.println(sb.append(i + 4).append(") Remove ").append(lists.get(i))
                     .toString());
@@ -279,15 +279,21 @@ public class Toppings {
     // will be lost but at least A L L  of the items will be present! (feel like a HashMap could've helped somehow)
     // OR Use HashMap, then in display() forEach{ if (value != null) then print
     // Must use an ArrList also, compare String to [], grab index, save to int var, and use int + String! ! !
-   /* public static void undo (byte lastChangeIndex, ArrayList<String> list) {
-        list.add(lastChangeIndex, removedToppings[lastChangeIndex]);
+    public static void undo (byte lastChangeIndex, ArrayList<String> list) {
+        System.out.println("Full []: " + Arrays.toString(allIngredients));
+        System.out.println("Pre add from Removed []: " + Arrays.toString(removedToppings));
+        //FIXME compare/contains with all [], grab index, add to ArrList to maintain order
+        // nope, just use the 2nd ArrList and do this
+        list.add((lastChangeIndex - 4), removedToppings[lastChangeIndex - 4]);
         System.out.println("Added " + list.get(lastChangeIndex) + " back into your sandwich!"); //WRONG
-    }*/
 
-    public static void undo (ArrayList<String> list) {
+        System.out.println("After added from Removed []: " + Arrays.toString(removedToppings));
+    }
+
+    /*public static void undo (ArrayList<String> list) {
         list.add(quickFix.getLast());
         System.out.println("Added " + list.getLast() + " back into your sandwich!"); //WRONG
-    }
+    }*/
 
 
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
@@ -327,7 +333,7 @@ public class Toppings {
             if (input >= 4 && input <= 20) {
                 lastChangeIndex = input;
                 //FIXME Was it not working because I didn't (input - 4) for list here? >.>
-                removedToppings[input] = currentToppingsList.get(input);
+                removedToppings[input - 4] = currentToppingsList.get(input - 4);
                 currentToppingsList.remove(input - 4);
             } else {
                 //FIXME AHHHH I JUST REALIIIIZEEDDD
@@ -350,6 +356,7 @@ public class Toppings {
                             System.out.println("Nothing to undo!");
                         } else {
                             undo(lastChangeIndex, currentToppingsList);
+                            System.out.println();
                         }
                         break;
                     case 2:

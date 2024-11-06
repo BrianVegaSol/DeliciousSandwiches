@@ -265,7 +265,7 @@ public class Toppings {
             System.out.println(sb.toString());
             sb.setLength(0);
             //TODO Color coat these 4 options so they p o p :D AND make the remove options red
-            if (currentToppingsList.isEmpty()) {
+            if (currentToppingsList.size() == 17) {
                 sb.append("All these toppings are included in your Sandwich Order, ")
                         .append("\033[32m").append("free of charge!\n").append("\033[0m")
                         .append("Are there any toppings you'd like to ")
@@ -275,8 +275,8 @@ public class Toppings {
                 sb.setLength(0);
             }
             sb.append("\033[31m").append("0) Return to Order Menu\n").append("\033[0m")
-                    .append("\033[37m").append("1) Undo last change\n").append("\033[0m")
-                    .append("\033[37m").append("2) Restart\n").append("\033[0m")
+                    .append("\033[33m").append("1) Undo last change\n").append("\033[0m")
+                    .append("\033[33m").append("2) Restart\n").append("\033[0m")
                     .append("\033[32m").append("3) Confirm Order").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
@@ -413,7 +413,7 @@ public class Toppings {
                         switch (input) {
                             case 0:
                                 System.out.print("Alright, lets go back to the ");
-                                break;
+                                continue;
                             case 1:
                                 sb.append("\033[32m").append("Processing order").append("\033[0m");
                                 System.out.print(sb.toString());

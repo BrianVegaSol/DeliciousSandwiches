@@ -324,7 +324,9 @@ public class Toppings {
                     3) Confirm Order
                     """);
             if (currentToppingsList.isEmpty()) {
-                System.err.println("(Who eats a sandwich without any toppings...)");
+                sb.append("\033[31m").append("(Who eats a sandwich without any toppings...)").append("\033[0m");
+                System.out.println(sb.toString());
+                sb.setLength(0);
             }
             //TODO Add a search for topping to add back from the removedToppingsList
             printDynamicList(currentToppingsList);
@@ -375,7 +377,9 @@ public class Toppings {
                 //FIXME FINAL will proceed with numbers for now, worst case, have to make another ArrList
                 switch (input) {
                     case 0:
-                        System.out.println("Change your mind? No worries");
+                        sb.append("\033[31m").append("Change your mind? No worries\nOrder Cancelled").append("\033[0m");
+                        System.out.println(sb.toString());
+                        sb.setLength(0);
                         //FIXME Play around with this value, maybe -1 or 18?
                         return -1;
                     case 1:
@@ -389,14 +393,15 @@ public class Toppings {
                     case 2:
                         System.out.println("Alright, lets start over!");
                         currentToppingsList = dynamicToppingsList();
-                        //System.out.println(Arrays.toString(removedToppings));
-                        //EXPLAIN Legacy
-                        //Arrays.fill(removedToppings,null);
                         removedToppingsList.clear();
                         System.out.println("Removed List: \n" + removedToppingsList.toString());
+                        //EXPLAIN String [] Legacy code
+                        //System.out.println(Arrays.toString(removedToppings));
+                        //Arrays.fill(removedToppings,null);
                         //System.out.println(Arrays.toString(removedToppings));
                         //ArrList.clear()
                         //Clear removedToppings []
+                        //END
                         break;
                     case 3:
                         System.out.println("Let's go over your order\n");
@@ -429,7 +434,7 @@ public class Toppings {
                             }
                         }
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
-                        //END
+                        //END <-
                         //EXPLAIN Confirm Sandwich order ->
                         System.out.println("""
                                 Is this correct?

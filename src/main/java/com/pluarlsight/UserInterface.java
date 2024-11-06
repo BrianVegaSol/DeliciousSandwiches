@@ -61,7 +61,10 @@ o Cancel - delete order and go back to the home screen
                         orderMenu();
                         break;
                     default:
-                        System.out.println("Sorry! I didn't quite catch that");
+                        //TODO Make this red
+                        homeSB.append("\033[31m").append("Sorry! I didn't quite catch that!\n").append("\033[0m");
+                        System.out.println(homeSB.toString());
+                        homeSB.setLength(0);
                         continue;
                 }
                 if (homeInput == 1) {
@@ -69,7 +72,7 @@ o Cancel - delete order and go back to the home screen
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.err.println("What did you say???");
+                System.err.println("What did you say???\n");
                 scan.nextLine();
             }
         }
@@ -180,7 +183,7 @@ o Cancel - delete order and go back to the home screen
                     //TODO BONUS??? Remove order and fix indices of all order! :) , remember to --itemOrderNumber!
                         //case 5:
                     default:
-                        System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
+                        System.out.print("Sorry! That's not on the menu!\nLets have a look at the");
                         continue;
                 }
                 //FIXME Unnecessary?
@@ -189,7 +192,7 @@ o Cancel - delete order and go back to the home screen
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.err.println("What did you say???");
+                System.err.println("What did you say???\n Did you want to look at the ");
                 scan.nextLine();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -198,7 +201,7 @@ o Cancel - delete order and go back to the home screen
     }
 
     public static void checkout () {
-        homeSB.append("\033[36m").append("Welcome to the Checkout Menu!\n")
+        homeSB.append("\033[36m").append("Checkout Menu!\n")
                 .append("\033[0m")
                 .append("Are you ready to Checkout?\n1) Sure am!\n0) Hold on! I forgot something!");
         System.out.println(homeSB.toString());
@@ -209,7 +212,10 @@ o Cancel - delete order and go back to the home screen
                 break;
             case 1:
                 if (Order.ordersMap.isEmpty()) {
-                    System.out.println("Hmmm, it doesn't look like you've ordered anything yet!\n");
+                    homeSB.append("\033[31m").append("Hmmm, it doesn't look like you've ordered anything yet!\n")
+                            .append("\033[0m");
+                    System.out.println(homeSB.toString());
+                    homeSB.setLength(0);
                 } else {
                     //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
                     Order.ordersMap.forEach((key, value) ->

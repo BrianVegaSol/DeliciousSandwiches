@@ -41,9 +41,9 @@ public class Bread {
     }
 
     private enum BreadSize {
-        FOUR_INCH (1, "4\"", 5.50) ,
-        EIGHT_INCH (2, "8\"", 7.00) ,
-        TWELVE_INCH (3, "12\"", 8.50);
+        FOUR_INCH(1, "4\"", 5.50),
+        EIGHT_INCH(2, "8\"", 7.00),
+        TWELVE_INCH(3, "12\"", 8.50);
 
         private String itemType;
         private final int menuNum;
@@ -73,9 +73,10 @@ public class Bread {
     //FIXME Ensure that Toppings cannot be selected U N L E S S there is a sandwich!
     //TODO Bonus??? Make it so that a customer can edit their order at checkout, must be able to:
     // Minimum have option during creation (sandwich & toppings menus) to Confirm Order before added to HashMap
-    public static void sandwichMenu(byte numOfSandwiches) {
+    public static void sandwichMenu(byte numOfSandwiches) throws InterruptedException {
         byte sandwichesMade = 0;
         int breadSizeInput = -1;
+        double sandwichPriceTally = 0;
         Scanner scanBread = new Scanner(System.in);
         //FIXME Prooobably gonna break stuff ToT
         BreadType type = BreadType.RYE;
@@ -128,27 +129,41 @@ public class Bread {
                 }
             }
             //EXPLAIN END <-
-            Bread bread = new Bread(type, size, numOfSandwiches);
+            //FIXME Need to move this AFTER calling the Toppings()s to have a complete Sandwich
+            // If dynamicMenu 0) return acts like I think it does, will not add Bread if Toppings order is cancelled
             //EXPLAIN Trying to tally price for each sandwich here
             //TODO Only do this if cant access vars in Bread due to being private
-            double total = 0;
-            total += bread.breadSize.menuPrice;
-            //TODO Need to add to orderMap
-            Order.ordersMap.put(++Order.itemOrderNumber,bread);
-            //FIXME Remote for final product
-            System.out.println(bread);
+            //FIXME Remove when sandwichBuilder() works
+            //Order.ordersMap.put(++Order.itemOrderNumber,bread);
+            //FIXME Remove for final product
             //FIXME Add toppingsMenu() here???
-            System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
-            sandwichesMade++;
+            //Toppings.remainingRegularToppingsMenu();
+            //FIXME Probably need to return -1 for extraToppingsMenu() as well
+            // Rerunning itself
+            if ((Toppings.remainingRegularToppingsMenu() == -1)) {
+                return;
+            } else {
+                //TASK Planning on removing keeping the numOfSandwiches as a loop condition and instead
+                // just making 1 sandwich at a time
+                // Then have Topping and Bread added to Sandwich class here, ordersMap.add(sandwich) and
+                // sout Order Placed Successfully, reflect this change in the Checkout()
+                Bread breadName = new Bread(type, size, numOfSandwiches);
+                System.out.println(breadName);
+                //Sandwich sandwich = new Sandwich(bread, );
+                System.out.println("Sandwich Order Placed Successfully!");
+                sandwichPriceTally += breadName.breadSize.menuPrice;
+                sandwichesMade++;
+            }
         }
+        System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
         //TODO return Bread Object???;
     }
 
-@Override
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-    //homeSB.setLength(0);
-    return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+        //homeSB.setLength(0);
+        return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
                 //TODO Add a type + Details for when writing to .csv receipt???
                 .append("\n\nBread Details")
                 //TODO .repeat()??? might add more workload

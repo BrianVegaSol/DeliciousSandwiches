@@ -7,16 +7,24 @@ import java.util.Scanner;
 public class OtherProduct {
     private DeliCola deliCola;
     private DelishChips delishChips;
+    private String type;
+    //TASK Need to add FLAVORSSSS AND CHIP TYPEEESSS
 
     OtherProduct(DeliCola deliCola) {
         this.deliCola = deliCola;
+        OtherProduct.this.type = "Drink";
     }
 
     OtherProduct(DelishChips delishChips) {
         this.delishChips = delishChips;
+        OtherProduct.this.type = "Chips";
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
+    //EXPLAIN Drink enum ->
     private enum DeliCola {
         SMALL(1, "Small", 2.00),
         MEDIUM(2, "Medium", 2.50),
@@ -33,7 +41,8 @@ public class OtherProduct {
         }
 
     }
-
+    //END
+    //EXPLAIN Chips enum
     private enum DelishChips {
         DELISH_CHIPS(1, "Delish Chips", 1.50);
 
@@ -47,10 +56,8 @@ public class OtherProduct {
             this.menuPrice = menuPrice;
         }
     }
+    //END
 
-    //FIXME
-    // toString to display and test
-    // no while to look for #drinks
     public static void addDrink(byte numOfDrinks) {
         //TODO Make Val a meThod that takes 2 prompts
         DeliCola size;
@@ -85,18 +92,27 @@ public class OtherProduct {
         //TODO Move success sout here when Checkout is functional and does BONUS???
     }
 
+    public static void addChips () {
+
+    }
+
    /* public static validation () {
         return;
     }*/
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-                                                                //FIXME if key breaks
-        return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
-                .append("\n\nDrink Details")
-                .append("\n===========================================")
-                .append("\nSize: ").append(deliCola.menuName)
-                .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
-                .toString();
+        if (OtherProduct.this.type.equalsIgnoreCase("Drink")) {
+            return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+                    .append("\n\nDrink Details")
+                    .append("\n===========================================")
+                    .append("\nSize: ").append(deliCola.menuName)
+                    .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
+                    .toString();
+        }
+        if (OtherProduct.this.type.equalsIgnoreCase("Chips")) {
+        }
+        return "";
     }
+
 }

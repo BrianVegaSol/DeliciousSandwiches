@@ -61,7 +61,10 @@ o Cancel - delete order and go back to the home screen
                         orderMenu();
                         break;
                     default:
-                        System.out.println("Sorry! I didn't quite catch that");
+                        //TODO Make this red
+                        homeSB.append("\033[31m").append("Sorry! I didn't quite catch that!\n").append("\033[0m");
+                        System.out.println(homeSB.toString());
+                        homeSB.setLength(0);
                         continue;
                 }
                 if (homeInput == 1) {
@@ -69,7 +72,7 @@ o Cancel - delete order and go back to the home screen
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.err.println("What did you say???");
+                System.err.println("What did you say???\n");
                 scan.nextLine();
             }
         }
@@ -84,19 +87,22 @@ o Cancel - delete order and go back to the home screen
         byte errCounter = 0;
         while (true) {
             //FIXME if hasPendingOrder = true then show italicized message You have a pending order!
-            homeSB.append("\033[34m").append("Welcome to the Order Menu!").append("\033[0m");
+            homeSB.append("\033[34m").append("Order Menu\n===========================================")
+                    .append("\033[0m");
             System.out.println(homeSB.toString());
             homeSB.setLength(0);
-            System.out.println("""
-                    ===========================================
+            System.out.print("""
                     Select one of the following to get started!
                     o 1) Add Sandwich
                     o 2) Add Drink
                     o 3) Add Chips
                     o 4) Checkout
                     o 0) Cancel Order
-                    ===========================================
                     """);
+            homeSB.append("\033[34m").append("===========================================")
+                    .append("\033[0m");
+            System.out.println(homeSB.toString());
+            homeSB.setLength(0);
             try {
                 byte orderInput = scan.nextByte();
                 //FIXME might be a bad idea doing this xO
@@ -180,7 +186,7 @@ o Cancel - delete order and go back to the home screen
                     //TODO BONUS??? Remove order and fix indices of all order! :) , remember to --itemOrderNumber!
                         //case 5:
                     default:
-                        System.out.println("Sorry! That's not on the menu!\nIs there anything else you would like?");
+                        System.out.print("Sorry! That's not on the menu!\nLets have a look at the");
                         continue;
                 }
                 //FIXME Unnecessary?
@@ -189,7 +195,7 @@ o Cancel - delete order and go back to the home screen
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.err.println("What did you say???");
+                System.err.println("What did you say???\nDid you want to look at the ");
                 scan.nextLine();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -198,9 +204,11 @@ o Cancel - delete order and go back to the home screen
     }
 
     public static void checkout () {
-        homeSB.append("\033[36m").append("Welcome to the Checkout Menu!\n")
+        homeSB.append("\033[36m").append("\nCheckout Menu!\n==================\n")
                 .append("\033[0m")
-                .append("Are you ready to Checkout?\n1) Sure am!\n0) Hold on! I forgot something!");
+                .append("Ready to Checkout?\n\n")
+                .append("\033[32m").append("1) Sure am!\n").append("\033[0m")
+                .append("\033[31m").append("0) Hold on! I forgot something!").append("\033[0m");
         System.out.println(homeSB.toString());
         homeSB.setLength(0);
         byte checkoutInput = scan.nextByte();
@@ -209,7 +217,10 @@ o Cancel - delete order and go back to the home screen
                 break;
             case 1:
                 if (Order.ordersMap.isEmpty()) {
-                    System.out.println("Hmmm, it doesn't look like you've ordered anything yet!\n");
+                    homeSB.append("\033[31m").append("Hmmm, it doesn't look like you've ordered anything yet!\n")
+                            .append("\033[0m");
+                    System.out.println(homeSB.toString());
+                    homeSB.setLength(0);
                 } else {
                     //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
                     Order.ordersMap.forEach((key, value) ->

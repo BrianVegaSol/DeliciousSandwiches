@@ -323,6 +323,9 @@ public class Toppings {
                     2) Restart Topping Removal
                     3) Confirm Order
                     """);
+            if (currentToppingsList.isEmpty()) {
+                System.err.println("(Who eats a sandwich without any toppings...)");
+            }
             //TODO Add a search for topping to add back from the removedToppingsList
             printDynamicList(currentToppingsList);
             try {
@@ -347,7 +350,12 @@ public class Toppings {
                     removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
                     currentToppingsList.remove(lastChangeIndex);
                 } catch (IndexOutOfBoundsException e) {
-                    System.err.println("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
+                    if (currentToppingsList.isEmpty()) {
+                        System.err.println("There's nothing left to take off! (Except maybe the buns but...)");
+                        continue;
+                    } else {
+                        System.err.println("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
+                    }
                 }
                 //TASK make this .get so it doesnt print the whole list for final product
                 System.out.println("Removed " + removedToppingsList.getLast() + "from your sandwich!");
@@ -427,7 +435,7 @@ public class Toppings {
                                 0) No, let me change some things
                                 """);
                         try {
-                        input = scan.nextByte();
+                            input = scan.nextByte();
                         } catch (InputMismatchException e) {
                             System.err.println("Im sorry,");
                             scan.nextLine();

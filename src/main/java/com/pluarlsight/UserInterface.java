@@ -87,11 +87,11 @@ o Cancel - delete order and go back to the home screen
         byte errCounter = 0;
         while (true) {
             //FIXME if hasPendingOrder = true then show italicized message You have a pending order!
-            homeSB.append("\033[34m").append("Welcome to the Order Menu!").append("\033[0m");
+            homeSB.append("\033[34m").append("Order Menu\n===========================================")
+                    .append("\033[0m");
             System.out.println(homeSB.toString());
             homeSB.setLength(0);
             System.out.println("""
-                    ===========================================
                     Select one of the following to get started!
                     o 1) Add Sandwich
                     o 2) Add Drink
@@ -192,7 +192,7 @@ o Cancel - delete order and go back to the home screen
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.err.println("What did you say???\n Did you want to look at the ");
+                System.err.println("What did you say???\nDid you want to look at the ");
                 scan.nextLine();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

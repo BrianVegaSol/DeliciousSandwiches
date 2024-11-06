@@ -261,14 +261,16 @@ public class Toppings {
         //boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
         while (true) {
-            sb.append("\033[35m").append("Regular Toppings Menu\n=====================").append("\033[0m");
+            sb.append("\033[35m")
+                    .append("Regular Toppings Menu\n======================================================")
+                    .append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
             //TODO Color coat these 4 options so they p o p :D AND make the remove options red
-            if (currentToppingsList.size() == 17) {
+            if (!currentToppingsList.isEmpty()) {
                 sb.append("All these toppings are included in your Sandwich Order, ")
-                        .append("\033[32m").append("free of charge!\n").append("\033[0m")
-                        .append("Are there any toppings you'd like to ")
+                        .append("\033[32m").append("\nfree of charge!\n").append("\033[0m")
+                        .append("Any toppings you'd like to ")
                         .append("\033[31m").append("remove ").append("\033[0m")
                         .append("from your order?");
                 System.out.println(sb.toString());
@@ -316,9 +318,13 @@ public class Toppings {
                         System.err.println("Great! That's not a topping we offer, so you're good!\nHave another look at the ");
                     }
                 }
-                //TASK make this .get so it doesnt print the whole list for final product
+                //DONE make this .get so it doesnt print the whole list for final product
                 if (!currentToppingsList.isEmpty()) {
-                    System.out.println("Removed " + removedToppingsList.getLast() + "from your sandwich!");
+                    sb.append("\033[31m").append("Removed ").append("\033[0m");
+                    sb.append("\033[34m").append(removedToppingsList.getLast()).append("\033[0m")
+                            .append(" from your sandwich!");
+                    System.out.println(sb.toString());
+                    sb.setLength(0);
                 }
                 //END <-
             } else {
@@ -352,7 +358,7 @@ public class Toppings {
                         System.out.println("Alright, lets start over!");
                         currentToppingsList = dynamicToppingsList();
                         removedToppingsList.clear();
-                        System.out.println("Removed List: \n" + removedToppingsList.toString());
+                        //System.out.println("Removed List: \n" + removedToppingsList.toString());
                         //EXPLAIN String [] Legacy code
                         //System.out.println(Arrays.toString(removedToppings));
                         //Arrays.fill(removedToppings,null);
@@ -370,6 +376,9 @@ public class Toppings {
                             System.out.print(currentToppingsList.get(i));
                             if (i < currentToppingsList.size() - 1) {
                                 System.out.print(", ");
+                                if ( i == 8 && removedToppingsList.isEmpty() ) {
+                                    System.out.println();
+                                }
                             }
                         }
                         //Playing around with stream()
@@ -383,7 +392,7 @@ public class Toppings {
                         //FIXME Add Bread details here
                         //EXPLAIN Printing Full Sandwich order ->
                         if (removedToppingsList.isEmpty()) {
-                            continue;
+                            System.out.println();
                         } else {
                             sb.append("\033[31m").append("\n\nRemoved\n-------").append("\033[0m");
                             System.out.println(sb.toString());
@@ -398,7 +407,8 @@ public class Toppings {
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         //END <-
                         //EXPLAIN Confirm Sandwich order ->
-                        sb.append("\033[36m").append("\n\nWould you like to Confirm your Sandwich Order?\n").append("\033[0m");
+                        sb.append("\033[36m").append("\n\nWould you like to Confirm your Sandwich Order?\n\n")
+                                .append("\033[0m");
                         sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
                         sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
                         System.out.println(sb.toString());
@@ -412,22 +422,22 @@ public class Toppings {
                         //switch if no break;
                         switch (input) {
                             case 0:
-                                System.out.print("Alright, lets go back to the ");
+                                System.out.println("Alright, lets go back");
                                 continue;
                             case 1:
                                 sb.append("\033[32m").append("Processing order").append("\033[0m");
                                 System.out.print(sb.toString());
                                 sb.setLength(0);
                                 Thread.sleep(600);
-                                sb.append("\033[32m").append(".").append("\033[0m");
+                                sb.append("\033[32m").append(" .").append("\033[0m");
                                 System.out.print(sb.toString());
                                 sb.setLength(0);
                                 Thread.sleep(600);
-                                sb.append("\033[32m").append(".").append("\033[0m");
+                                sb.append("\033[32m").append(" .").append("\033[0m");
                                 System.out.print(sb.toString());
                                 sb.setLength(0);
                                 Thread.sleep(600);
-                                sb.append("\033[32m").append(".").append("\033[0m");
+                                sb.append("\033[32m").append(" . ").append("\033[0m");
                                 System.out.print(sb.toString());
                                 sb.setLength(0);
                                 Thread.sleep(600);
@@ -463,14 +473,26 @@ public class Toppings {
     }
 
     public static void printDynamicList(ArrayList<String> lists) {
-        System.out.println("List Size: " + lists.size());
+        //System.out.println("List Size: " + lists.size());
         for (int i = 0; i < lists.size(); i++) {
-            System.out.println(sb.append(i + 4).append(") Remove ").append(lists.get(i))
+            System.out.println(sb.append("\033[31m").append(i + 4).append(") Remove ").append(lists.get(i))
+                    .append("\033[0m")
                     .toString());
             sb.setLength(0);
         }
     }
 
+    public static void undo(ArrayList<String> list) {
+        //System.out.println("Full []: " + Arrays.toString(allIngredients));
+        //System.out.println("Pre add: " + list);
+        list.add(removedToppingsList.getLast());
+        removedToppingsList.remove(removedToppingsList.getLast());
+        sb.append("\033[32m").append("Added ").append("\033[0m")
+                .append("\034[32m").append(list.getLast()).append("\033[0m")
+                .append(" back into your sandwich!");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+    }
     //FIXME N A I V E implementation, would've needed an Arraylist instead of a basic []
     // then use the lastIndexOf(or whatever gives the newest entry) AND compare it to the original somehow???
     // perhaps similar to how undo() is currently done
@@ -496,14 +518,6 @@ public class Toppings {
 
         System.out.println("After added from Removed []: " + Arrays.toString(removedToppings));
     }*/
-
-    public static void undo(ArrayList<String> list) {
-        System.out.println("Full []: " + Arrays.toString(allIngredients));
-        System.out.println("Pre add: " + list);
-        list.add(removedToppingsList.getLast());
-        removedToppingsList.remove(removedToppingsList.getLast());
-        System.out.println("Added " + list.getLast() + " back into your sandwich!"); //WRONG
-    }
 
     @Override
     public String toString() {

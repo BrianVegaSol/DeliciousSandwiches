@@ -252,6 +252,210 @@ public class Toppings {
         }
     }
 
+    //FIXME 0) return, once back at Topping menu skip adding to Sandwich
+    // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
+    public static int remainingRegularToppingsMenu() throws InterruptedException {
+        ArrayList<String> currentToppingsList = dynamicToppingsList();
+        byte lastChangeIndex = -1;
+        //byte viableInputs = (byte) (currentToppingsList.size() - 17);
+        //boolean runRemainingRegularToppingsMenu = true;
+        byte input = -1;
+        while (true) {
+            sb.append("\033[35m").append("Regular Toppings Menu\n=====================").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+            //TODO Color coat these 4 options so they p o p :D AND make the remove options red
+            if (currentToppingsList.isEmpty()) {
+                sb.append("All these toppings are included in your Sandwich Order, ")
+                        .append("\033[32m").append("free of charge!\n").append("\033[0m")
+                        .append("Are there any toppings you'd like to ")
+                        .append("\033[31m").append("remove ").append("\033[0m")
+                        .append("from your order?");
+                System.out.println(sb.toString());
+                sb.setLength(0);
+            }
+            sb.append("\033[31m").append("0) Return to Order Menu\n").append("\033[0m")
+                    .append("\033[37m").append("1) Undo last change\n").append("\033[0m")
+                    .append("\033[37m").append("2) Restart\n").append("\033[0m")
+                    .append("\033[32m").append("3) Confirm Order").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+            if (currentToppingsList.isEmpty()) {
+                sb.append("\033[31m").append("(Who eats a sandwich without any toppings...)").append("\033[0m");
+                System.out.println(sb.toString());
+                sb.setLength(0);
+            }
+            //TODO Add a search for topping to add back from the removedToppingsList
+            printDynamicList(currentToppingsList);
+            try {
+                input = scan.nextByte();
+            } catch (InputMismatchException e) {
+                System.err.print("What are the options you ask? Let me show you the ");
+                scan.nextLine();
+                continue;
+            }
+            /*for (String allIngredient : allIngredients) {
+                if (allIngredient != null) {
+
+                }
+            }*/
+            //EXPLAIN Removal Options ->
+            if (input >= 4 && input <= 20) {
+                lastChangeIndex = (byte) (input - 4);
+                //FIXME Was it not working because I didn't (input - 4) for list here? >.>
+                // yes but wrong tool for the job :(
+                //removedToppings[input - 4] = currentToppingsList.get(input - 4);
+                try {
+                    removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
+                    currentToppingsList.remove(lastChangeIndex);
+                } catch (IndexOutOfBoundsException e) {
+                    if (currentToppingsList.isEmpty()) {
+                        System.err.println("There's nothing left to take off! (Except maybe the buns but...)");
+                        continue;
+                    } else {
+                        System.err.println("Great! That's not a topping we offer, so you're good!\nHave another look at the ");
+                    }
+                }
+                //TASK make this .get so it doesnt print the whole list for final product
+                if (!currentToppingsList.isEmpty()) {
+                    System.out.println("Removed " + removedToppingsList.getLast() + "from your sandwich!");
+                }
+                //END <-
+            } else {
+                //FIXME AHHHH I JUST REALIIIIZEEDDD
+                // Since the list keeps getting smaller, that makes selecting the menu and error handling harder
+                // Either, I use numbers still and do something like var dynamicInput =
+                // size of dynamicList - current list?
+                // will also need to make anooother list (Probably UGH) unless something like this.list - other this???
+                //TODO Side Project??? Moreso just for practice to use String()s
+                // OR I use Strings as inputs so if input.toUppercase.equals LETTUCE
+                // then search ArrayList.contains OR use streams to filter
+
+                //FIXME FINAL will proceed with numbers for now, worst case, have to make another ArrList
+                switch (input) {
+                    case 0:
+                        sb.append("\033[31m").append("Change your mind? No worries\nSandwich Order Cancelled")
+                                .append("\033[0m");
+                        System.out.println(sb.toString());
+                        sb.setLength(0);
+                        //FIXME Play around with this value, maybe -1 or 18?
+                        return -1;
+                    case 1:
+                        //FIXME Check if null/empty?
+                        if (removedToppingsList.isEmpty()) {
+                            System.out.println("Nothing to undo!");
+                        } else {
+                            undo(currentToppingsList);
+                        }
+                        break;
+                    case 2:
+                        System.out.println("Alright, lets start over!");
+                        currentToppingsList = dynamicToppingsList();
+                        removedToppingsList.clear();
+                        System.out.println("Removed List: \n" + removedToppingsList.toString());
+                        //EXPLAIN String [] Legacy code
+                        //System.out.println(Arrays.toString(removedToppings));
+                        //Arrays.fill(removedToppings,null);
+                        //System.out.println(Arrays.toString(removedToppings));
+                        //ArrList.clear()
+                        //Clear removedToppings []
+                        //END
+                        break;
+                    case 3:
+                        System.out.println("Let's go over your order\n");
+                        sb.append("\033[32m").append("Included\n--------").append("\033[0m");
+                        System.out.println(sb.toString());
+                        sb.setLength(0);
+                        for (int i = 0; i < currentToppingsList.size(); i++) {
+                            System.out.print(currentToppingsList.get(i));
+                            if (i < currentToppingsList.size() - 1) {
+                                System.out.print(", ");
+                            }
+                        }
+                        //Playing around with stream()
+                        /*ArrayList<String> finalCurrentToppingsList = currentToppingsList;
+                        List<String> printList = currentToppingsList.forEach((i) -> {
+                                System.out.print(finalCurrentToppingsList.get(Integer.parseInt(i)));
+                        if (i < (String.valueOf(finalCurrentToppingsList.size()) - 1)) {
+                            System.out.print(", ");
+                        }}
+                        ).collect(Collectors.toList());*/
+                        //FIXME Add Bread details here
+                        //EXPLAIN Printing Full Sandwich order ->
+                        if (removedToppingsList.isEmpty()) {
+                            continue;
+                        } else {
+                            sb.append("\033[31m").append("\n\nRemoved\n-------").append("\033[0m");
+                            System.out.println(sb.toString());
+                            sb.setLength(0);
+                            for (int i = 0; i < removedToppingsList.size(); i++) {
+                                System.out.print(removedToppingsList.get(i));
+                                if (i < removedToppingsList.size() - 1) {
+                                    System.out.print(", ");
+                                }
+                            }
+                        }
+                        //sout what's included on top and removed on the bottom Hold the pickles, etc
+                        //END <-
+                        //EXPLAIN Confirm Sandwich order ->
+                        sb.append("\033[36m").append("\n\nWould you like to Confirm your Sandwich Order?\n").append("\033[0m");
+                        sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
+                        sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
+                        System.out.println(sb.toString());
+                        sb.setLength(0);
+                        try {
+                            input = scan.nextByte();
+                        } catch (InputMismatchException e) {
+                            System.err.println("Im sorry,");
+                            scan.nextLine();
+                        }
+                        //switch if no break;
+                        switch (input) {
+                            case 0:
+                                System.out.print("Alright, lets go back to the ");
+                                break;
+                            case 1:
+                                sb.append("\033[32m").append("Processing order").append("\033[0m");
+                                System.out.print(sb.toString());
+                                sb.setLength(0);
+                                Thread.sleep(600);
+                                sb.append("\033[32m").append(".").append("\033[0m");
+                                System.out.print(sb.toString());
+                                sb.setLength(0);
+                                Thread.sleep(600);
+                                sb.append("\033[32m").append(".").append("\033[0m");
+                                System.out.print(sb.toString());
+                                sb.setLength(0);
+                                Thread.sleep(600);
+                                sb.append("\033[32m").append(".").append("\033[0m");
+                                System.out.print(sb.toString());
+                                sb.setLength(0);
+                                Thread.sleep(600);
+                                return 1;
+                        }
+                        //END <-
+                        return 1;
+                    //runRemainingRegularToppingsMenu = false;
+                    //break;
+                    default:
+                        System.err.print("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
+                        break;
+
+                }
+            }
+        }
+        //TODO Might just add to Sandwich Object here and make method void as well as take Bread and Extra Toppings
+        // as parameters to this method? OR return Toppings Object so in ?
+        //Sandwich sandwich = new Sandwich
+
+        //TODO SIDE PROJECT ADD RNG TO THE RESPONSES
+        //TODO When an item is removed, sout No pickles, got it! (custom messages for each?)
+        // check how many items are missing, then create the size of the removedToppings []
+        // check if removedToppings [] isEmpty, then sout No Toppings Removed!
+
+        //return 1;
+    }
+
     public static ArrayList<String> dynamicToppingsList() {
         ArrayList<String> allRegularToppingsList = new ArrayList<>();
         allRegularToppingsList.addAll(Arrays.asList(allIngredients));
@@ -299,191 +503,6 @@ public class Toppings {
         list.add(removedToppingsList.getLast());
         removedToppingsList.remove(removedToppingsList.getLast());
         System.out.println("Added " + list.getLast() + " back into your sandwich!"); //WRONG
-    }
-
-
-    //FIXME 0) return, once back at Topping menu skip adding to Sandwich
-    // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
-    public static int remainingRegularToppingsMenu() throws InterruptedException {
-        ArrayList<String> currentToppingsList = dynamicToppingsList();
-        byte lastChangeIndex = -1;
-        //byte viableInputs = (byte) (currentToppingsList.size() - 17);
-        //boolean runRemainingRegularToppingsMenu = true;
-        byte input = -1;
-        while (true) {
-            sb.append("\033[35m").append("Regular Toppings Menu").append("\033[0m");
-            System.out.println(sb.toString());
-            sb.setLength(0);
-            //TODO Color coat these 4 options so they p o p :D AND make the remove options red
-            System.out.print("""
-                    All these toppings are included in your Sandwich Order, free of charge!
-                    Are there any toppings you'd like to remove from your order?
-                    0) Return to Order Menu
-                    1) Undo last change
-                    2) Restart Topping Removal
-                    3) Confirm Order
-                    """);
-            if (currentToppingsList.isEmpty()) {
-                sb.append("\033[31m").append("(Who eats a sandwich without any toppings...)").append("\033[0m");
-                System.out.println(sb.toString());
-                sb.setLength(0);
-            }
-            //TODO Add a search for topping to add back from the removedToppingsList
-            printDynamicList(currentToppingsList);
-            try {
-                input = scan.nextByte();
-            } catch (InputMismatchException e) {
-                System.err.print("What are the options you ask? Let me show you the ");
-                scan.nextLine();
-                continue;
-            }
-            /*for (String allIngredient : allIngredients) {
-                if (allIngredient != null) {
-
-                }
-            }*/
-            //EXPLAIN Removal Options ->
-            if (input >= 4 && input <= 20) {
-                lastChangeIndex = (byte) (input - 4);
-                //FIXME Was it not working because I didn't (input - 4) for list here? >.>
-                // yes but wrong tool for the job :(
-                //removedToppings[input - 4] = currentToppingsList.get(input - 4);
-                try {
-                    removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
-                    currentToppingsList.remove(lastChangeIndex);
-                } catch (IndexOutOfBoundsException e) {
-                    if (currentToppingsList.isEmpty()) {
-                        System.err.println("There's nothing left to take off! (Except maybe the buns but...)");
-                        continue;
-                    } else {
-                        System.err.println("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
-                    }
-                }
-                //TASK make this .get so it doesnt print the whole list for final product
-                if (!currentToppingsList.isEmpty()) {
-                    System.out.println("Removed " + removedToppingsList.getLast() + "from your sandwich!");
-                }
-                //END <-
-            } else {
-                //FIXME AHHHH I JUST REALIIIIZEEDDD
-                // Since the list keeps getting smaller, that makes selecting the menu and error handling harder
-                // Either, I use numbers still and do something like var dynamicInput =
-                // size of dynamicList - current list?
-                // will also need to make anooother list (Probably UGH) unless something like this.list - other this???
-                //TODO Side Project??? Moreso just for practice to use String()s
-                // OR I use Strings as inputs so if input.toUppercase.equals LETTUCE
-                // then search ArrayList.contains OR use streams to filter
-
-                //FIXME FINAL will proceed with numbers for now, worst case, have to make another ArrList
-                switch (input) {
-                    case 0:
-                        sb.append("\033[31m").append("Change your mind? No worries\nOrder Cancelled").append("\033[0m");
-                        System.out.println(sb.toString());
-                        sb.setLength(0);
-                        //FIXME Play around with this value, maybe -1 or 18?
-                        return -1;
-                    case 1:
-                        //FIXME Check if null/empty?
-                        if (removedToppingsList.isEmpty()) {
-                            System.out.println("Nothing to undo!");
-                        } else {
-                            undo(currentToppingsList);
-                        }
-                        break;
-                    case 2:
-                        System.out.println("Alright, lets start over!");
-                        currentToppingsList = dynamicToppingsList();
-                        removedToppingsList.clear();
-                        System.out.println("Removed List: \n" + removedToppingsList.toString());
-                        //EXPLAIN String [] Legacy code
-                        //System.out.println(Arrays.toString(removedToppings));
-                        //Arrays.fill(removedToppings,null);
-                        //System.out.println(Arrays.toString(removedToppings));
-                        //ArrList.clear()
-                        //Clear removedToppings []
-                        //END
-                        break;
-                    case 3:
-                        System.out.println("Let's go over your order\n");
-                        System.out.println("Included\n------------------------------------\n");
-                        for (int i = 0; i < currentToppingsList.size(); i++) {
-                            System.out.println(currentToppingsList.get(i));
-                            if (i < currentToppingsList.size() - 1) {
-                                System.out.println(", ");
-                            }
-                        }
-                        //Playing around with stream()
-                        /*ArrayList<String> finalCurrentToppingsList = currentToppingsList;
-                        List<String> printList = currentToppingsList.forEach((i) -> {
-                                System.out.print(finalCurrentToppingsList.get(Integer.parseInt(i)));
-                        if (i < (String.valueOf(finalCurrentToppingsList.size()) - 1)) {
-                            System.out.print(", ");
-                        }}
-                        ).collect(Collectors.toList());*/
-                        //FIXME Add Bread details here
-                        //EXPLAIN Printing Full Sandwich order ->
-                        if (removedToppingsList.isEmpty()) {
-                            continue;
-                        } else {
-                            System.out.println("Removed\n------------------------------------\n");
-                            for (int i = 0; i < removedToppingsList.size(); i++) {
-                                System.out.println(removedToppingsList.get(i));
-                                if (i < removedToppingsList.size() - 1) {
-                                    System.out.println(", ");
-                                }
-                            }
-                        }
-                        //sout what's included on top and removed on the bottom Hold the pickles, etc
-                        //END <-
-                        //EXPLAIN Confirm Sandwich order ->
-                        System.out.println("""
-                                Is this correct?
-                                1) Yes
-                                0) No, let me change some things
-                                """);
-                        try {
-                            input = scan.nextByte();
-                        } catch (InputMismatchException e) {
-                            System.err.println("Im sorry,");
-                            scan.nextLine();
-                        }
-                        //switch if no break;
-                        switch (input) {
-                            case 1:
-                                System.out.print("Processing order");
-                                Thread.sleep(600);
-                                System.out.println(".");
-                                Thread.sleep(600);
-                                System.out.println(".");
-                                Thread.sleep(600);
-                                System.out.println(".");
-                                Thread.sleep(600);
-                                return 1;
-                        }
-                        //END <-
-                        return 1;
-                    //runRemainingRegularToppingsMenu = false;
-                    //break;
-                    default:
-                        System.err.print("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
-                        break;
-
-                }
-            }
-        }
-
-
-        //TODO Might just add to Sandwich Object here and make method void as well as take Bread and Extra Toppings
-        // as parameters to this method? OR return Toppings Object so in ?
-        //Sandwich sandwich = new Sandwich
-
-        //TODO SIDE PROJECT ADD RNG TO THE RESPONSES
-        //TODO When an item is removed, sout No pickles, got it! (custom messages for each?)
-        // check how many items are missing, then create the size of the removedToppings []
-        // check if removedToppings [] isEmpty, then sout No Toppings Removed!
-
-
-        //return 1;
     }
 
     @Override

@@ -91,15 +91,18 @@ o Cancel - delete order and go back to the home screen
                     .append("\033[0m");
             System.out.println(homeSB.toString());
             homeSB.setLength(0);
-            System.out.println("""
+            System.out.print("""
                     Select one of the following to get started!
                     o 1) Add Sandwich
                     o 2) Add Drink
                     o 3) Add Chips
                     o 4) Checkout
                     o 0) Cancel Order
-                    ===========================================
                     """);
+            homeSB.append("\033[34m").append("===========================================")
+                    .append("\033[0m");
+            System.out.println(homeSB.toString());
+            homeSB.setLength(0);
             try {
                 byte orderInput = scan.nextByte();
                 //FIXME might be a bad idea doing this xO
@@ -201,9 +204,11 @@ o Cancel - delete order and go back to the home screen
     }
 
     public static void checkout () {
-        homeSB.append("\033[36m").append("Checkout Menu!\n")
+        homeSB.append("\033[36m").append("\nCheckout Menu!\n==================\n")
                 .append("\033[0m")
-                .append("Are you ready to Checkout?\n1) Sure am!\n0) Hold on! I forgot something!");
+                .append("Ready to Checkout?\n\n")
+                .append("\033[32m").append("1) Sure am!\n").append("\033[0m")
+                .append("\033[31m").append("0) Hold on! I forgot something!").append("\033[0m");
         System.out.println(homeSB.toString());
         homeSB.setLength(0);
         byte checkoutInput = scan.nextByte();

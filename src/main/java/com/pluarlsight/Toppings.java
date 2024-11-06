@@ -261,34 +261,14 @@ public class Toppings {
         //boolean runRemainingRegularToppingsMenu = true;
         byte input = -1;
         while (true) {
+            staticList(currentToppingsList);
+            //TODO Add a search for topping to add back from the removedToppingsList
+            printDynamicList(currentToppingsList);
             sb.append("\033[35m")
-                    .append("Regular Toppings Menu\n======================================================")
+                    .append("======================================================")
                     .append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
-            //TODO Color coat these 4 options so they p o p :D AND make the remove options red
-            if (!currentToppingsList.isEmpty()) {
-                sb.append("All these toppings are included in your Sandwich Order, ")
-                        .append("\033[32m").append("\nfree of charge!\n").append("\033[0m")
-                        .append("Any toppings you'd like to ")
-                        .append("\033[31m").append("remove ").append("\033[0m")
-                        .append("from your order?");
-                System.out.println(sb.toString());
-                sb.setLength(0);
-            }
-            sb.append("\033[31m").append("0) Return to Order Menu\n").append("\033[0m")
-                    .append("\033[33m").append("1) Undo last change\n").append("\033[0m")
-                    .append("\033[33m").append("2) Restart\n").append("\033[0m")
-                    .append("\033[32m").append("3) Confirm Order").append("\033[0m");
-            System.out.println(sb.toString());
-            sb.setLength(0);
-            if (currentToppingsList.isEmpty()) {
-                sb.append("\033[31m").append("(Who eats a sandwich without any toppings...)").append("\033[0m");
-                System.out.println(sb.toString());
-                sb.setLength(0);
-            }
-            //TODO Add a search for topping to add back from the removedToppingsList
-            printDynamicList(currentToppingsList);
             try {
                 input = scan.nextByte();
             } catch (InputMismatchException e) {
@@ -319,10 +299,11 @@ public class Toppings {
                 //FIXME FINAL will proceed with numbers for now, worst case, have to make another ArrList
                 switch (input) {
                     case 0:
-                        sb.append("\033[31m").append("Change your mind? No worries\nSandwich Order Cancelled")
+                        sb.append("\033[31m").append("Change your mind? No worries\nSandwich Order Cancelled\n")
                                 .append("\033[0m");
                         System.out.println(sb.toString());
                         sb.setLength(0);
+                        removedToppingsList.clear();
                         //FIXME Play around with this value, maybe -1 or 18?
                         return -1;
                     case 1:
@@ -348,14 +329,14 @@ public class Toppings {
                         break;
                     case 3:
                         System.out.println("Let's go over your order\n");
-                        sb.append("\033[32m").append("Included\n--------").append("\033[0m");
+                        sb.append("\033[32m").append("Included\n========").append("\033[0m");
                         System.out.println(sb.toString());
                         sb.setLength(0);
                         for (int i = 0; i < currentToppingsList.size(); i++) {
                             System.out.print(currentToppingsList.get(i));
                             if (i < currentToppingsList.size() - 1) {
                                 System.out.print(", ");
-                                if ( i == 8 && removedToppingsList.isEmpty() ) {
+                                if (i == 8 && removedToppingsList.isEmpty()) {
                                     System.out.println();
                                 }
                             }
@@ -373,7 +354,7 @@ public class Toppings {
                         if (removedToppingsList.isEmpty()) {
                             System.out.println();
                         } else {
-                            sb.append("\033[31m").append("\n\nRemoved\n-------").append("\033[0m");
+                            sb.append("\033[31m").append("\n\nRemoved\n=======").append("\033[0m");
                             System.out.println(sb.toString());
                             sb.setLength(0);
                             for (int i = 0; i < removedToppingsList.size(); i++) {
@@ -445,6 +426,35 @@ public class Toppings {
         //return 1;
     }
 
+    public static void staticList(ArrayList<String> currentToppingsList) {
+        sb.append("\033[35m")
+                .append("Regular Toppings Menu\n======================================================")
+                .append("\033[0m");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        //TODO Color coat these 4 options so they p o p :D AND make the remove options red
+        if (!currentToppingsList.isEmpty()) {
+            sb.append("All these toppings are included in your Sandwich Order, ")
+                    .append("\033[32m").append("\nfree of charge!\n").append("\033[0m")
+                    .append("Any toppings you'd like to ")
+                    .append("\033[31m").append("remove ").append("\033[0m")
+                    .append("from your order?");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+        }
+        sb.append("\033[31m").append("0) Return to Order Menu\n").append("\033[0m")
+                .append("\033[33m").append("1) Undo last change\n").append("\033[0m")
+                .append("\033[33m").append("2) Restart\n").append("\033[0m")
+                .append("\033[32m").append("3) Confirm Order").append("\033[0m");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        if (currentToppingsList.isEmpty()) {
+            sb.append("\033[31m").append("(Who eats a sandwich without any toppings...)").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+        }
+    }
+
     public static ArrayList<String> dynamicToppingsList() {
         ArrayList<String> allRegularToppingsList = new ArrayList<>();
         allRegularToppingsList.addAll(Arrays.asList(allIngredients));
@@ -473,7 +483,7 @@ public class Toppings {
         sb.setLength(0);
     }
 
-    public static void removeToppingsOptions (ArrayList<String> currentToppingsList, byte lastChangeIndex) {
+    public static void removeToppingsOptions(ArrayList<String> currentToppingsList, byte lastChangeIndex) {
         //FIXME Was it not working because I didn't (input - 4) for list here? >.>
         // yes but wrong tool for the job :(
         //removedToppings[input - 4] = currentToppingsList.get(input - 4);
@@ -482,7 +492,7 @@ public class Toppings {
             currentToppingsList.remove(lastChangeIndex);
         } catch (IndexOutOfBoundsException e) {
             if (currentToppingsList.isEmpty()) {
-                System.err.println("There's nothing left to take off! (Except maybe the buns but...\n\n)");
+                System.err.println("There's nothing left to take off! (Except maybe the buns but...)\n\n");
                 return;
             } else {
                 System.err.println("Great! That's not a topping we offer, so you're good!\nHave another look at the ");

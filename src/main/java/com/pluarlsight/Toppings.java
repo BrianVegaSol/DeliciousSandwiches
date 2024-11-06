@@ -304,28 +304,7 @@ public class Toppings {
             //EXPLAIN Removal Options ->
             if (input >= 4 && input <= 20) {
                 lastChangeIndex = (byte) (input - 4);
-                //FIXME Was it not working because I didn't (input - 4) for list here? >.>
-                // yes but wrong tool for the job :(
-                //removedToppings[input - 4] = currentToppingsList.get(input - 4);
-                try {
-                    removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
-                    currentToppingsList.remove(lastChangeIndex);
-                } catch (IndexOutOfBoundsException e) {
-                    if (currentToppingsList.isEmpty()) {
-                        System.err.println("There's nothing left to take off! (Except maybe the buns but...)");
-                        continue;
-                    } else {
-                        System.err.println("Great! That's not a topping we offer, so you're good!\nHave another look at the ");
-                    }
-                }
-                //DONE make this .get so it doesnt print the whole list for final product
-                if (!currentToppingsList.isEmpty()) {
-                    sb.append("\033[31m").append("Removed ").append("\033[0m");
-                    sb.append("\033[34m").append(removedToppingsList.getLast()).append("\033[0m")
-                            .append(" from your sandwich!");
-                    System.out.println(sb.toString());
-                    sb.setLength(0);
-                }
+                removeToppingsOptions(currentToppingsList, lastChangeIndex);
                 //END <-
             } else {
                 //FIXME AHHHH I JUST REALIIIIZEEDDD
@@ -488,10 +467,35 @@ public class Toppings {
         list.add(removedToppingsList.getLast());
         removedToppingsList.remove(removedToppingsList.getLast());
         sb.append("\033[32m").append("Added ").append("\033[0m")
-                .append("\034[32m").append(list.getLast()).append("\033[0m")
+                .append("\033[34m").append(list.getLast()).append("\033[0m")
                 .append(" back into your sandwich!");
         System.out.println(sb.toString());
         sb.setLength(0);
+    }
+
+    public static void removeToppingsOptions (ArrayList<String> currentToppingsList, byte lastChangeIndex) {
+        //FIXME Was it not working because I didn't (input - 4) for list here? >.>
+        // yes but wrong tool for the job :(
+        //removedToppings[input - 4] = currentToppingsList.get(input - 4);
+        try {
+            removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
+            currentToppingsList.remove(lastChangeIndex);
+        } catch (IndexOutOfBoundsException e) {
+            if (currentToppingsList.isEmpty()) {
+                System.err.println("There's nothing left to take off! (Except maybe the buns but...\n\n)");
+                return;
+            } else {
+                System.err.println("Great! That's not a topping we offer, so you're good!\nHave another look at the ");
+            }
+        }
+        //DONE make this .get so it doesnt print the whole list for final product
+        if (!currentToppingsList.isEmpty()) {
+            sb.append("\033[31m").append("Removed ").append("\033[0m");
+            sb.append("\033[34m").append(removedToppingsList.getLast()).append("\033[0m")
+                    .append(" from your sandwich!");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+        }
     }
     //FIXME N A I V E implementation, would've needed an Arraylist instead of a basic []
     // then use the lastIndexOf(or whatever gives the newest entry) AND compare it to the original somehow???

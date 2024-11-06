@@ -7,13 +7,21 @@ import java.util.Scanner;
 public class OtherProduct {
     private DeliCola deliCola;
     private DelishChips delishChips;
+    private String type;
+    //TASK Need to add FLAVORSSSS AND CHIP TYPEEESSS
 
     OtherProduct(DeliCola deliCola) {
         this.deliCola = deliCola;
+        OtherProduct.this.type = "Drink";
     }
 
     OtherProduct(DelishChips delishChips) {
         this.delishChips = delishChips;
+        OtherProduct.this.type = "Chips";
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     //EXPLAIN Drink enum ->
@@ -94,12 +102,17 @@ public class OtherProduct {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
-                .append("\n\nDrink Details")
-                .append("\n===========================================")
-                .append("\nSize: ").append(deliCola.menuName)
-                .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
-                .toString();
+        if (OtherProduct.this.type.equalsIgnoreCase("Drink")) {
+            return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+                    .append("\n\nDrink Details")
+                    .append("\n===========================================")
+                    .append("\nSize: ").append(deliCola.menuName)
+                    .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
+                    .toString();
+        }
+        if (OtherProduct.this.type.equalsIgnoreCase("Chips")) {
+        }
+        return "";
     }
 
 }

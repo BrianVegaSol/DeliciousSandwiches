@@ -73,7 +73,7 @@ public class Bread {
     //FIXME Ensure that Toppings cannot be selected U N L E S S there is a sandwich!
     //TODO Bonus??? Make it so that a customer can edit their order at checkout, must be able to:
     // Minimum have option during creation (sandwich & toppings menus) to Confirm Order before added to HashMap
-    public static void sandwichMenu(byte numOfSandwiches) {
+    public static void sandwichMenu(byte numOfSandwiches) throws InterruptedException {
         byte sandwichesMade = 0;
         int breadSizeInput = -1;
         double sandwichPriceTally = 0;
@@ -143,9 +143,15 @@ public class Bread {
             if ((Toppings.remainingRegularToppingsMenu() == -1)) {
                 return;
             } else {
-                Bread bread = new Bread(type, size, numOfSandwiches);
-                System.out.println(bread);
-                sandwichPriceTally += bread.breadSize.menuPrice;
+                //TASK Planning on removing keeping the numOfSandwiches as a loop condition and instead
+                // just making 1 sandwich at a time
+                // Then have Topping and Bread added to Sandwich class here, ordersMap.add(sandwich) and
+                // sout Order Placed Successfully, reflect this change in the Checkout()
+                Bread breadName = new Bread(type, size, numOfSandwiches);
+                System.out.println(breadName);
+                //Sandwich sandwich = new Sandwich(bread, );
+                System.out.println("Sandwich Order Placed Successfully!");
+                sandwichPriceTally += breadName.breadSize.menuPrice;
                 sandwichesMade++;
             }
         }

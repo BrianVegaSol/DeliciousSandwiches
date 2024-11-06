@@ -11,21 +11,36 @@ public class Order{
     static HashMap<Integer, Object> ordersMap = new HashMap<>();
     //FIXME is it not saving because of this???
     static int itemOrderNumber = -1;
-    private Bread bread;
-    private Toppings toppings;
+    //private Bread bread;
+    //private Toppings toppings;
+    private Sandwich sandwich;
     private OtherProduct products;
     
+    public Order (Sandwich sandwich, OtherProduct products) {
+        this.sandwich = sandwich;
+        this.products = products;
+    }
+
+    public Order (Sandwich sandwich) {
+        this.sandwich = sandwich;
+    }
+
+    public Order (OtherProduct products) {
+        this.products = products;
+    }
     /*public Order (Bread bread, Toppings toppings) {
         this.bread = bread;
         this.toppings = toppings;
     }*/
-    public Order (Bread bread) {
+    /*public Order (Bread bread) {
         this.bread = bread;
     }
     public Order (Toppings toppings) {
         this.toppings = toppings;
-    }
+    }*/
 
+    //TASK Use this in dynamicMenu(), return Sandwich Object, feed Sandwich Object to printSandwich()
+    // all for last step in dynamicMenu()
     public void sandwichBuilder(Bread bread, Toppings toppings){
 
     }

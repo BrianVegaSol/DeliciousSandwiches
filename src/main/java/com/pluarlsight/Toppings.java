@@ -358,7 +358,9 @@ public class Toppings {
                     }
                 }
                 //TASK make this .get so it doesnt print the whole list for final product
-                System.out.println("Removed " + removedToppingsList.getLast() + "from your sandwich!");
+                if (!currentToppingsList.isEmpty()) {
+                    System.out.println("Removed " + removedToppingsList.getLast() + "from your sandwich!");
+                }
                 //END <-
             } else {
                 //FIXME AHHHH I JUST REALIIIIZEEDDD

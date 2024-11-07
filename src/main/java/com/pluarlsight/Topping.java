@@ -11,7 +11,10 @@ public class Topping {
     //private static final String [] removedToppings = new String[17]; // TODO Use StringBuilder
     private static StringBuilder sb = new StringBuilder();
     static Scanner scan = new Scanner(System.in);
+    private PremiumTopping premiumTopping;
+    double premToppingsTotalPrice;
     static ArrayList<String> removedToppingsList = new ArrayList<>();
+    //static ArrayList<String> currentToppingsList;
     //FIXME Not sure how to handle the Regular toppings since they're already included???
     // Should I ask if the user wants to remove certain toppings instead of asking to add???
     // Hashmap prefilled with RegToppings, have user remove those toppings, then add remaining toppings to???
@@ -62,12 +65,22 @@ public class Topping {
 
     Topping top;
 
-    public Topping() {
-        if (this instanceof Topping) {
+    /*public Topping(PremiumTopping premiumTopping, ArrayList<String> removedToppingsList,
+                   ArrayList<String> currentToppingsList, double premToppingsTotalPrice) {
+        *//*if (this instanceof Topping) {
+        }*//*
+        this.premiumTopping = premiumTopping;
+    }*/
 
-
-        }
+    public Topping(PremiumTopping premiumTopping, double premToppingsTotalPrice) {
+        this.premiumTopping = premiumTopping;
+        this.premToppingsTotalPrice = premToppingsTotalPrice;
     }
+
+    public Topping() {
+
+    }
+
     /*
     Toppings: - the user should be able to add extras of each topping
     § Meat:
@@ -401,10 +414,16 @@ public class Topping {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if (this instanceof Topping) {
+        //TODO have removed and the updated currentList in here and see if they update after confirming the order
+        // May need to make a method/ make currentList static at the top of the class to use
+        // as just a reference, not instantiating it
+        // reuse the Included and Removed sb???
+        return "" + removedToppingsList.getFirst();
+        /*if (this instanceof PremiumTopping) {
 
-        }
-        return "";
+        }*/
+
+
     }
 
 }

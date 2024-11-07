@@ -2,7 +2,8 @@ package com.pluarlsight;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
+//TASK Can use setters to change order at CheckOut Menu ugh
+// Maybe ovverride the Menus so that they look the same but use setters?
 public class Bread extends Sandwich{
     //FIXME Separate Bread and make this Sandwich
     // might need to make the enums not private

@@ -147,6 +147,7 @@ public class Topping {
                     .append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
+            Collections.sort();
             try {
                 input = scan.nextByte();
             } catch (InputMismatchException e) {

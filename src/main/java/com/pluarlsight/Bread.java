@@ -3,7 +3,7 @@ package com.pluarlsight;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Bread {
+public class Bread extends Sandwich{
     //FIXME Separate Bread and make this Sandwich
     // might need to make the enums not private
     private int numOfSandwiches;
@@ -11,6 +11,7 @@ public class Bread {
     private BreadSize breadSize;
 
     public Bread(BreadType breadType, BreadSize breadSize, int numOfSandwiches) {
+        super();
         this.breadType = breadType;
         this.breadSize = breadSize;
         this.numOfSandwiches = numOfSandwiches;
@@ -40,10 +41,18 @@ public class Bread {
         this.numOfSandwiches = numOfSandwiches;
     }
 
+    public double getBreadMenuPrice () {
+        return breadSize.getMenuPrice();
+    }
+
     private enum BreadSize {
         FOUR_INCH(1, "4\"", 5.50),
         EIGHT_INCH(2, "8\"", 7.00),
         TWELVE_INCH(3, "12\"", 8.50);
+
+        public double getMenuPrice() {
+            return menuPrice;
+        }
 
         private String itemType;
         private final int menuNum;
@@ -140,7 +149,7 @@ public class Bread {
             //Toppings.remainingRegularToppingsMenu();
             //FIXME Probably need to return -1 for extraToppingsMenu() as well
             // Rerunning itself
-            if ((Toppings.remainingRegularToppingsMenu() == -1)) {
+            if ((Topping.regularToppingsMenu() == null)) {
                 return;
             } else {
                 //TASK Planning on removing keeping the numOfSandwiches as a loop condition and instead

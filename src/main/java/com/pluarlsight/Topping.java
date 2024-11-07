@@ -1,17 +1,9 @@
 package com.pluarlsight;
 
 import java.util.*;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-public class Toppings {
+public class Topping {
     private int numOfToppings;
-    private MeatType meatType;
-    private MeatSize meatSize;
-    private ExtraMeatSize extraMeatSize;
-    private CheeseType cheeseType;
-    private CheeseSize cheeseSize;
-    private ExtraCheeseSize extraCheeseSize;
     private static final String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
@@ -68,119 +60,14 @@ public class Toppings {
     //private Sauces sauce;
     //private Sides side;
 
-    Toppings top;
+    Topping top;
 
-    public Toppings() {
-        if (this instanceof Toppings) {
+    public Topping() {
+        if (this instanceof Topping) {
 
 
         }
     }
-
-    //EXPLAIN Meat Enums ->
-    //FIXME Probably gonna wanna add the type for HashMap here
-    private enum MeatType {
-        STEAK(1, "Steak", false),
-        HAM(2, "Ham", false),
-        SALAMI(3, "Salami", false),
-        ROAST_BEEF(4, "Roast Beef", false),
-        CHICKEN(5, "Chicken", false),
-        BACON(6, "Bacon", false);
-
-        private int menuNum;
-        private String menuName;
-        private boolean wantsExtraMeat;
-
-        MeatType(int menuNum, String menuName, boolean wantsExtraMeat) {
-            this.menuNum = menuNum;
-            this.menuName = menuName;
-        }
-
-    }
-
-    private enum MeatSize {
-        FOUR_INCH(1, "4\"", 1.00),
-        EIGHT_INCH(2, "8\"", 2.00),
-        TWELVE_INCH(3, "12\"", 3.00);
-
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-        private boolean wantsExtra;
-
-        MeatSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-    }
-
-    private enum ExtraMeatSize {
-        FOUR_INCH(1, "4\"", 0.50),
-        EIGHT_INCH(2, "8\"", 1.00),
-        TWELVE_INCH(3, "12\"", 1.50);
-
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-
-        ExtraMeatSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-    }
-
-    //END <-
-    //EXPLAIN Cheese enums ->
-    private enum CheeseType {
-        AMERICAN(1, "American"), PROVOLONE(2, "Provolone"),
-        CHEDDAR(3, "Cheddar"), SWISS(4, "Swiss");
-
-        private int menuNum;
-        private String menuName;
-
-        CheeseType(int menuNum, String menuName) {
-            this.menuNum = menuNum;
-            this.menuName = menuName;
-        }
-
-    }
-
-    private enum CheeseSize {
-        FOUR_INCH(1, "4\"", 0.75),
-        EIGHT_INCH(2, "8\"", 1.50),
-        TWELVE_INCH(3, "12\"", 2.25);
-
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-
-        CheeseSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-    }
-
-    private enum ExtraCheeseSize {
-        FOUR_INCH(1, "4\"", 0.30),
-        EIGHT_INCH(2, "8\"", 0.60),
-        TWELVE_INCH(3, "12\"", 0.90);
-
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-
-        ExtraCheeseSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-    }
-    //END <-
-
-
     /*
     Toppings: - the user should be able to add extras of each topping
     § Meat:
@@ -190,9 +77,11 @@ public class Toppings {
     o Would you like the sandwich toasted?
     */
 
-    public static void toppingsMenu() {
+    public static void toppingsMenu() throws InterruptedException {
         //vars
-        sb.append("\033[31m").append("Welcome to to Toppings Menu!").append("\033[0m");
+        byte input;
+        while (true) {
+        sb.append("\033[31m").append("Toppings Menu!").append("\033[0m");
         System.out.println(sb.toString());
         sb.setLength(0);
         //FIXME I H A V E to use an Arraylist here, probably even an interactiveToppingsOptions() where
@@ -205,56 +94,32 @@ public class Toppings {
         //FIXME OR
         // Keep it simple, if String [] regToppings isEmpty, {remove from [] and add to String [] removedToppings
         System.out.println("""
-                Which toppings do you want to remove?
-                1)
-                2)
-                3)
-                4)
-                5)
-                0) None! Keep all the toppings!""");
-        while (true) {
-            //sb
-            byte input = scan.nextByte();
-            switch (input) {
-                case 0:
+                Did you want to add any Extra Toppings?
+                1) Yes
+                0) No
+                """);
+        //TODO Validation
+        input = scan.nextByte();
 
-                    break;
-                case 1:
-
+        if (input == 1) {
+            if (PremiumTopping.premiumToppingsMenu() == null) {
+                return -1;
+            } else {
+                if (Topping.regularToppingsMenu() == -1) {
+                    return -1;
+                }
             }
+
+        } else {
+            Topping.regularToppingsMenu();
+        }
         }
     }
     // END Remove Toppings
 
-    //EXPLAIN Separate extraToppingsMenu()???
-    public static void extraToppings() {
-        //vars
-        Scanner scan = new Scanner(System.in);
-        sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
-        System.out.println(sb.toString());
-        sb.setLength(0);
-        System.out.println("""
-                Would you like Extra Meat?
-                1) Yes
-                0) No
-                """);
-
-        while (true) {
-            //sb
-            byte input = scan.nextByte();
-            switch (input) {
-                case 0:
-
-                    break;
-                case 1:
-
-            }
-        }
-    }
-
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
-    public static int remainingRegularToppingsMenu() throws InterruptedException {
+    public static Topping regularToppingsMenu() throws InterruptedException {
         ArrayList<String> currentToppingsList = dynamicToppingsList();
         byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
@@ -305,7 +170,7 @@ public class Toppings {
                         sb.setLength(0);
                         removedToppingsList.clear();
                         //FIXME Play around with this value, maybe -1 or 18?
-                        return -1;
+                        return null;
                     case 1:
                         //FIXME Check if null/empty?
                         if (removedToppingsList.isEmpty()) {
@@ -401,10 +266,10 @@ public class Toppings {
                                 System.out.print(sb.toString());
                                 sb.setLength(0);
                                 Thread.sleep(600);
-                                return 1;
+                                return new Topping();
                         }
                         //END <-
-                        return 1;
+                        return null;
                     //runRemainingRegularToppingsMenu = false;
                     //break;
                     default:
@@ -536,6 +401,9 @@ public class Toppings {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        if (this instanceof Topping) {
+
+        }
         return "";
     }
 

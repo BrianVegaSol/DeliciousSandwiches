@@ -186,7 +186,7 @@ o Cancel - delete order and go back to the home screen
                     //TODO BONUS??? Remove order and fix indices of all order! :) , remember to --itemOrderNumber!
                         //case 5:
                     default:
-                        System.out.print("Sorry! That's not on the menu!\nLets have a look at the");
+                        System.out.print("Sorry! That's not on the menu!\nLets have a look at the ");
                         continue;
                 }
                 //FIXME Unnecessary?

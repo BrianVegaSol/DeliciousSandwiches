@@ -242,6 +242,7 @@ public class Topping {
                                     System.out.print(", ");
                                 }
                             }
+                            System.out.println("\n\n");
                         }
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         //END <-
@@ -275,45 +276,50 @@ public class Topping {
     }
 
     public static <T extends Order> Topping confirmOrder(byte input) throws InterruptedException {
-        sb.append("\033[36m").append("\n\nWould you like to Confirm your Sandwich Order?\n\n")
-                .append("\033[0m");
-        sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
-        sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
-        System.out.println(sb.toString());
-        sb.setLength(0);
-        try {
-            input = scan.nextByte();
-        } catch (InputMismatchException e) {
-            System.err.println("Im sorry,");
-            scan.nextLine();
-            continue;
+        while (true) {
+            sb.append("\033[36m").append("Would you like to Confirm your Sandwich Order?\n\n")
+                    .append("\033[0m");
+            sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
+            sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+            try {
+                input = scan.nextByte();
+            } catch (InputMismatchException e) {
+                System.err.println("Im sorry,");
+                scan.nextLine();
+                continue;
+            }
+            //switch if no break;
+            switch (input) {
+                case 0:
+                    System.out.println("Alright, lets go back");
+                    return null;
+                case 1:
+                    sb.append("\033[32m").append("Processing order").append("\033[0m");
+                    System.out.print(sb.toString());
+                    sb.setLength(0);
+                    Thread.sleep(600);
+                    sb.append("\033[32m").append(" .").append("\033[0m");
+                    System.out.print(sb.toString());
+                    sb.setLength(0);
+                    Thread.sleep(600);
+                    sb.append("\033[32m").append(" .").append("\033[0m");
+                    System.out.print(sb.toString());
+                    sb.setLength(0);
+                    Thread.sleep(600);
+                    sb.append("\033[32m").append(" . ").append("\033[0m");
+                    System.out.print(sb.toString());
+                    sb.setLength(0);
+                    Thread.sleep(600);
+                    Topping top = new Topping();
+                    return new Topping();
+                default:
+                    System.err.println("Im sorry,");
+                    scan.nextLine();
+                    continue;
+            }
         }
-        //switch if no break;
-        switch (input) {
-            case 0:
-                System.out.println("Alright, lets go back");
-                 break;
-            case 1:
-                sb.append("\033[32m").append("Processing order").append("\033[0m");
-                System.out.print(sb.toString());
-                sb.setLength(0);
-                Thread.sleep(600);
-                sb.append("\033[32m").append(" .").append("\033[0m");
-                System.out.print(sb.toString());
-                sb.setLength(0);
-                Thread.sleep(600);
-                sb.append("\033[32m").append(" .").append("\033[0m");
-                System.out.print(sb.toString());
-                sb.setLength(0);
-                Thread.sleep(600);
-                sb.append("\033[32m").append(" . ").append("\033[0m");
-                System.out.print(sb.toString());
-                sb.setLength(0);
-                Thread.sleep(600);
-                Topping top = new Topping();
-                return new Topping();
-        }
-        return null;
     }
 
     public static void staticList(ArrayList<String> currentToppingsList) {

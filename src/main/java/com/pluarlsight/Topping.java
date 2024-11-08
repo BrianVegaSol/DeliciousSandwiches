@@ -248,7 +248,7 @@ public class Topping {
                         //END <-
                         //EXPLAIN Confirm Sandwich order ->
                             Topping topping = new Topping();
-                        if ((topping = confirmOrder(input)) == null) {
+                        if ((topping = (Topping) confirmOrder(input)) == null) {
                            continue;
                         } else {
                             return topping;
@@ -275,7 +275,7 @@ public class Topping {
         //return 1;
     }
 
-    public static <T extends Order> Topping confirmOrder(byte input) throws InterruptedException {
+    public static <T extends Order> Object confirmOrder(byte input) throws InterruptedException {
         while (true) {
             sb.append("\033[36m").append("Would you like to Confirm your Sandwich Order?\n\n")
                     .append("\033[0m");

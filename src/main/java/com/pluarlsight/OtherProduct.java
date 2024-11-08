@@ -1,22 +1,24 @@
 package com.pluarlsight;
 
-import java.security.PublicKey;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class OtherProduct {
-    private DeliCola deliCola;
-    private DelishChips delishChips;
+    private DeliColaSize deliColaSize;
+    private DeliColaType deliColaType;
+    private DelishChipsType delishChipsType;
+
     private String type;
     //TASK Need to add FLAVORSSSS AND CHIP TYPEEESSS
 
-    OtherProduct(DeliCola deliCola) {
-        this.deliCola = deliCola;
+    OtherProduct(DeliColaSize deliColaSize, DeliColaType deliColaType) {
+        this.deliColaSize = deliColaSize;
+        this.deliColaType = deliColaType;
         OtherProduct.this.type = "Drink";
     }
 
-    OtherProduct(DelishChips delishChips) {
-        this.delishChips = delishChips;
+    OtherProduct(DelishChipsType delishChipsType) {
+        this.delishChipsType = delishChipsType;
         OtherProduct.this.type = "Chips";
     }
 
@@ -24,8 +26,8 @@ public class OtherProduct {
         this.type = type;
     }
 
-    //EXPLAIN Drink enum ->
-    private enum DeliCola {
+    //EXPLAIN Drink enums ->
+    private enum DeliColaSize {
         SMALL(1, "Small", 2.00),
         MEDIUM(2, "Medium", 2.50),
         LARGE(3, "Large", 3.00);
@@ -34,33 +36,80 @@ public class OtherProduct {
         private String menuName;
         private double menuPrice;
 
-        DeliCola(int menuNum, String menuName, double menuPrice) {
+        DeliColaSize(int menuNum, String menuName, double menuPrice) {
             this.menuNum = menuNum;
             this.menuName = menuName;
             this.menuPrice = menuPrice;
         }
 
+        public String getMenuName() {
+            return menuName;
+        }
+
+        public int getMenuNum() {
+            return menuNum;
+        }
+
+        public double getMenuPrice() {
+            return menuPrice;
+        }
+    }
+
+    private enum DeliColaType {
+        ROOT_BEER(1, "Root Beer"),
+        RASPBERRY_FUSION(2, "Raspberry Fusion"),
+        LEMONADE_SUPREME(3, "Lemonade Supreme");
+
+        private final int menuNum;
+        private final String menuName;
+
+        DeliColaType(int menuNum, String menuName) {
+            this.menuNum = menuNum;
+            this.menuName = menuName;
+        }
+
+        public int getMenuNum() {
+            return menuNum;
+        }
+
+        public String getMenuName() {
+            return menuName;
+        }
     }
     //END
     //EXPLAIN Chips enum
-    private enum DelishChips {
-        DELISH_CHIPS(1, "Delish Chips", 1.50);
+    private enum DelishChipsType {
+        DELISH_CHIPS_CLASSIC(1, "Delish Chips: Classic", 1.50),
+        DELISH_CHIPS_FLAMIN_HOT(1, "Delish Chips: Flamin Hot", 1.50),
+        DELISH_CHIPS_SOUR_CREAM(1, "Delish Chips: Sour Cream", 1.50);
 
         private int menuNum;
         private String menuName;
         private double menuPrice;
 
-        DelishChips(int menuNum, String menuName, double menuPrice) {
+        DelishChipsType(int menuNum, String menuName, double menuPrice) {
             this.menuNum = menuNum;
             this.menuName = menuName;
             this.menuPrice = menuPrice;
+        }
+
+        public String getMenuName() {
+            return menuName;
+        }
+
+        public int getMenuNum() {
+            return menuNum;
+        }
+
+        public double getMenuPrice() {
+            return menuPrice;
         }
     }
     //END
 
     public static void addDrink(byte numOfDrinks) {
         //TODO Make Val a meThod that takes 2 prompts
-        DeliCola size;
+        DeliColaSize size;
         Scanner scan = new Scanner(System.in);
         byte drinksMade = 0;
         int drinkInput = -1;
@@ -75,7 +124,7 @@ public class OtherProduct {
                 //TODO Make this try catch a method
                 try {
                     drinkInput = scan.nextInt();
-                    size = OtherProduct.DeliCola.values()[drinkInput - 1];
+                    size = DeliColaSize.values()[drinkInput - 1];
                     break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                     System.err.println("Sorry, we don't offer that size here!");
@@ -83,7 +132,7 @@ public class OtherProduct {
                 }
             }
             //TODO Add DateTime and Object to HashMap
-            OtherProduct drink = new OtherProduct(size);
+            OtherProduct drink = new OtherProduct(size, type);
             Order.ordersMap.put(++Order.itemOrderNumber, drink);
             System.out.println(drink.toString());
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
@@ -106,13 +155,20 @@ public class OtherProduct {
             return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
                     .append("\n\nDrink Details")
                     .append("\n===========================================")
-                    .append("\nSize: ").append(deliCola.menuName)
-                    .append(String.format("\nPrice: $%.2f%n", deliCola.menuPrice))
+                    .append("\nFlavor: ").append(deliColaType.menuName)
+                    .append("\nSize: ").append(deliColaSize.menuName)
+                    .append(String.format("\nPrice: $%.2f%n", deliColaSize.menuPrice))
                     .toString();
         }
         if (OtherProduct.this.type.equalsIgnoreCase("Chips")) {
+            return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+                    .append("\n\nChip Details")
+                    .append("\n===========================================")
+                    .append("\nSize: ").append(delishChipsType.menuName)
+                    .append(String.format("\nPrice: $%.2f%n", delishChipsType.menuPrice))
+                    .toString();
         }
-        return "";
+        return "Both toString if instanceof failed in OtherProduct :')";
     }
 
 }

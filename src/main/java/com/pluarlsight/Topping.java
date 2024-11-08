@@ -248,13 +248,11 @@ public class Topping {
                         //EXPLAIN Confirm Sandwich order ->
                             Topping topping = new Topping();
                         if ((topping = confirmOrder(input)) == null) {
-                            return null;
+                           continue;
                         } else {
                             return topping;
                         }
-
                         //END <-
-                        return null;
                     //runRemainingRegularToppingsMenu = false;
                     //break;
                     default:
@@ -288,6 +286,7 @@ public class Topping {
         } catch (InputMismatchException e) {
             System.err.println("Im sorry,");
             scan.nextLine();
+            continue;
         }
         //switch if no break;
         switch (input) {

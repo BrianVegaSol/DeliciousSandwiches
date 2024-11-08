@@ -80,8 +80,8 @@ public class OtherProduct {
     //EXPLAIN Chips enum
     private enum DelishChipsType {
         DELISH_CHIPS_CLASSIC(1, "Delish Chips: Classic", 1.50),
-        DELISH_CHIPS_FLAMIN_HOT(1, "Delish Chips: Flamin Hot", 1.50),
-        DELISH_CHIPS_SOUR_CREAM(1, "Delish Chips: Sour Cream", 1.50);
+        DELISH_CHIPS_FLAMIN_HOT(2, "Delish Chips: Flamin Hot", 1.50),
+        DELISH_CHIPS_SOUR_CREAM(3, "Delish Chips: Sour Cream", 1.50);
 
         private int menuNum;
         private String menuName;
@@ -109,7 +109,8 @@ public class OtherProduct {
 
     public static void addDrink(byte numOfDrinks) {
         //TODO Make Val a meThod that takes 2 prompts
-        DeliColaSize size;
+        DeliColaSize size = null;
+        DeliColaType type = null;
         Scanner scan = new Scanner(System.in);
         byte drinksMade = 0;
         int drinkInput = -1;
@@ -130,12 +131,28 @@ public class OtherProduct {
                     System.err.println("Sorry, we don't offer that size here!");
                     scan.nextLine();
                 }
+                System.out.println("""
+                        What flavor do you want?
+                        1) Root Beer
+                        2) Raspberry Fusion
+                        3) Lemonade Supreme
+                        """);
+                //TODO Make this try catch a method
+                try {
+                    drinkInput = scan.nextInt();
+                    type = DeliColaType.values()[drinkInput - 1];
+                    break;
+                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Sorry, we don't offer that flavor here!");
+                    scan.nextLine();
+                }
             }
             //TODO Add DateTime and Object to HashMap
             OtherProduct drink = new OtherProduct(size, type);
             Order.ordersMap.put(++Order.itemOrderNumber, drink);
             System.out.println(drink.toString());
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
+            //FIXME Consider removing these numOfDrinks/Bread
             drinksMade++;
         }
         //TODO Move success sout here when Checkout is functional and does BONUS???

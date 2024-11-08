@@ -78,7 +78,6 @@ public class Topping {
     }
 
     public Topping() {
-
     }
 
     /*
@@ -114,7 +113,7 @@ public class Topping {
         //TODO Validation
         input = scan.nextByte();
 
-        if (input == 1) {
+        /*if (input == 1) {
             if (PremiumTopping.premiumToppingsMenu() == null) {
                 return -1;
             } else {
@@ -125,7 +124,7 @@ public class Topping {
 
         } else {
             Topping.regularToppingsMenu();
-        }
+        }*/
         }
     }
     // END Remove Toppings
@@ -140,14 +139,15 @@ public class Topping {
         byte input = -1;
         while (true) {
             staticList(currentToppingsList);
-            //TODO Add a search for topping to add back from the removedToppingsList
             printDynamicList(currentToppingsList);
+            //TODO BONUS Add a search for topping to add back from the removedToppingsList
+            //currentToppingsList.stream().findAny().equals(inputTopping);
             sb.append("\033[35m")
                     .append("======================================================")
                     .append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
-            Collections.sort();
+
             try {
                 input = scan.nextByte();
             } catch (InputMismatchException e) {
@@ -246,42 +246,13 @@ public class Topping {
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         //END <-
                         //EXPLAIN Confirm Sandwich order ->
-                        sb.append("\033[36m").append("\n\nWould you like to Confirm your Sandwich Order?\n\n")
-                                .append("\033[0m");
-                        sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
-                        sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
-                        System.out.println(sb.toString());
-                        sb.setLength(0);
-                        try {
-                            input = scan.nextByte();
-                        } catch (InputMismatchException e) {
-                            System.err.println("Im sorry,");
-                            scan.nextLine();
+                            Topping topping = new Topping();
+                        if ((topping = confirmOrder(input)) == null) {
+                            return null;
+                        } else {
+                            return topping;
                         }
-                        //switch if no break;
-                        switch (input) {
-                            case 0:
-                                System.out.println("Alright, lets go back");
-                                continue;
-                            case 1:
-                                sb.append("\033[32m").append("Processing order").append("\033[0m");
-                                System.out.print(sb.toString());
-                                sb.setLength(0);
-                                Thread.sleep(600);
-                                sb.append("\033[32m").append(" .").append("\033[0m");
-                                System.out.print(sb.toString());
-                                sb.setLength(0);
-                                Thread.sleep(600);
-                                sb.append("\033[32m").append(" .").append("\033[0m");
-                                System.out.print(sb.toString());
-                                sb.setLength(0);
-                                Thread.sleep(600);
-                                sb.append("\033[32m").append(" . ").append("\033[0m");
-                                System.out.print(sb.toString());
-                                sb.setLength(0);
-                                Thread.sleep(600);
-                                return new Topping();
-                        }
+
                         //END <-
                         return null;
                     //runRemainingRegularToppingsMenu = false;
@@ -303,6 +274,47 @@ public class Topping {
         // check if removedToppings [] isEmpty, then sout No Toppings Removed!
 
         //return 1;
+    }
+
+    public static <T extends Order> Topping confirmOrder(byte input) throws InterruptedException {
+        sb.append("\033[36m").append("\n\nWould you like to Confirm your Sandwich Order?\n\n")
+                .append("\033[0m");
+        sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
+        sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        try {
+            input = scan.nextByte();
+        } catch (InputMismatchException e) {
+            System.err.println("Im sorry,");
+            scan.nextLine();
+        }
+        //switch if no break;
+        switch (input) {
+            case 0:
+                System.out.println("Alright, lets go back");
+                 break;
+            case 1:
+                sb.append("\033[32m").append("Processing order").append("\033[0m");
+                System.out.print(sb.toString());
+                sb.setLength(0);
+                Thread.sleep(600);
+                sb.append("\033[32m").append(" .").append("\033[0m");
+                System.out.print(sb.toString());
+                sb.setLength(0);
+                Thread.sleep(600);
+                sb.append("\033[32m").append(" .").append("\033[0m");
+                System.out.print(sb.toString());
+                sb.setLength(0);
+                Thread.sleep(600);
+                sb.append("\033[32m").append(" . ").append("\033[0m");
+                System.out.print(sb.toString());
+                sb.setLength(0);
+                Thread.sleep(600);
+                Topping top = new Topping();
+                return new Topping();
+        }
+        return null;
     }
 
     public static void staticList(ArrayList<String> currentToppingsList) {

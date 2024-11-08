@@ -170,7 +170,7 @@ o Cancel - delete order and go back to the home screen
                             System.out.println("No drinks? Alright\n");
                         } else {
                             //EXPLAIN Drinks Menu
-                            OtherProduct.addDrink(numDrinks);
+                            //OtherProduct.addDrink(numDrinks);
                         }
                         break;
                     //FIXME

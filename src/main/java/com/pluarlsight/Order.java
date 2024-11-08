@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Order {
+public class Order <T> {
     StringBuilder sb = new StringBuilder();
     //FIXME Need to either make toString here, update all other toStrings, or accept all other Objects into Order Obj
     // OR can just chop off the Order# (since it needs to get deleted anyway) and only show that in checkout() 0.0

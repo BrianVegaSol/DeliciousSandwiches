@@ -107,14 +107,12 @@ public class OtherProduct {
     }
     //END
 
-    public static void addDrink(byte numOfDrinks) {
+    public static void addDrink() {
         //TODO Make Val a meThod that takes 2 prompts
         DeliColaSize size = null;
         DeliColaType type = null;
         Scanner scan = new Scanner(System.in);
-        byte drinksMade = 0;
         int drinkInput = -1;
-        while (drinksMade < (numOfDrinks)) {
             while (true) {
                 System.out.println("""
                         What size do you want?
@@ -146,17 +144,17 @@ public class OtherProduct {
                     System.err.println("Sorry, we don't offer that flavor here!");
                     scan.nextLine();
                 }
+
+                //TASK DELETE ALL numOrders and add a Confirmation menu, with display, here
             }
             //TODO Add DateTime and Object to HashMap
             OtherProduct drink = new OtherProduct(size, type);
             Order.ordersMap.put(++Order.itemOrderNumber, drink);
             System.out.println(drink.toString());
+            //TODO Move success sout here when Checkout is functional and does BONUS???
             System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
-            //FIXME Consider removing these numOfDrinks/Bread
-            drinksMade++;
         }
-        //TODO Move success sout here when Checkout is functional and does BONUS???
-    }
+
 
     public static void addChips () {
 
@@ -165,6 +163,11 @@ public class OtherProduct {
    /* public static validation () {
         return;
     }*/
+    //TODO Make Object the parameter to make this a Generic Display?
+    public static void confirmationScreen () {
+
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -1,5 +1,6 @@
 package com.pluarlsight;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PremiumTopping extends Topping{
@@ -128,8 +129,10 @@ public class PremiumTopping extends Topping{
     //END <-
     //EXPLAIN Cheese enums ->
     private enum CheeseType {
-        AMERICAN(1, "American"), PROVOLONE(2, "Provolone"),
-        CHEDDAR(3, "Cheddar"), SWISS(4, "Swiss");
+        AMERICAN(1, "American"),
+        PROVOLONE(2, "Provolone"),
+        CHEDDAR(3, "Cheddar"), 
+        SWISS(4, "Swiss");
 
         private int menuNum;
         private String menuName;
@@ -187,9 +190,11 @@ public class PremiumTopping extends Topping{
     //END <-
 
     //EXPLAIN Separate extraToppingsMenu()???
-    public static Object premiumToppingsMenu() {
+    public static Object premiumToppingsMenu() throws InterruptedException {
         //vars
         Scanner scan = new Scanner(System.in);
+        byte extraMeatInput = -1;
+        while (true) {
         sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
         System.out.println(sb.toString());
         sb.setLength(0);
@@ -199,10 +204,18 @@ public class PremiumTopping extends Topping{
                 2) No
                 0) Exit
                 """);
-
-        while (true) {
             //sb
             byte input = scan.nextByte();
+
+            try {
+                extraMeatInput = scan.nextByte();
+                ExtraMeatSize wantsExtraMeat = ExtraMeatSize.values()[extraMeatInput - 1];
+                break;
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("Sorry! We don't make them that long!");
+                scan.nextLine();
+            }
+            
             switch (input) {
                 case 0:
                     return null;
@@ -213,8 +226,8 @@ public class PremiumTopping extends Topping{
                     System.out.println("No Extra Meat, got it!");
                     break;
             }
+        Topping.confirmOrder("Top");
         }
-
         //TASK if selected no to all, then sout No Extra Toppings Added in red! then return null
         //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }

@@ -278,7 +278,7 @@ public class Topping {
                         //END <-
                         //EXPLAIN Confirm Sandwich order ->
                             Topping topping = new Topping();
-                        if ((topping = (Topping) confirmOrder(input)) == null) {
+                        if ((topping = (Topping) confirmOrder("Sandwich")) == null) {
                            continue;
                         } else {
                             return topping;
@@ -305,14 +305,15 @@ public class Topping {
         //return 1;
     }
 
-    public static <T extends Order> Object confirmOrder(byte input) throws InterruptedException {
+    public static <T extends Order> Object confirmOrder(String menuType) throws InterruptedException {
         while (true) {
-            sb.append("\033[36m").append("Would you like to Confirm your Sandwich Order?\n\n")
+            sb.append("\033[36m").append("Would you like to Confirm your " + menuType + " Order?\n\n")
                     .append("\033[0m");
             sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
             sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
+            byte input;
             try {
                 input = scan.nextByte();
             } catch (InputMismatchException e) {

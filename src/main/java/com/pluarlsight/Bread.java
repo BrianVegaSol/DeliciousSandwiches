@@ -118,6 +118,7 @@ public class Bread extends Sandwich{
                 }
             }
             //EXPLAIN END <-
+
             //EXPLAIN Validation for size ->
             while (true) {
 
@@ -141,7 +142,6 @@ public class Bread extends Sandwich{
             //EXPLAIN END <-
             //FIXME Need to move this AFTER calling the Toppings()s to have a complete Sandwich
             // If dynamicMenu 0) return acts like I think it does, will not add Bread if Toppings order is cancelled
-            //EXPLAIN Trying to tally price for each sandwich here
             //TODO Only do this if cant access vars in Bread due to being private
             //FIXME Remove when sandwichBuilder() works
             //Order.ordersMap.put(++Order.itemOrderNumber,bread);
@@ -150,7 +150,8 @@ public class Bread extends Sandwich{
             //Toppings.remainingRegularToppingsMenu();
             //FIXME Probably need to return -1 for extraToppingsMenu() as well
             // Rerunning itself
-            if ((Topping.regularToppingsMenu() == null)) {
+            //EXPLAIN Validation for Toppings Menu ->
+            if ((Topping.toppingsMenu() == null)) {
                 return;
             } else {
                 //TASK Planning on removing keeping the numOfSandwiches as a loop condition and instead
@@ -161,13 +162,23 @@ public class Bread extends Sandwich{
                 System.out.println(breadName);
                 //Sandwich sandwich = new Sandwich(bread, );
                 System.out.println("Sandwich Order Placed Successfully!");
+                //EXPLAIN Trying to tally price for each sandwich here
                 sandwichPriceTally += breadName.breadSize.menuPrice;
+                //END
                 sandwichesMade++;
             }
+            //END <-
         }
         System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
         //TODO return Bread Object???;
     }
+
+    public double calcBreadPriceTotal() {
+        double total = 0;
+        return total;
+    }
+
+
 
     @Override
     public String toString() {
@@ -182,11 +193,6 @@ public class Bread extends Sandwich{
                 .append("\nSize: ").append(breadSize.sizeName)
                 .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
                 .toString();
-    }
-
-    public double calcBreadPriceTotal() {
-        double total = 0;
-        return total;
     }
 }
 

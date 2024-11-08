@@ -71,10 +71,19 @@ public class Topping {
         }*//*
         this.premiumTopping = premiumTopping;
     }*/
-
+    //FIXME Should use this one when I make the totalPrice
     public Topping(PremiumTopping premiumTopping, double premToppingsTotalPrice) {
         this.premiumTopping = premiumTopping;
         this.premToppingsTotalPrice = premToppingsTotalPrice;
+    }
+    //FIXME DELETE THIS IS A PLACEHOLDER
+    public Topping(PremiumTopping premiumTopping) {
+        this.premiumTopping = premiumTopping;
+    }
+
+    public Topping(PremiumTopping premiumTopping, Topping top) {
+        this.premiumTopping = premiumTopping;
+        this.top = top;
     }
 
     public Topping() {
@@ -89,42 +98,63 @@ public class Topping {
     o Would you like the sandwich toasted?
     */
 
-    public static void toppingsMenu() throws InterruptedException {
+    public static Topping toppingsMenu() throws InterruptedException {
         //vars
+        Topping top = new Topping();
+        PremiumTopping prem = new PremiumTopping();
         byte input;
         while (true) {
-        sb.append("\033[31m").append("Toppings Menu!").append("\033[0m");
-        System.out.println(sb.toString());
-        sb.setLength(0);
-        //FIXME I H A V E to use an Arraylist here, probably even an interactiveToppingsOptions() where
-        // have A N O T H E R method with public static ArrayList<String> prefilledToppingsList() returns filled List
-        // User selects what they want to remove, while (true), have a switch (input) case # remove that index
-        // continue loop of using the ArrList remainingToppings and use toString() to print indices
-        // A current ArrayList remainingToppings and a String [] removed Toppings
-        // return when done removing
+            sb.append("\033[31m").append("Toppings Menu!").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+            //FIXME I H A V E to use an Arraylist here, probably even an interactiveToppingsOptions() where
+            // have A N O T H E R method with public static ArrayList<String> prefilledToppingsList() returns filled List
+            // User selects what they want to remove, while (true), have a switch (input) case # remove that index
+            // continue loop of using the ArrList remainingToppings and use toString() to print indices
+            // A current ArrayList remainingToppings and a String [] removed Toppings
+            // return when done removing
 
-        //FIXME OR
-        // Keep it simple, if String [] regToppings isEmpty, {remove from [] and add to String [] removedToppings
-        System.out.println("""
-                Did you want to add any Extra Toppings?
-                1) Yes
-                0) No
-                """);
-        //TODO Validation
-        input = scan.nextByte();
+            //FIXME OR
+            // Keep it simple, if String [] regToppings isEmpty, {remove from [] and add to String [] removedToppings
+            System.out.println("""
+                    Did you want to add any Extra Toppings?
+                    1) Yes
+                    2) No
+                    0) Exit
+                    """);
+            //TODO Validation
+            input = scan.nextByte();
+            //FIXME Either need the Constructor to accept itself (?)
+            // OR Make a RegularTopping class too UGH
+            switch (input) {
+                case 0:
+                    return null;
+                case 1:
+                if ((prem = (PremiumTopping) PremiumTopping.premiumToppingsMenu()) == null) {
+                    //if null then order was cancelled, so should return to this toppingsMenu
+                } else {
+                    top = new Topping(prem);
 
-        /*if (input == 1) {
-            if (PremiumTopping.premiumToppingsMenu() == null) {
-                return -1;
-            } else {
-                if (Topping.regularToppingsMenu() == -1) {
-                    return -1;
+                    if ((top = Topping.regularToppingsMenu()) == null) {
+                        //if cancels order in regToppingsMenu() then come back here
+                        continue;
+                    } else {
+                        //FIXME Might be ok but should find a way to have both Reg and Prem Toppings
+                        // combined into 1 Topping Object
+                        return top;
+                    }
+                }
+                    break;
+                case 2:
+            }
+            if (input == 1) {
+            }
+            if (input == 2) {
+                if ((top = regularToppingsMenu()) == null) {
+                } else {
+                    return top;
                 }
             }
-
-        } else {
-            Topping.regularToppingsMenu();
-        }*/
         }
     }
     // END Remove Toppings

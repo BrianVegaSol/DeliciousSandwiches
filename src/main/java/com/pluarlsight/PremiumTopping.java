@@ -7,48 +7,35 @@ public class PremiumTopping extends Topping{
     private PremiumTopping.MeatSize meatSize;
     private PremiumTopping.ExtraMeatSize extraMeatSize;
     private PremiumTopping.CheeseType cheeseType;
-    private PremiumTopping.CheeseSize cheeseSize;
+    private CheeseSize cheeseSize;
     private PremiumTopping.ExtraCheeseSize extraCheeseSize;
     private double premiumToppingsMenuPrice;
     private static StringBuilder sb = new StringBuilder();
 
     public PremiumTopping () {
         super();
-        this.premiumToppingsMenuPrice = getCheeseSize().menuPrice + getExtraCheeseSize().menuPrice +
-        getMeatSize().menuPrice + getExtraMeatSize().menuPrice;
     }
 
-    public CheeseSize getCheeseSize() {
-        return cheeseSize;
-    }
+    //TASK use this to fill the toppings, might need a lot of if !null
+    /*public PremiumTopping () {
+        super();
+        this.premiumToppingsMenuPrice = cheeseSize.menuPrice +
+                getExtraCheeseSize().menuPrice +
+                getMeatSize().menuPrice + getExtraMeatSize().menuPrice;
+    }*/
 
-    public void setCheeseSize(CheeseSize cheeseSize) {
-        this.cheeseSize = cheeseSize;
-    }
 
-    public CheeseType getCheeseType() {
-        return cheeseType;
-    }
-
-    public void setCheeseType(CheeseType cheeseType) {
-        this.cheeseType = cheeseType;
-    }
 
     public ExtraCheeseSize getExtraCheeseSize() {
         return extraCheeseSize;
     }
 
-    public void setExtraCheeseSize(ExtraCheeseSize extraCheeseSize) {
-        this.extraCheeseSize = extraCheeseSize;
-    }
+
 
     public ExtraMeatSize getExtraMeatSize() {
         return extraMeatSize;
     }
 
-    public void setExtraMeatSize(ExtraMeatSize extraMeatSize) {
-        this.extraMeatSize = extraMeatSize;
-    }
 
     public MeatSize getMeatSize() {
         return meatSize;
@@ -168,6 +155,18 @@ public class PremiumTopping extends Topping{
             this.sizeName = sizeName;
             this.menuPrice = menuPrice;
         }
+
+        public int getMenuNum() {
+            return menuNum;
+        }
+
+        public double getMenuPrice() {
+            return menuPrice;
+        }
+
+        public String getSizeName() {
+            return sizeName;
+        }
     }
 
     private enum ExtraCheeseSize {
@@ -188,7 +187,7 @@ public class PremiumTopping extends Topping{
     //END <-
 
     //EXPLAIN Separate extraToppingsMenu()???
-    public static void premiumToppingsMenu() {
+    public static Object premiumToppingsMenu() {
         //vars
         Scanner scan = new Scanner(System.in);
         sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
@@ -197,7 +196,8 @@ public class PremiumTopping extends Topping{
         System.out.println("""
                 Would you like Extra Meat?
                 1) Yes
-                0) No
+                2) No
+                0) Exit
                 """);
 
         while (true) {
@@ -205,12 +205,18 @@ public class PremiumTopping extends Topping{
             byte input = scan.nextByte();
             switch (input) {
                 case 0:
-
-                    break;
+                    return null;
                 case 1:
 
+                    break;
+                case 2:
+                    System.out.println("No Extra Meat, got it!");
+                    break;
             }
         }
+
+        //TASK if selected no to all, then sout No Extra Toppings Added in red! then return null
+        //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }
 
     @Override

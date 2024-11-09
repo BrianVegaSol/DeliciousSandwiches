@@ -215,7 +215,7 @@ public class PremiumTopping extends Topping {
     }
     //END <-
 
-    public static PremiumTopping updatePremTop (PremiumTopping premTop) {
+    public static PremiumTopping updatePremTop(PremiumTopping premTop) {
         return premTop;
     }
 
@@ -286,7 +286,7 @@ public class PremiumTopping extends Topping {
         //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }
 
-    public static PremiumTopping sizeAndTypeMenu(String topping , PremiumTopping prem) throws InterruptedException {
+    public static PremiumTopping sizeAndTypeMenu(String topping, PremiumTopping prem) throws InterruptedException {
         byte input = -1;
         //PremiumTopping prem; //= new PremiumTopping(); /FIXME Add non, null base values??? then make perm null if cancelled order???
         //FIXME oof this is why Meat is never saved xO when Cheese comes through here, it makes everything null xO
@@ -299,15 +299,15 @@ public class PremiumTopping extends Topping {
         CheeseType cheeseType;
         ExtraCheeseSize extraCheese;
 
-       if (topping.equalsIgnoreCase("Meat")) {
-         meatSize = null;
-         meatType = null;
-         extraMeat = null;
-       } else {
-         cheeseSize = null;
-         cheeseType = null;
-         extraCheese = null;
-       }
+        if (topping.equalsIgnoreCase("Meat")) {
+            meatSize = null;
+            meatType = null;
+            extraMeat = null;
+        } else {
+            cheeseSize = null;
+            cheeseType = null;
+            extraCheese = null;
+        }
         while (true) {
             System.out.println("What type of " + topping + " would you like?");
             if (topping.equalsIgnoreCase("Meat")) {
@@ -383,57 +383,65 @@ public class PremiumTopping extends Topping {
             }
             //END <-
         }
-            //FIXME Start here if Extra Toppings is not working properly ._.
-            while (true) {
-                System.out.println("Would you like Extra " + topping + "?");
+        //FIXME Start here if Extra Toppings is not working properly ._.
+            int extraInput = -1;
+        while (true) {
+            System.out.println("Would you like Extra " + topping + "?");
+            System.out.println("""
+                    ==================================
+                    1) Yes
+                    0) No
+                    ==================================
+                    """);
+            //EXPLAIN Validation for Extra topping ->
+            try {
+                extraInput = scanner.nextInt();
+                break;
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("I'm sorry,");
+                scanner.nextLine();
+                continue;
+            }
+        }
+        while (true) {
+            if (extraInput == 1) {
                 System.out.println("""
+                        What size would you like?
                         ==================================
-                        1) Yes
-                        0) No
+                        1) 4"
+                        2) 8"
+                        3) 12"
                         ==================================
                         """);
                 //EXPLAIN Validation for Extra topping ->
                 try {
-                    int extraInput = scanner.nextInt();
-                    if (extraInput == 1) {
-                        System.out.println("""
-                                What size would you like?
-                                ==================================
-                                1) 4"
-                                2) 8"
-                                3) 12"
-                                ==================================
-                                """);
-                        //EXPLAIN Validation for Extra topping ->
-                        try {
-                            extraInput = scanner.nextInt();
-                            if (topping.equalsIgnoreCase("Meat")) {
-                                extraMeat = ExtraMeatSize.values()[extraInput - 1];
-                                prem.setExtraMeatSize(extraMeat);
-                            }
-
-                            if (topping.equalsIgnoreCase("Cheese")) {
-                                extraCheese = ExtraCheeseSize.values()[extraInput - 1];
-                                prem.setExtraCheeseSize(extraCheese);
-                            }
-                            break;
-                        } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                            System.err.println("Sorry! We don't make them that long!");
-                            scanner.nextLine();
-                            continue;
-                        }
-                        //END <-
-                    } else {
-                        System.out.println("No Extra " + topping + ", got it!");
-                        break;
+                    extraInput = scanner.nextInt();
+                    if (topping.equalsIgnoreCase("Meat")) {
+                        extraMeat = ExtraMeatSize.values()[extraInput - 1];
+                        prem.setExtraMeatSize(extraMeat);
                     }
-                    //break;
+
+                    if (topping.equalsIgnoreCase("Cheese")) {
+                        extraCheese = ExtraCheeseSize.values()[extraInput - 1];
+                        prem.setExtraCheeseSize(extraCheese);
+                    }
+                    break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                    System.err.println("Sorry! We don't have that size!");
+                    System.err.println("Sorry! We don't make them that long!");
                     scanner.nextLine();
+                    continue;
                 }
                 //END <-
+            } else if (extraInput == 0){
+                System.out.println("No Extra " + topping + ", got it!");
+                break;
+            } else {
+                continue;
             }
+            }
+            //break;
+            //END <-
+
         //break;
             /*if (Topping.confirmOrder("Extra Toppings") == null) {
                 return null;*/
@@ -450,38 +458,37 @@ public class PremiumTopping extends Topping {
         //prem = new Topping(type, size);
         return prem;
     }
-        //return null;
+    //return null;
 
 
-
-@Override
-public String toString() {
-    sb.append("\n\nPremium Topping Details");
-    if (meatSize != null) {
-        sb.append("\n===========================================")
-                .append("\n").append(meatType.menuName).append(" Added")
-                .append("\nSize: ").append(meatSize.sizeName)
-                .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
-        if (extraMeatSize != null) {
-            sb.append("\nExtra ").append(meatType.menuName).append(" Added")
-                    .append("\nSize: ").append(extraMeatSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+    @Override
+    public String toString() {
+        sb.append("\n\nPremium Topping Details");
+        if (meatSize != null) {
+            sb.append("\n===========================================")
+                    .append("\n").append(meatType.menuName).append(" Added")
+                    .append("\nSize: ").append(meatSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
+            if (extraMeatSize != null) {
+                sb.append("\nExtra ").append(meatType.menuName).append(" Added")
+                        .append("\nSize: ").append(extraMeatSize.sizeName)
+                        .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+            }
         }
-    }
 
 
-    if (cheeseSize != null) {
-        sb.append("\n===========================================")
-                .append("\n").append(cheeseType.menuName).append(" Cheese Added")
-                .append("\nSize: ").append(cheeseSize.sizeName)
-                .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
-        if (extraCheeseSize != null) {
-            sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
-                    .append("\nSize: ").append(extraCheeseSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
+        if (cheeseSize != null) {
+            sb.append("\n===========================================")
+                    .append("\n").append(cheeseType.menuName).append(" Cheese Added")
+                    .append("\nSize: ").append(cheeseSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
+            if (extraCheeseSize != null) {
+                sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
+                        .append("\nSize: ").append(extraCheeseSize.sizeName)
+                        .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
+            }
         }
-    }
 
-    return sb.toString();
-}
+        return sb.toString();
+    }
 }

@@ -230,7 +230,7 @@ public class PremiumTopping extends Topping {
                     """);
             try {
                 input = scan.nextByte();
-                break;
+                //break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                 System.err.println("Sorry! We don't make them that long!");
                 scan.nextLine();

@@ -138,6 +138,8 @@ public class Topping {
                 case 0:
                     return null;
                 case 1:
+                    //FIXME Causing issues since the orders can potentially be semi-null EITHER
+                    // Make premTop Object null before exiting & before returning from confirmOrder()
                     if ((prem = (PremiumTopping) PremiumTopping.premiumToppingsMenu()) == null) {
                         //if null then order was cancelled, so should return to this toppingsMenu
                         continue;

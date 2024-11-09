@@ -224,20 +224,33 @@ public class PremiumTopping extends Topping {
             sb.append("\033[31m").append("Extra Toppings Menu!").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
-            System.out.println("""                  
-                    1) Meat
-                    2) Cheese
-                    0) Exit
-                    """);
+            //EXPLAIN Meat Options
+            System.out.println("Do you want Meat?\n1) Yes\n0) No");
             try {
                 input = scan.nextByte();
-                //break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                System.err.println("Sorry! We don't make them that long!");
+                System.err.println("I'm sorry,");
                 scan.nextLine();
             }
+            if (input == 1) {
+                premiumTopping = sizeAndTypeMenu("Meat");
+            }
+            //END
 
-            switch (input) {
+            //EXPLAIN Cheese Options
+            System.out.println("Do you want Cheese?\n1) Yes\n0) No");
+            try {
+                input = scan.nextByte();
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("I'm sorry,");
+                scan.nextLine();
+            }
+            if (input == 1) {
+                premiumTopping = sizeAndTypeMenu("Cheese");
+            }
+            //END
+
+            /*switch (input) {
                 case 0:
                     return null;
                 case 1:
@@ -246,7 +259,9 @@ public class PremiumTopping extends Topping {
                 case 2:
                     premiumTopping = sizeAndTypeMenu("Cheese");
                     break;
-            }
+            }*/
+            System.out.println("Let's go over your order\n");
+            System.out.println(premiumTopping);
             if (Topping.confirmOrder("Premium Toppings") == null) {
                 return premiumTopping == null;
             } else {

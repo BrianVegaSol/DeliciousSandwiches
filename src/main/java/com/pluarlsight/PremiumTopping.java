@@ -233,7 +233,9 @@ public class PremiumTopping extends Topping {
                 scan.nextLine();
             }
             if (input == 1) {
-                premiumTopping = sizeAndTypeMenu("Meat");
+                //premiumTopping = sizeAndTypeMenu("Meat", premiumTopping);
+                sizeAndTypeMenu("Meat", premiumTopping);
+                System.out.println(premiumTopping);
             }
             //END
 
@@ -246,7 +248,9 @@ public class PremiumTopping extends Topping {
                 scan.nextLine();
             }
             if (input == 1) {
-                premiumTopping = sizeAndTypeMenu("Cheese");
+                //premiumTopping = sizeAndTypeMenu("Cheese", premiumTopping);
+                sizeAndTypeMenu("Cheese", premiumTopping);
+                System.out.println(premiumTopping);
             }
             //END
 
@@ -274,17 +278,28 @@ public class PremiumTopping extends Topping {
         //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }
 
-    public static PremiumTopping sizeAndTypeMenu(String topping) throws InterruptedException {
+    public static PremiumTopping sizeAndTypeMenu(String topping , PremiumTopping prem) throws InterruptedException {
         byte input = -1;
-        PremiumTopping prem; //= new PremiumTopping(); /FIXME Add non, null base values??? then make perm null if cacelled order???
+        //PremiumTopping prem; //= new PremiumTopping(); /FIXME Add non, null base values??? then make perm null if cancelled order???
         //FIXME oof this is why Meat is never saved xO when Cheese comes through here, it makes everything null xO
         // if (Meat/Cheese) then ???
-        MeatSize meatSize = null;
-        MeatType meatType = null;
-        ExtraMeatSize extraMeat = null;
-        CheeseSize cheeseSize = null;
-        CheeseType cheeseType = null;
-        ExtraCheeseSize extraCheese = null;
+        MeatSize meatSize;
+        MeatType meatType;
+        ExtraMeatSize extraMeat;
+
+        CheeseSize cheeseSize;
+        CheeseType cheeseType;
+        ExtraCheeseSize extraCheese;
+
+       if (topping.equalsIgnoreCase("Meat")) {
+         meatSize = null;
+         meatType = null;
+         extraMeat = null;
+       } else {
+         cheeseSize = null;
+         cheeseType = null;
+         extraCheese = null;
+       }
         while (true) {
             System.out.println("What type of " + topping + " would you like?\n");
             if (topping.equalsIgnoreCase("Meat")) {
@@ -316,10 +331,13 @@ public class PremiumTopping extends Topping {
                 int typeInput = scanner.nextInt();
                 if (topping.equalsIgnoreCase("Meat")) {
                     meatType = MeatType.values()[typeInput - 1];
+                    prem.setMeatType(meatType);
                 }
 
                 if (topping.equalsIgnoreCase("Cheese")) {
                     cheeseType = CheeseType.values()[typeInput - 1];
+                    prem.setCheeseType(cheeseType);
+
                 }
                 break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -343,10 +361,12 @@ public class PremiumTopping extends Topping {
                 int sizeInput = scanner.nextInt();
                 if (topping.equalsIgnoreCase("Meat")) {
                     meatSize = MeatSize.values()[sizeInput - 1];
+                    prem.setMeatSize(meatSize);
                 }
 
                 if (topping.equalsIgnoreCase("Cheese")) {
                     cheeseSize = CheeseSize.values()[sizeInput - 1];
+                    prem.setCheeseSize(cheeseSize);
                 }
                 break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -381,10 +401,12 @@ public class PremiumTopping extends Topping {
                             extraInput = scanner.nextInt();
                             if (topping.equalsIgnoreCase("Meat")) {
                                 extraMeat = ExtraMeatSize.values()[extraInput - 1];
+                                prem.setExtraMeatSize(extraMeat);
                             }
 
                             if (topping.equalsIgnoreCase("Cheese")) {
                                 extraCheese = ExtraCheeseSize.values()[extraInput - 1];
+                                prem.setExtraCheeseSize(extraCheese);
                             }
                             break;
                         } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -409,12 +431,13 @@ public class PremiumTopping extends Topping {
 
         //FIXME Need to either separate the Meat and Cheese menus ANDOR add validation so that the values stay null
         // and only get updated by user but also get nulled when user cancels order
-        prem.setMeatSize(meatSize);
+        //PremiumTopping prem = null;
+        /*prem.setMeatSize(meatSize);
         prem.setMeatType(meatType);
         prem.setExtraMeatSize(extraMeat);
         prem.setCheeseSize(cheeseSize);
         prem.setCheeseType(cheeseType);
-        prem.setExtraCheeseSize(extraCheese);
+        prem.setExtraCheeseSize(extraCheese);*/
         //prem = new Topping(type, size);
         return prem;
     }

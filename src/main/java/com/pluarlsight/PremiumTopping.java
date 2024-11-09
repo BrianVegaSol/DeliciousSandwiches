@@ -215,7 +215,7 @@ public class PremiumTopping extends Topping {
     }
     //END <-
 
-    //EXPLAIN Separate extraToppingsMenu()???
+    //FIXME Always returning null, is it necessary to return a PremiumTopping now that setters are used?
     public static Object premiumToppingsMenu() throws InterruptedException {
         //vars
         byte input = -1;
@@ -223,10 +223,9 @@ public class PremiumTopping extends Topping {
             sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
-            System.out.println("""
-                    Would you like Extra Meat?
-                    1) Yes
-                    2) No
+            System.out.println("""                  
+                    1) Meat
+                    2) Cheese
                     0) Exit
                     """);
             try {
@@ -244,7 +243,7 @@ public class PremiumTopping extends Topping {
                     sizeAndTypeMenu("Meat");
                     break;
                 case 2:
-                    System.out.println("No Extra Meat, got it!");
+                    sizeAndTypeMenu("Cheese");
                     break;
             }
             Topping.confirmOrder("Top");
@@ -370,6 +369,7 @@ public class PremiumTopping extends Topping {
                         }
                         //END <-
                     } else {
+                        System.out.println("No Extra " + topping + ", got it!");
                         break;
                     }
                     break;
@@ -379,52 +379,52 @@ public class PremiumTopping extends Topping {
                 }
                 //END <-
             }
-
-            if (Topping.confirmOrder("Extra Toppings") == null) {
-                return null;
-            }
-
-            prem.setMeatSize(meatSize);
-            prem.setMeatType(meatType);
-            prem.setExtraMeatSize(extraMeat);
-            prem.setCheeseSize(cheeseSize);
-            prem.setCheeseType(cheeseType);
-            prem.setExtraCheeseSize(extraCheese);
-            //prem = new Topping(type, size);
-            return prem;
+        break;
+            /*if (Topping.confirmOrder("Extra Toppings") == null) {
+                return null;*/
         }
-        return null;
+
+        prem.setMeatSize(meatSize);
+        prem.setMeatType(meatType);
+        prem.setExtraMeatSize(extraMeat);
+        prem.setCheeseSize(cheeseSize);
+        prem.setCheeseType(cheeseType);
+        prem.setExtraCheeseSize(extraCheese);
+        //prem = new Topping(type, size);
+        return prem;
+    }
+        //return null;
+
+
+
+@Override
+public String toString() {
+    sb.append("\n\nPremium Topping Details");
+    if (meatSize != null) {
+        sb.append("\n===========================================")
+                .append("\n").append(meatType.menuName).append(" Meat Added")
+                .append("\nSize: ").append(meatSize.sizeName)
+                .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
+        if (extraMeatSize != null) {
+            sb.append("\nExtra ").append(meatType.menuName).append(" Added")
+                    .append("\nExtra Meat Size: ").append(extraMeatSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+        }
     }
 
 
-    @Override
-    public String toString() {
-        sb.append("\n\nPremium Topping Details");
-        if (meatSize != null) {
-            sb.append("\n===========================================")
-                    .append("\n").append(meatType.menuName).append(" Meat Added")
-                    .append("\nSize: ").append(meatSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
-            if (extraMeatSize != null) {
-                sb.append("\nExtra ").append(meatType.menuName).append(" Added")
-                        .append("\nExtra Meat Size: ").append(extraMeatSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
-            }
+    if (cheeseSize != null) {
+        sb.append("\n===========================================")
+                .append("\n").append(cheeseType.menuName).append(" Cheese Added")
+                .append("\nSize: ").append(cheeseSize.sizeName)
+                .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
+        if (extraCheeseSize != null) {
+            sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
+                    .append("\nExtra Meat Size: ").append(extraCheeseSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
         }
-
-
-        if (cheeseSize != null) {
-            sb.append("\n===========================================")
-                    .append("\n").append(cheeseType.menuName).append(" Cheese Added")
-                    .append("\nSize: ").append(cheeseSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
-            if (extraCheeseSize != null) {
-                sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
-                        .append("\nExtra Meat Size: ").append(extraCheeseSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
-            }
-        }
-
-        return sb.toString();
     }
+
+    return sb.toString();
+}
 }

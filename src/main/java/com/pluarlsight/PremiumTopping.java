@@ -215,10 +215,15 @@ public class PremiumTopping extends Topping {
     }
     //END <-
 
+    public static PremiumTopping updatePremTop (PremiumTopping premTop) {
+        return premTop;
+    }
+
     //FIXME Always returning null, is it necessary to return a PremiumTopping now that setters are used?
     public static PremiumTopping premiumToppingsMenu() throws InterruptedException {
         //TODO Unintended validation! Clears the prem Object everytime the user comes back here!
         PremiumTopping premiumTopping = null;
+        premiumTopping = new PremiumTopping();
         byte input = -1;
         while (true) {
             sb.append("\033[31m").append("Extra Toppings Menu!").append("\033[0m");
@@ -234,6 +239,8 @@ public class PremiumTopping extends Topping {
             }
             if (input == 1) {
                 //premiumTopping = sizeAndTypeMenu("Meat", premiumTopping);
+                //FIXME Play around with having updatePrem outside or inside
+                // Probably should have it inside of size()
                 sizeAndTypeMenu("Meat", premiumTopping);
                 System.out.println(premiumTopping);
             }
@@ -412,13 +419,14 @@ public class PremiumTopping extends Topping {
                         } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                             System.err.println("Sorry! We don't make them that long!");
                             scanner.nextLine();
+                            continue;
                         }
                         //END <-
                     } else {
                         System.out.println("No Extra " + topping + ", got it!");
                         break;
                     }
-                    break;
+                    //break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                     System.err.println("Sorry! We don't make them that long!");
                     scanner.nextLine();

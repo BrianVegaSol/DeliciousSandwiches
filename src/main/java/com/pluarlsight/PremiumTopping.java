@@ -429,15 +429,15 @@ public class PremiumTopping extends Topping {
                             }
                             break;
                         } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                            System.err.println("I'm sorry,");
+                            sb.append("\033[31m").append("Sorry! We don't have that size!").append("\033[0m");
+                            System.out.println(sb.toString());
+                            sb.setLength(0);
                             scanner.nextLine();
                             continue;
                         }
                     }
                 default:
-                    sb.append("\033[31m").append("I'm sorry,").append("\033[0m");
-                    System.out.println(sb.toString());
-                    sb.setLength(0);
+                    System.err.println("Sorry");
                     continue;
                     //END <-
             }

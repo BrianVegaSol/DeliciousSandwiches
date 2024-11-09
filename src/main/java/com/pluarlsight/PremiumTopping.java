@@ -3,17 +3,18 @@ package com.pluarlsight;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class PremiumTopping extends Topping{
-    private PremiumTopping.MeatType meatType;
-    private PremiumTopping.MeatSize meatSize;
-    private PremiumTopping.ExtraMeatSize extraMeatSize;
-    private PremiumTopping.CheeseType cheeseType;
+public class PremiumTopping extends Topping {
+    private MeatType meatType;
+    private MeatSize meatSize;
+    private ExtraMeatSize extraMeatSize;
+    private CheeseType cheeseType;
     private CheeseSize cheeseSize;
-    private PremiumTopping.ExtraCheeseSize extraCheeseSize;
+    private ExtraCheeseSize extraCheeseSize;
     private double premiumToppingsMenuPrice;
     private static StringBuilder sb = new StringBuilder();
+    static Scanner scanner = new Scanner(System.in);
 
-    public PremiumTopping () {
+    public PremiumTopping() {
         super();
     }
 
@@ -26,11 +27,9 @@ public class PremiumTopping extends Topping{
     }*/
 
 
-
     public ExtraCheeseSize getExtraCheeseSize() {
         return extraCheeseSize;
     }
-
 
 
     public ExtraMeatSize getExtraMeatSize() {
@@ -54,7 +53,34 @@ public class PremiumTopping extends Topping{
         this.meatType = meatType;
     }
 
-    /*public PremiumTopping(PremiumTopping premiumTopping, double premToppingsTotalPrice, CheeseSize cheeseSize,
+    public CheeseSize getCheeseSize() {
+        return cheeseSize;
+    }
+
+    public void setCheeseSize(CheeseSize cheeseSize) {
+        this.cheeseSize = cheeseSize;
+    }
+
+    public CheeseType getCheeseType() {
+        return cheeseType;
+    }
+
+    public void setCheeseType(CheeseType cheeseType) {
+        this.cheeseType = cheeseType;
+    }
+
+    public void setExtraCheeseSize(ExtraCheeseSize extraCheeseSize) {
+        this.extraCheeseSize = extraCheeseSize;
+    }
+
+    public void setExtraMeatSize(ExtraMeatSize extraMeatSize) {
+        this.extraMeatSize = extraMeatSize;
+    }
+
+    public void setPremiumToppingsMenuPrice(double premiumToppingsMenuPrice) {
+        this.premiumToppingsMenuPrice = premiumToppingsMenuPrice;
+    }
+/*public PremiumTopping(PremiumTopping premiumTopping, double premToppingsTotalPrice, CheeseSize cheeseSize,
                           CheeseType cheeseType, ExtraCheeseSize extraCheeseSize, ExtraMeatSize extraMeatSize,
                           MeatSize meatSize, MeatType meatType, double premiumToppingsMenuPrice) {
         super(premiumTopping, premToppingsTotalPrice);
@@ -131,7 +157,7 @@ public class PremiumTopping extends Topping{
     private enum CheeseType {
         AMERICAN(1, "American"),
         PROVOLONE(2, "Provolone"),
-        CHEDDAR(3, "Cheddar"), 
+        CHEDDAR(3, "Cheddar"),
         SWISS(4, "Swiss");
 
         private int menuNum;
@@ -192,56 +218,213 @@ public class PremiumTopping extends Topping{
     //EXPLAIN Separate extraToppingsMenu()???
     public static Object premiumToppingsMenu() throws InterruptedException {
         //vars
-        Scanner scan = new Scanner(System.in);
-        byte extraMeatInput = -1;
+        byte input = -1;
         while (true) {
-        sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
-        System.out.println(sb.toString());
-        sb.setLength(0);
-        System.out.println("""
-                Would you like Extra Meat?
-                1) Yes
-                2) No
-                0) Exit
-                """);
-            //sb
-            byte input = scan.nextByte();
-
+            sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+            System.out.println("""
+                    Would you like Extra Meat?
+                    1) Yes
+                    2) No
+                    0) Exit
+                    """);
             try {
-                extraMeatInput = scan.nextByte();
-                ExtraMeatSize wantsExtraMeat = ExtraMeatSize.values()[extraMeatInput - 1];
+                input = scan.nextByte();
                 break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                 System.err.println("Sorry! We don't make them that long!");
                 scan.nextLine();
             }
-            
+
             switch (input) {
                 case 0:
                     return null;
                 case 1:
-
+                    sizeAndTypeMenu("Meat");
                     break;
                 case 2:
                     System.out.println("No Extra Meat, got it!");
                     break;
             }
-        Topping.confirmOrder("Top");
+            Topping.confirmOrder("Top");
         }
         return null;
         //TASK if selected no to all, then sout No Extra Toppings Added in red! then return null
         //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }
 
+    public static PremiumTopping sizeAndTypeMenu(String topping) throws InterruptedException {
+        byte input = -1;
+        PremiumTopping prem = new PremiumTopping();
+        MeatSize meatSize = null;
+        MeatType meatType = null;
+        ExtraMeatSize extraMeat = null;
+        CheeseSize cheeseSize = null;
+        CheeseType cheeseType = null;
+        ExtraCheeseSize extraCheese = null;
+        while (true) {
+            System.out.println("What type of " + topping + " would you like?\n");
+            if (topping.equalsIgnoreCase("Meat")) {
+                System.out.println("""
+                        ==================================
+                        1) Steak
+                        2) Ham
+                        3) Salami
+                        4) Roast Beef
+                        5) Chicken
+                        6) Bacon
+                        ==================================
+                        """);
+            }
+
+            if (topping.equalsIgnoreCase("Cheese")) {
+                System.out.println("""
+                        ==================================
+                        1) America
+                        2) Provolone
+                        3) Cheddar
+                        4) Swiss
+                        ==================================
+                        """);
+            }
+
+            //EXPLAIN Validation for Type ->
+            try {
+                int typeInput = scanner.nextInt();
+                if (topping.equalsIgnoreCase("Meat")) {
+                    meatType = MeatType.values()[typeInput - 1];
+                }
+
+                if (topping.equalsIgnoreCase("Cheese")) {
+                    cheeseType = CheeseType.values()[typeInput - 1];
+                }
+                break;
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("Sorry! We don't have that topping in stock right now!");
+                scanner.nextLine();
+            }
+        }
+        //END <-
+
+        while (true) {
+            System.out.println("""
+                    What size would you like?
+                    ==================================
+                    1) 4"
+                    2) 8"
+                    3) 12"
+                    ==================================
+                    """);
+            //EXPLAIN Validation for Size ->
+            try {
+                int sizeInput = scanner.nextInt();
+                if (topping.equalsIgnoreCase("Meat")) {
+                    meatSize = MeatSize.values()[sizeInput - 1];
+                }
+
+                if (topping.equalsIgnoreCase("Cheese")) {
+                    cheeseSize = CheeseSize.values()[sizeInput - 1];
+                }
+                break;
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("Sorry! We don't make them that long!");
+                scanner.nextLine();
+            }
+            //END <-
+            //FIXME Start here if Extra Toppings is not working properly ._.
+            while (true) {
+                System.out.println("Would you like Extra " + topping + "?");
+                System.out.println("""
+                        ==================================
+                        1) Yes
+                        0) No
+                        ==================================
+                        """);
+                //EXPLAIN Validation for Extra topping ->
+                try {
+                    int extraInput = scanner.nextInt();
+                    if (extraInput == 1) {
+                        System.out.println("""
+                                What size would you like?
+                                ==================================
+                                1) 4"
+                                2) 8"
+                                3) 12"
+                                ==================================
+                                """);
+                        //EXPLAIN Validation for Extra topping ->
+                        try {
+                            extraInput = scanner.nextInt();
+                            if (topping.equalsIgnoreCase("Meat")) {
+                                extraMeat = ExtraMeatSize.values()[extraInput - 1];
+                            }
+
+                            if (topping.equalsIgnoreCase("Cheese")) {
+                                extraCheese = ExtraCheeseSize.values()[extraInput - 1];
+                            }
+                            break;
+                        } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                            System.err.println("Sorry! We don't make them that long!");
+                            scanner.nextLine();
+                        }
+                        //END <-
+                    } else {
+                        break;
+                    }
+                    break;
+                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Sorry! We don't make them that long!");
+                    scanner.nextLine();
+                }
+                //END <-
+            }
+
+            if (Topping.confirmOrder("Extra Toppings") == null) {
+                return null;
+            }
+
+            prem.setMeatSize(meatSize);
+            prem.setMeatType(meatType);
+            prem.setExtraMeatSize(extraMeat);
+            prem.setCheeseSize(cheeseSize);
+            prem.setCheeseType(cheeseType);
+            prem.setExtraCheeseSize(extraCheese);
+            //prem = new Topping(type, size);
+            return prem;
+        }
+        return null;
+    }
+
+
     @Override
     public String toString() {
-        return "PremiumTopping{" +
-                "cheeseSize=" + cheeseSize +
-                ", meatType=" + meatType +
-                ", meatSize=" + meatSize +
-                ", extraMeatSize=" + extraMeatSize +
-                ", cheeseType=" + cheeseType +
-                ", extraCheeseSize=" + extraCheeseSize +
-                '}';
+        sb.append("\n\nPremium Topping Details");
+        if (meatSize != null) {
+            sb.append("\n===========================================")
+                    .append("\n").append(meatType.menuName).append(" Meat Added")
+                    .append("\nSize: ").append(meatSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
+            if (extraMeatSize != null) {
+                sb.append("\nExtra ").append(meatType.menuName).append(" Added")
+                        .append("\nExtra Meat Size: ").append(extraMeatSize.sizeName)
+                        .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+            }
+        }
+
+
+        if (cheeseSize != null) {
+            sb.append("\n===========================================")
+                    .append("\n").append(cheeseType.menuName).append(" Cheese Added")
+                    .append("\nSize: ").append(cheeseSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
+            if (extraCheeseSize != null) {
+                sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
+                        .append("\nExtra Meat Size: ").append(extraCheeseSize.sizeName)
+                        .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
+            }
+        }
+
+        return sb.toString();
     }
 }

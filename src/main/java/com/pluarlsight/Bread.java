@@ -100,7 +100,7 @@ public class Bread extends Sandwich{
         //EXPLAIN Loop until all sandwiches are made
         while (sandwichesMade < (numOfSandwiches)) {
             Bread bread;
-        bread = (Bread) sizeAndTypeMenu("Bread");
+        bread = (Bread) sizeAndTypeMenu();
             //byte sandwichInput;
             //TODO Make Validations into methods w/ returns
             /*//EXPLAIN Validation for type ->
@@ -186,10 +186,8 @@ public class Bread extends Sandwich{
         return total;
     }
 
-public static Object sizeAndTypeMenu (String menuType) {
+public static Object sizeAndTypeMenu () {
         byte input = -1;
-        switch (menuType) {
-            case "Bread":
                 Bread bread = null;
                 BreadSize size;
                 BreadType type;
@@ -239,15 +237,6 @@ public static Object sizeAndTypeMenu (String menuType) {
                     //END <-
                 }
                 return bread = new Bread(type, size);
-
-            case "Premium Toppings":
-                break;
-            case "Drink":
-                break;
-            case "Chips":
-                break;
-        }
-        return null;
 }
 
     @Override

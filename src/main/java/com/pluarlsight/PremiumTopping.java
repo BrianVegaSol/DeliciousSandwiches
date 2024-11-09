@@ -216,7 +216,7 @@ public class PremiumTopping extends Topping {
     //END <-
 
     //FIXME Always returning null, is it necessary to return a PremiumTopping now that setters are used?
-    public static Object premiumToppingsMenu() throws InterruptedException {
+    public static PremiumTopping premiumToppingsMenu() throws InterruptedException {
         //TODO Unintended validation! Clears the prem Object everytime the user comes back here!
         PremiumTopping premiumTopping = null;
         byte input = -1;
@@ -262,9 +262,10 @@ public class PremiumTopping extends Topping {
             }*/
             System.out.println("Let's go over your order\n");
             System.out.println(premiumTopping);
-            if (Topping.confirmOrder("Premium Toppings") == null) {
-                return premiumTopping == null;
+            if (Topping.confirmOrder("Premium Toppings") == -1) {
+                return premiumTopping = null;
             } else {
+                //Topping.setPremiumTopping();
                 System.out.print("Lets move onto the ");
                 return premiumTopping;
             }
@@ -275,7 +276,9 @@ public class PremiumTopping extends Topping {
 
     public static PremiumTopping sizeAndTypeMenu(String topping) throws InterruptedException {
         byte input = -1;
-        PremiumTopping prem = new PremiumTopping();
+        PremiumTopping prem; //= new PremiumTopping(); /FIXME Add non, null base values??? then make perm null if cacelled order???
+        //FIXME oof this is why Meat is never saved xO when Cheese comes through here, it makes everything null xO
+        // if (Meat/Cheese) then ???
         MeatSize meatSize = null;
         MeatType meatType = null;
         ExtraMeatSize extraMeat = null;
@@ -351,6 +354,7 @@ public class PremiumTopping extends Topping {
                 scanner.nextLine();
             }
             //END <-
+        }
             //FIXME Start here if Extra Toppings is not working properly ._.
             while (true) {
                 System.out.println("Would you like Extra " + topping + "?");
@@ -399,11 +403,12 @@ public class PremiumTopping extends Topping {
                 }
                 //END <-
             }
-        break;
+        //break;
             /*if (Topping.confirmOrder("Extra Toppings") == null) {
                 return null;*/
-        }
 
+        //FIXME Need to either separate the Meat and Cheese menus ANDOR add validation so that the values stay null
+        // and only get updated by user but also get nulled when user cancels order
         prem.setMeatSize(meatSize);
         prem.setMeatType(meatType);
         prem.setExtraMeatSize(extraMeat);

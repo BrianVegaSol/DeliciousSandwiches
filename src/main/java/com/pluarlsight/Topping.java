@@ -90,6 +90,9 @@ public class Topping {
     public Topping() {
     }
 
+    public void setPremiumTopping(PremiumTopping premiumTopping) {
+        this.premiumTopping = premiumTopping;
+    }
     /*
     Toppings: - the user should be able to add extras of each topping
     § Meat:
@@ -140,7 +143,7 @@ public class Topping {
                 case 1:
                     //FIXME Causing issues since the orders can potentially be semi-null EITHER
                     // Make premTop Object null before exiting & before returning from confirmOrder()
-                    if ((prem = (PremiumTopping) PremiumTopping.premiumToppingsMenu()) == null) {
+                    if ((prem =  PremiumTopping.premiumToppingsMenu()) == null) {
                         //if null then order was cancelled, so should return to this toppingsMenu
                         continue;
                     } else {
@@ -287,9 +290,10 @@ public class Topping {
                         //END <-
                         //EXPLAIN Confirm Sandwich order ->
                         Topping topping = new Topping();
-                        if ((topping = (Topping) confirmOrder("Sandwich")) == null) {
+                        if (confirmOrder("Sandwich") == -1) {
                             continue;
                         } else {
+                            //FIXME May need to add topping to orderMap??? then return
                             return topping;
                         }
                         //END <-
@@ -314,7 +318,7 @@ public class Topping {
         //return 1;
     }
 
-    public static <T> T confirmOrder(String menuType) throws InterruptedException {
+    public static int confirmOrder(String menuType) throws InterruptedException {
         while (true) {
             sb.append("\033[36m").append("Would you like to Confirm your " + menuType + " Order?\n\n")
                     .append("\033[0m");
@@ -334,7 +338,8 @@ public class Topping {
             switch (input) {
                 case 0:
                     System.out.println("Alright, lets go back");
-                    return null;
+                    return -1;
+                    //return null;
                 case 1:
                     sb.append("\033[32m").append("Processing order").append("\033[0m");
                     System.out.print(sb.toString());
@@ -352,8 +357,8 @@ public class Topping {
                     System.out.print(sb.toString());
                     sb.setLength(0);
                     Thread.sleep(600);
-                    Topping top = new Topping();
-
+                    //Topping top = new Topping();
+                    return 1;
                     //return new Topping();
                 default:
                     System.err.println("Im sorry,");

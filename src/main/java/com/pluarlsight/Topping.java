@@ -314,7 +314,7 @@ public class Topping {
         //return 1;
     }
 
-    public static <T extends Order> Object confirmOrder(String menuType) throws InterruptedException {
+    public static <T> T confirmOrder(String menuType) throws InterruptedException {
         while (true) {
             sb.append("\033[36m").append("Would you like to Confirm your " + menuType + " Order?\n\n")
                     .append("\033[0m");
@@ -353,7 +353,8 @@ public class Topping {
                     sb.setLength(0);
                     Thread.sleep(600);
                     Topping top = new Topping();
-                    return new Topping();
+
+                    //return new Topping();
                 default:
                     System.err.println("Im sorry,");
                     scan.nextLine();

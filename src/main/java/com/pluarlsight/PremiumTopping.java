@@ -384,7 +384,7 @@ public class PremiumTopping extends Topping {
             //END <-
         }
         //FIXME Start here if Extra Toppings is not working properly ._.
-        int extraInput = -1;
+        int wantsExtra = -1;
         while (true) {
             System.out.println("Would you like Extra " + topping + "?");
             System.out.println("""
@@ -395,13 +395,9 @@ public class PremiumTopping extends Topping {
                     """);
             //EXPLAIN Validation for Extra topping ->
             try {
-                extraInput = scanner.nextInt();
-            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                System.err.println("I'm sorry,");
-                scanner.nextLine();
-                continue;
-            }
-            switch (extraInput) {
+                wantsExtra = scanner.nextInt();
+            int extraInput;
+            switch (wantsExtra) {
                 case 0:
                     System.out.println("No Extra " + topping + ", got it!");
                     break;
@@ -436,10 +432,18 @@ public class PremiumTopping extends Topping {
                             continue;
                         }
                     }
+                    break;
                 default:
-                    System.err.println("Sorry");
+                    sb.append("\033[31m").append("I'm sorry,").append("\033[0m");
+                    System.out.println(sb.toString());
+                    sb.setLength(0);
                     continue;
                     //END <-
+            }
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("I'm sorry,");
+                scanner.nextLine();
+                continue;
             }
             break;
 

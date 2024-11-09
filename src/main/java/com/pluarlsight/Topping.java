@@ -123,8 +123,15 @@ public class Topping {
                     2) No
                     0) Exit
                     """);
-            //TODO Validation
+            //EXPLAIN Input Validation
+            try {
             input = scan.nextByte();
+            } catch (InputMismatchException e) {
+                System.err.println("I'm sorry,");
+                scan.nextLine();
+                continue;
+            }
+            //END
             //FIXME Either need the Constructor to accept itself (?)
             // OR Make a RegularTopping class too UGH
             switch (input) {
@@ -133,6 +140,7 @@ public class Topping {
                 case 1:
                     if ((prem = (PremiumTopping) PremiumTopping.premiumToppingsMenu()) == null) {
                         //if null then order was cancelled, so should return to this toppingsMenu
+                        continue;
                     } else {
                         top = new Topping(prem);
 
@@ -145,16 +153,14 @@ public class Topping {
                             return top;
                         }
                     }
-                    break;
+                    //break;
                 case 2:
-            }
-            if (input == 1) {
-            }
-            if (input == 2) {
-                if ((top = regularToppingsMenu()) == null) {
-                } else {
-                    return top;
-                }
+                    System.out.print("No Extra Toppings? Alright!\n Onto the ");
+                    if ((top = regularToppingsMenu()) == null) {
+                        return null;
+                    } else {
+                        return top;
+                    }
             }
         }
     }

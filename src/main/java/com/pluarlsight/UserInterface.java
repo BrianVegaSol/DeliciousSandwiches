@@ -195,7 +195,7 @@ o Cancel - delete order and go back to the home screen
                 }
                 break;
             } catch (InputMismatchException e) {
-                System.err.println("What did you say???\nDid you want to look at the ");
+                System.err.print("What did you say???\nDid you want to look at the ");
                 scan.nextLine();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);

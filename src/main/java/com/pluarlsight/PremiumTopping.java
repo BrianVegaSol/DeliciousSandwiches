@@ -273,6 +273,7 @@ public class PremiumTopping extends Topping {
             }*/
             System.out.println("Let's go over your order\n");
             System.out.println(premiumTopping);
+            sb.setLength(0);
             if (Topping.confirmOrder("Premium Toppings") == -1) {
                 return premiumTopping = null;
             } else {
@@ -377,7 +378,7 @@ public class PremiumTopping extends Topping {
                 }
                 break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                System.err.println("Sorry! We don't make them that long!");
+                System.err.println("Sorry! We don't have that size!");
                 scanner.nextLine();
             }
             //END <-

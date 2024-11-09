@@ -160,12 +160,13 @@ public class Topping {
                     }
                     //break;
                 case 2:
-                    System.out.print("No Extra Toppings? Alright!\n Onto the ");
-                    System.out.println(prem);
-                    System.out.println(top);
+                    System.out.print("No Extra Toppings? Alright!\nOnto the ");
+                    //System.out.println(prem);
+                    //System.out.println(top);
                     if ((top = regularToppingsMenu()) == null) {
                         return null;
                     } else {
+                        prem = null;
                         return top;
                     }
             }
@@ -480,6 +481,11 @@ public class Topping {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
+        if (premiumTopping != null) {
+            sb.append(premiumTopping);
+        } else {
+            sb.append("No Premium Toppings Added\n========================\n\n");
+        }
         //TODO have removed and the updated currentList in here and see if they update after confirming the order
         // May need to make a method/ make currentList static at the top of the class to use
         // as just a reference, not instantiating it
@@ -487,7 +493,9 @@ public class Topping {
             return "Nothing removed";
         }
         //TODO Reuse the Included and Removed sb, make it a method and replace this filler test text
-        return "Removed: " + removedToppingsList.getFirst();
+        return  sb.toString() + //TODO Make all of this part of the sb //FIXME TRACK DOWN WHERE THIS PRINTS AND
+                // FIXME SB.SETLENGTH(0)
+                "Removed: " + removedToppingsList.getFirst();
         /*if (this instanceof PremiumTopping) {
 
         }*/

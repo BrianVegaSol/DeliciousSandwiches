@@ -384,7 +384,7 @@ public class PremiumTopping extends Topping {
             //END <-
         }
         //FIXME Start here if Extra Toppings is not working properly ._.
-            int extraInput = -1;
+        int extraInput = -1;
         while (true) {
             System.out.println("Would you like Extra " + topping + "?");
             System.out.println("""
@@ -396,14 +396,55 @@ public class PremiumTopping extends Topping {
             //EXPLAIN Validation for Extra topping ->
             try {
                 extraInput = scanner.nextInt();
-                break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                 System.err.println("I'm sorry,");
                 scanner.nextLine();
                 continue;
             }
+            switch (extraInput) {
+                case 0:
+                    System.out.println("No Extra " + topping + ", got it!");
+                    break;
+                case 1:
+                    while (true) {
+                        System.out.println("""
+                                What size would you like?
+                                ==================================
+                                1) 4"
+                                2) 8"
+                                3) 12"
+                                ==================================
+                                """);
+                        //EXPLAIN Validation for Extra topping ->
+                        try {
+                            extraInput = scanner.nextInt();
+                            if (topping.equalsIgnoreCase("Meat")) {
+                                extraMeat = ExtraMeatSize.values()[extraInput - 1];
+                                prem.setExtraMeatSize(extraMeat);
+                            }
+
+                            if (topping.equalsIgnoreCase("Cheese")) {
+                                extraCheese = ExtraCheeseSize.values()[extraInput - 1];
+                                prem.setExtraCheeseSize(extraCheese);
+                            }
+                            break;
+                        } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                            System.err.println("I'm sorry,");
+                            scanner.nextLine();
+                            continue;
+                        }
+                    }
+                default:
+                    sb.append("\033[31m").append("I'm sorry,").append("\033[0m");
+                    System.out.println(sb.toString());
+                    sb.setLength(0);
+                    continue;
+                    //END <-
+            }
+            break;
+
         }
-        while (true) {
+        /*while (true) {
             if (extraInput == 1) {
                 System.out.println("""
                         What size would you like?
@@ -438,9 +479,9 @@ public class PremiumTopping extends Topping {
             } else {
                 continue;
             }
-            }
-            //break;
-            //END <-
+            }*/
+        //break;
+        //END <-
 
         //break;
             /*if (Topping.confirmOrder("Extra Toppings") == null) {

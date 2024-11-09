@@ -61,7 +61,6 @@ o Cancel - delete order and go back to the home screen
                         orderMenu();
                         break;
                     default:
-                        //TODO Make this red
                         homeSB.append("\033[31m").append("Sorry! I didn't quite catch that!\n").append("\033[0m");
                         System.out.println(homeSB.toString());
                         homeSB.setLength(0);

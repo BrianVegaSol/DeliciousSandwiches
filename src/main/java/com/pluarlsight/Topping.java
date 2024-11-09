@@ -76,6 +76,7 @@ public class Topping {
         this.premiumTopping = premiumTopping;
         this.premToppingsTotalPrice = premToppingsTotalPrice;
     }
+
     //FIXME DELETE THIS IS A PLACEHOLDER
     public Topping(PremiumTopping premiumTopping) {
         this.premiumTopping = premiumTopping;
@@ -130,20 +131,20 @@ public class Topping {
                 case 0:
                     return null;
                 case 1:
-                if ((prem = (PremiumTopping) PremiumTopping.premiumToppingsMenu()) == null) {
-                    //if null then order was cancelled, so should return to this toppingsMenu
-                } else {
-                    top = new Topping(prem);
-
-                    if ((top = Topping.regularToppingsMenu()) == null) {
-                        //if cancels order in regToppingsMenu() then come back here
-                        continue;
+                    if ((prem = (PremiumTopping) PremiumTopping.premiumToppingsMenu()) == null) {
+                        //if null then order was cancelled, so should return to this toppingsMenu
                     } else {
-                        //FIXME Might be ok but should find a way to have both Reg and Prem Toppings
-                        // combined into 1 Topping Object
-                        return top;
+                        top = new Topping(prem);
+
+                        if ((top = Topping.regularToppingsMenu()) == null) {
+                            //if cancels order in regToppingsMenu() then come back here
+                            continue;
+                        } else {
+                            //FIXME Might be ok but should find a way to have both Reg and Prem Toppings
+                            // combined into 1 Topping Object
+                            return top;
+                        }
                     }
-                }
                     break;
                 case 2:
             }
@@ -277,15 +278,15 @@ public class Topping {
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         //END <-
                         //EXPLAIN Confirm Sandwich order ->
-                            Topping topping = new Topping();
+                        Topping topping = new Topping();
                         if ((topping = (Topping) confirmOrder("Sandwich")) == null) {
-                           continue;
+                            continue;
                         } else {
                             return topping;
                         }
                         //END <-
-                    //runRemainingRegularToppingsMenu = false;
-                    //break;
+                        //runRemainingRegularToppingsMenu = false;
+                        //break;
                     default:
                         System.err.print("Great! That's not a topping we offer, so you're good!\nNow please have a look at the ");
                         break;

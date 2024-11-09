@@ -217,10 +217,10 @@ public class PremiumTopping extends Topping {
 
     //FIXME Always returning null, is it necessary to return a PremiumTopping now that setters are used?
     public static Object premiumToppingsMenu() throws InterruptedException {
-        //vars
+        PremiumTopping premiumTopping = null;
         byte input = -1;
         while (true) {
-            sb.append("\033[31m").append("Welcome to to Extra Toppings Menu!").append("\033[0m");
+            sb.append("\033[31m").append("Extra Toppings Menu!").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
             System.out.println("""                  
@@ -240,13 +240,18 @@ public class PremiumTopping extends Topping {
                 case 0:
                     return null;
                 case 1:
-                    sizeAndTypeMenu("Meat");
+                    premiumTopping = sizeAndTypeMenu("Meat");
                     break;
                 case 2:
-                    sizeAndTypeMenu("Cheese");
+                    premiumTopping = sizeAndTypeMenu("Cheese");
                     break;
             }
-            Topping.confirmOrder("Top");
+            if (Topping.confirmOrder("Top") == null) {
+                return null;
+            } else {
+                System.out.print("Lets move onto the ");
+                return premiumTopping;
+            }
         }
         return null;
         //TASK if selected no to all, then sout No Extra Toppings Added in red! then return null

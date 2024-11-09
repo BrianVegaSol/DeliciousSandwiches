@@ -10,12 +10,19 @@ public class Bread extends Sandwich{
     private int numOfSandwiches;
     private BreadType breadType;
     private BreadSize breadSize;
+    static Scanner scan = new Scanner(System.in);
 
     public Bread(BreadType breadType, BreadSize breadSize, int numOfSandwiches) {
         super();
         this.breadType = breadType;
         this.breadSize = breadSize;
         this.numOfSandwiches = numOfSandwiches;
+    }
+
+    public Bread(BreadType breadType, BreadSize breadSize) {
+        super();
+        this.breadType = breadType;
+        this.breadSize = breadSize;
     }
 
     public BreadSize getBreadSize() {
@@ -87,15 +94,16 @@ public class Bread extends Sandwich{
         byte sandwichesMade = 0;
         int breadSizeInput = -1;
         double sandwichPriceTally = 0;
-        Scanner scanBread = new Scanner(System.in);
         //FIXME Prooobably gonna break stuff ToT
         BreadType type = BreadType.RYE;
         BreadSize size = BreadSize.FOUR_INCH;
         //EXPLAIN Loop until all sandwiches are made
         while (sandwichesMade < (numOfSandwiches)) {
+            Bread bread;
+        bread = (Bread) sizeAndTypeMenu("Bread");
             //byte sandwichInput;
             //TODO Make Validations into methods w/ returns
-            //EXPLAIN Validation for type ->
+            /*//EXPLAIN Validation for type ->
             while (true) {
                 System.out.println("""
                         What type of bread would you like?
@@ -139,7 +147,7 @@ public class Bread extends Sandwich{
                     scanBread.nextLine();
                 }
             }
-            //EXPLAIN END <-
+            //EXPLAIN END <-*/
             //FIXME Need to move this AFTER calling the Toppings()s to have a complete Sandwich
             // If dynamicMenu 0) return acts like I think it does, will not add Bread if Toppings order is cancelled
             //TODO Only do this if cant access vars in Bread due to being private
@@ -158,12 +166,12 @@ public class Bread extends Sandwich{
                 // just making 1 sandwich at a time
                 // Then have Topping and Bread added to Sandwich class here, ordersMap.add(sandwich) and
                 // sout Order Placed Successfully, reflect this change in the Checkout()
-                Bread breadName = new Bread(type, size, numOfSandwiches);
-                System.out.println(breadName);
+                //Bread breadName = new Bread(type, size, numOfSandwiches);
+                System.out.println(bread);
                 //Sandwich sandwich = new Sandwich(bread, );
                 System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here
-                sandwichPriceTally += breadName.breadSize.menuPrice;
+                sandwichPriceTally += bread.breadSize.menuPrice;
                 //END
                 sandwichesMade++;
             }
@@ -178,7 +186,69 @@ public class Bread extends Sandwich{
         return total;
     }
 
+public static Object sizeAndTypeMenu (String menuType) {
+        byte input = -1;
+        switch (menuType) {
+            case "Bread":
+                Bread bread = null;
+                BreadSize size;
+                BreadType type;
+                //EXPLAIN Validation for type ->
+                while (true) {
+                    System.out.println("""
+                        What type of bread would you like?
+                        ==================================
+                        1) White
+                        2) Wheat
+                        3) Rye
+                        4) Wrap
+                        ==================================
+                        """);
 
+                    try {
+                        //FIXME should be at the top?
+                        int breadTypeInput = scan.nextInt();
+                        type = BreadType.values()[breadTypeInput - 1];
+                        break;
+                    } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                        System.err.println("Sorry! We don't have that in stock right now!");
+                        scan.nextLine();
+                    }
+                }
+                //END <-
+
+                //EXPLAIN Validation for size ->
+                while (true) {
+
+                    System.out.println("""
+                        What size of bread would you like?
+                        ==================================
+                        1) 4"
+                        2) 8"
+                        3) 12"
+                        ==================================
+                        """);
+                    try {
+                        int breadSizeInput = scan.nextInt();
+                        size = BreadSize.values()[breadSizeInput - 1];
+                        break;
+                    } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                        System.err.println("Sorry! We don't make them that long!");
+                        scan.nextLine();
+                    }
+                    //END <-
+                }
+                return bread = new Bread(type, size);
+
+            case "Premium Toppings":
+                break;
+            case "Drink":
+                break;
+            case "Chips":
+                break;
+        }
+        return null;
+}
 
     @Override
     public String toString() {

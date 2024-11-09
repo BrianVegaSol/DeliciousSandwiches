@@ -101,7 +101,7 @@ public class PremiumTopping extends Topping {
     //EXPLAIN Meat Enums ->
     //FIXME Probably gonna wanna add the type for HashMap here
     private enum MeatType {
-        STEAK(1, "Steak", false),
+        PEPPERONI(1, "Pepperoni", false),
         HAM(2, "Ham", false),
         SALAMI(3, "Salami", false),
         ROAST_BEEF(4, "Roast Beef", false),
@@ -242,7 +242,7 @@ public class PremiumTopping extends Topping {
                 //FIXME Play around with having updatePrem outside or inside
                 // Probably should have it inside of size()
                 sizeAndTypeMenu("Meat", premiumTopping);
-                System.out.println(premiumTopping);
+                //System.out.println(premiumTopping);
             }
             //END
 
@@ -257,7 +257,7 @@ public class PremiumTopping extends Topping {
             if (input == 1) {
                 //premiumTopping = sizeAndTypeMenu("Cheese", premiumTopping);
                 sizeAndTypeMenu("Cheese", premiumTopping);
-                System.out.println(premiumTopping);
+                //System.out.println(premiumTopping);
             }
             //END
 
@@ -308,11 +308,11 @@ public class PremiumTopping extends Topping {
          extraCheese = null;
        }
         while (true) {
-            System.out.println("What type of " + topping + " would you like?\n");
+            System.out.println("What type of " + topping + " would you like?");
             if (topping.equalsIgnoreCase("Meat")) {
                 System.out.println("""
                         ==================================
-                        1) Steak
+                        1) Pepperoni
                         2) Ham
                         3) Salami
                         4) Roast Beef
@@ -325,7 +325,7 @@ public class PremiumTopping extends Topping {
             if (topping.equalsIgnoreCase("Cheese")) {
                 System.out.println("""
                         ==================================
-                        1) America
+                        1) American
                         2) Provolone
                         3) Cheddar
                         4) Swiss
@@ -428,7 +428,7 @@ public class PremiumTopping extends Topping {
                     }
                     //break;
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                    System.err.println("Sorry! We don't make them that long!");
+                    System.err.println("Sorry! We don't have that size!");
                     scanner.nextLine();
                 }
                 //END <-
@@ -458,12 +458,12 @@ public String toString() {
     sb.append("\n\nPremium Topping Details");
     if (meatSize != null) {
         sb.append("\n===========================================")
-                .append("\n").append(meatType.menuName).append(" Meat Added")
+                .append("\n").append(meatType.menuName).append(" Added")
                 .append("\nSize: ").append(meatSize.sizeName)
                 .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
         if (extraMeatSize != null) {
             sb.append("\nExtra ").append(meatType.menuName).append(" Added")
-                    .append("\nExtra Meat Size: ").append(extraMeatSize.sizeName)
+                    .append("\nSize: ").append(extraMeatSize.sizeName)
                     .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
         }
     }
@@ -476,7 +476,7 @@ public String toString() {
                 .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
         if (extraCheeseSize != null) {
             sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
-                    .append("\nExtra Meat Size: ").append(extraCheeseSize.sizeName)
+                    .append("\nSize: ").append(extraCheeseSize.sizeName)
                     .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
         }
     }

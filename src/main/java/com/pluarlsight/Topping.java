@@ -161,6 +161,8 @@ public class Topping {
                     //break;
                 case 2:
                     System.out.print("No Extra Toppings? Alright!\n Onto the ");
+                    System.out.println(prem);
+                    System.out.println(top);
                     if ((top = regularToppingsMenu()) == null) {
                         return null;
                     } else {
@@ -481,8 +483,11 @@ public class Topping {
         //TODO have removed and the updated currentList in here and see if they update after confirming the order
         // May need to make a method/ make currentList static at the top of the class to use
         // as just a reference, not instantiating it
-        // reuse the Included and Removed sb???
-        return "" + removedToppingsList.getFirst();
+        if (removedToppingsList.isEmpty()) {
+            return "Nothing removed";
+        }
+        //TODO Reuse the Included and Removed sb, make it a method and replace this filler test text
+        return "Removed: " + removedToppingsList.getFirst();
         /*if (this instanceof PremiumTopping) {
 
         }*/

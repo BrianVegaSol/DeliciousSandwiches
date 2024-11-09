@@ -217,6 +217,7 @@ public class PremiumTopping extends Topping {
 
     //FIXME Always returning null, is it necessary to return a PremiumTopping now that setters are used?
     public static Object premiumToppingsMenu() throws InterruptedException {
+        //TODO Unintended validation! Clears the prem Object everytime the user comes back here!
         PremiumTopping premiumTopping = null;
         byte input = -1;
         while (true) {
@@ -246,14 +247,13 @@ public class PremiumTopping extends Topping {
                     premiumTopping = sizeAndTypeMenu("Cheese");
                     break;
             }
-            if (Topping.confirmOrder("Top") == null) {
-                return null;
+            if (Topping.confirmOrder("Premium Toppings") == null) {
+                return premiumTopping == null;
             } else {
                 System.out.print("Lets move onto the ");
                 return premiumTopping;
             }
         }
-        return null;
         //TASK if selected no to all, then sout No Extra Toppings Added in red! then return null
         //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }

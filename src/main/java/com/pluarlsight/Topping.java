@@ -513,7 +513,7 @@ public class Topping {
         }
 
         //EXPLAIN Under normal circumstances
-        sb.append("\033[31m").append("\n\nRegular Topping Details")
+        sb.append("\033[31m").append("Regular Topping Details")
                 .append("\n=======================").append("\033[0m\n\n")
                 .append("\033[32m").append("Included\n").append("\033[0m");
         //System.out.println(sb.toString());

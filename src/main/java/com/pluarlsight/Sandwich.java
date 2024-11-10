@@ -5,6 +5,7 @@ public class Sandwich{
     private Topping toppings;
     private double combinedPrice;
     private boolean isToasted;
+    static StringBuilder sb = new StringBuilder();
     //TASK Try to have Bread and Topping become interfaces and have Sandwich implement both
     // OR have Bread and Toppings extend Sandwich (y tho???)
 
@@ -41,9 +42,21 @@ public class Sandwich{
 
     @Override
     public String toString() {
+        sb.append("\033[34m").append("Custom ");
+
+        if (isToasted) {
+            sb.append("Toasted ");
+        }
+
+        sb.append("Sandwich Details\n===============================\n").append("\033[0m")
+                .append(bread)
+                .append(toppings);
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        return "";
         //TASK if toasted, then add "Toasted", no need for else if false
-        return bread.toString() +
+         /*"Custom" + isToasted + "Sandwich Details\n" + bread.toString() +
                 "\n\n" +
-                toppings.toString();
+                toppings.toString();*/
     }
 }

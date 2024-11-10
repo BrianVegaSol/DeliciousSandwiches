@@ -91,7 +91,7 @@ public class Topping {
     }
 
     public double getPremToppingsTotalPrice () {
-        return premToppingsTotalPrice;
+        return premiumTopping.getPremiumToppingsMenuPrice();
     }
 
     public void setPremiumTopping(PremiumTopping premiumTopping) {
@@ -302,7 +302,7 @@ public class Topping {
                         //END of Sandwich Order <-
                         //EXPLAIN Confirm Sandwich order ->
                         //Topping topping = new Topping();
-                        if (confirmOrder("Sandwich") == -1) {
+                        if (confirmOrder("Toppings") == -1) {
                             continue;
                         } else {
                             Bread.wantsToasted();

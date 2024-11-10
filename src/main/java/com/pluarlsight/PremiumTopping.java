@@ -495,16 +495,18 @@ public class PremiumTopping extends Topping {
     @Override
     public String print() {
         sb.append("\033[31m").append("Premium Topping Details")
-                .append("\n===========================================\n").append("\033[0m");
+                .append("\n=======================\n").append("\033[0m");
         if (meatSize != null) {
             sb.append("\033[31m").append("\nMeat\n====").append("\033[0m");
             sb.append("\n").append(meatType.menuName).append(" Added")
                     .append("\nSize: ").append(meatSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
+                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice))
+                    .append("\033[0m");
             if (extraMeatSize != null) {
                 sb.append("\nExtra ").append(meatType.menuName).append(" Added")
                         .append("\nSize: ").append(extraMeatSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+                        .append("\033[32m").append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice))
+                        .append("\033[0m");
             }
         }
 
@@ -513,11 +515,12 @@ public class PremiumTopping extends Topping {
             sb.append("\033[31m").append("\nCheese\n======").append("\033[0m");
             sb.append("\n").append(cheeseType.menuName).append(" Cheese Added")
                     .append("\nSize: ").append(cheeseSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
+                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice)).append("\033[0m");
             if (extraCheeseSize != null) {
                 sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
                         .append("\nSize: ").append(extraCheeseSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
+                        .append("\033[32m").append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice))
+                        .append("\033[0m");
             }
         }
                         //sb.append(String.format("Subtotal: $%.2f%n", premiumToppingsMenuPrice));

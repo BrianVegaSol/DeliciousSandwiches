@@ -102,7 +102,10 @@ public class Bread extends Sandwich{
         while (sandwichesMade < (numOfSandwiches)) {
             Bread bread;
         bread = (Bread) sizeAndTypeMenu();
-        if (Topping.confirmOrder("Bread"))
+        if (Topping.confirmOrder("Bread") == -1) {
+            bread = null;
+            return;
+        }
             //System.out.println("Bread Subtotal: $" + bread.calcBreadPriceTotal() + "\n" + bread.print());
             //byte sandwichInput;
             //TODO Make Validations into methods w/ returns
@@ -291,7 +294,8 @@ public String print () {
             .append("\n=============").append("\033[0m")
             .append("\nType: ").append(breadType.name).append(" Bread")
             .append("\nSize: ").append(breadSize.sizeName)
-            .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice));
+                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
+                    .append("\033[0m");
     System.out.println(sb.toString());
     sb.setLength(0);
      return "";

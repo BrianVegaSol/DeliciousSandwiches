@@ -46,13 +46,13 @@ public class Sandwich{
         sb.append("\033[33m").append("Custom ").append("\033[0m");
 
         if (isToasted) {
-            sb.append("\033[34m").append("Toasted ").append("\033[0m");
+            sb.append("\033[93m").append("Toasted ").append("\033[0m");
         }
 
         sb.append("\033[33m").append("Sandwich Details\n===============================\n\n").append("\033[0m")
                 .append(bread.print())
                 .append(toppings.print())
-                        .append(String.format("Subtotal: $%.2f%n", combinedPrice));
+                .append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
         System.out.println(sb.toString());
         sb.setLength(0);
         return "";

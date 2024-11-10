@@ -272,7 +272,7 @@ public class PremiumTopping extends Topping {
                     break;
             }*/
             System.out.println("Let's go over your order");
-            System.out.println(premiumTopping);
+            System.out.println(premiumTopping.print());
             sb.setLength(0);
             if (Topping.confirmOrder("Premium Toppings") == -1) {
                 return premiumTopping = null;

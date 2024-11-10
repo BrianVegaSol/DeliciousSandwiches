@@ -254,7 +254,7 @@ public class Topping {
                         break;
                     case 3:
                         System.out.println("Let's go over your order");
-                        System.out.println(topping);
+                        System.out.println(topping.print());
                         sb.setLength(0);
                         //EXPLAIN Legacy
                         /*sb.append("\033[32m").append("Included\n========").append("\033[0m");

@@ -152,7 +152,7 @@ o Cancel - delete order and go back to the home screen
                         break;
                     //FIXME
                     case 2:
-                        byte numDrinks;
+                        //byte numDrinks;
                         //EXPLAIN Validation for Number Input
                         while (true) {
                             System.out.println("How many Deli-Colas did you want?");

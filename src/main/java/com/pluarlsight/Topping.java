@@ -539,8 +539,10 @@ public class Topping {
                 sb.append(", ");
             }
         }
-        System.out.println("\n\n");
-        return sb.toString();
+        //System.out.println("\n\n");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        return "";
         //END
 
 

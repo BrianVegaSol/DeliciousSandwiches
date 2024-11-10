@@ -152,7 +152,7 @@ o Cancel - delete order and go back to the home screen
                         break;
                     //FIXME
                     case 2:
-                        //byte numDrinks;
+                        /*byte numDrinks;
                         //EXPLAIN Validation for Number Input
                         while (true) {
                             System.out.println("How many Deli-Colas did you want?");
@@ -167,10 +167,10 @@ o Cancel - delete order and go back to the home screen
                         //EXPLAIN Validation for 0 or Negative # of Drinks
                         if (numDrinks < 1) {
                             System.out.println("No drinks? Alright\n");
-                        } else {
+                        } else {*/
                             //EXPLAIN Drinks Menu
-                            //OtherProduct.addDrink(numDrinks);
-                        }
+                            OtherProduct.addDrink();
+                        //}
                         break;
                     //FIXME
                     case 3:

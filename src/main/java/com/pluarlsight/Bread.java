@@ -196,7 +196,8 @@ public class Bread extends Sandwich{
                 input = scan.nextInt();
             } catch (InputMismatchException e) {
                 System.out.println("\033[31m" + "I'm sorry, " + "\033[0m");
-
+                scan.nextLine();
+                continue;
             }
             switch (input) {
                 case 0:

@@ -21,7 +21,7 @@ public class Sandwich{
         //TASK this is only for one Sandwich, to get the Total for the whole order, will need to tally
         // EITHER everytime that a new Sandwich & OtherProduct is made, static total++ (reset when clearing all orders)
         // OR Have the Hashmap get all the entries and all their totals that way?
-        this.combinedPrice = bread.getBreadMenuPrice() + toppings.premToppingsTotalPrice;
+        this.combinedPrice = bread.getBreadMenuPrice() + toppings.getPremToppingsTotalPrice();
     }
 
     public Sandwich() {

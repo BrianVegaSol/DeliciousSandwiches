@@ -163,7 +163,7 @@ public class Bread extends Sandwich{
             if ((topping = Topping.toppingsMenu()) == null) {
                 return;
             } else {
-                System.out.println(topping);
+                //System.out.println(topping);
                 //TASK Planning on removing keeping the numOfSandwiches as a loop condition and instead
                 // just making 1 sandwich at a time
                 // Then have Topping and Bread added to Sandwich class here, ordersMap.add(sandwich) and
@@ -171,6 +171,8 @@ public class Bread extends Sandwich{
                 //Bread breadName = new Bread(type, size, numOfSandwiches);
                 //System.out.println(bread);
                 //Sandwich sandwich = new Sandwich(bread, );
+                //TASK Make menu to check if user wants sandwich toasted
+                Sandwich sandwich = new Sandwich(bread, topping, true);
                 System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here
                 sandwichPriceTally += bread.breadSize.menuPrice;
@@ -179,10 +181,15 @@ public class Bread extends Sandwich{
             }
             //END <-
         }
-        System.out.println("\033[32m" + "Order Placed Successfully" + "\033[0m\n");
+        System.out.println("\033[32m" + "Sandwich Order Placed Successfully" + "\033[0m\n");
         //TODO return Bread Object???;
     }
 
+    public static boolean wantsToasted () {
+        boolean response = false;
+
+        return response;
+    }
     public double calcBreadPriceTotal() {
         double total = 0;
         return total;

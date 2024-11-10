@@ -514,7 +514,7 @@ public class Topping {
 
         //EXPLAIN Under normal circumstances
         sb.append("\033[31m").append("Regular Topping Details")
-                .append("\n=======================").append("\033[0m\n\n")
+                .append("\n=======================").append("\033[0m\n")
                 .append("\033[32m").append("Included\n").append("\033[0m");
         //System.out.println(sb.toString());
         //sb.setLength(0);

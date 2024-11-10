@@ -177,7 +177,7 @@ public class Bread extends Sandwich{
                 Sandwich sandwich = new Sandwich(bread, topping, isToasted);
                 System.out.println(sandwich);
                 Order.ordersMap.put(++Order.itemOrderNumber, sandwich);
-                System.out.println("Sandwich Order Placed Successfully!");
+                //System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here
                 sandwichPriceTally += bread.breadSize.menuPrice;
                 //END

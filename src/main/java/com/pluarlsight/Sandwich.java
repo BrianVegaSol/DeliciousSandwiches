@@ -42,13 +42,13 @@ public class Sandwich{
 
     @Override
     public String toString() {
-        sb.append("\033[34m").append("Custom ");
+        sb.append("\033[34m").append("Custom ").append("\033[0m");
 
         if (isToasted) {
-            sb.append("Toasted ");
+            sb.append("\033[34m").append("Toasted ").append("\033[0m");
         }
 
-        sb.append("Sandwich Details\n===============================\n").append("\033[0m")
+        sb.append("\033[34m").append("Sandwich Details\n===============================\n").append("\033[0m")
                 .append(bread)
                 .append(toppings);
         System.out.println(sb.toString());

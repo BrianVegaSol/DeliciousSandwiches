@@ -230,19 +230,32 @@ public class PremiumTopping extends Topping {
             System.out.println(sb.toString());
             sb.setLength(0);
             //EXPLAIN Meat Options
+            while (true) {
             System.out.println("Do you want Meat?\n1) Yes\n0) No");
-            try {
-                input = scan.nextByte();
-            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                System.err.println("I'm sorry,");
-                scan.nextLine();
-            }
-            if (input == 1) {
-                //premiumTopping = sizeAndTypeMenu("Meat", premiumTopping);
-                //FIXME Play around with having updatePrem outside or inside
-                // Probably should have it inside of size()
-                sizeAndTypeMenu("Meat", premiumTopping);
-                //System.out.println(premiumTopping);
+                try {
+                    input = scan.nextByte();
+                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                    System.out.println("\033[31m" + "I'm sorry, " + "\033[0m");
+                    scan.nextLine();
+                    continue;
+                }
+
+                switch (input) {
+                    case 0:
+                        break;
+                    case 1:
+                        //premiumTopping = sizeAndTypeMenu("Meat", premiumTopping);
+                        //FIXME Play around with having updatePrem outside or inside
+                        // Probably should have it inside of size()
+                        sizeAndTypeMenu("Meat", premiumTopping);
+                        //System.out.println(premiumTopping);
+                        break;
+                    default:
+                        System.out.println("\033[31m" + "So..." + "\033[0m");
+                        scan.nextLine();
+                        continue;
+                }
+                break;
             }
             //END
 

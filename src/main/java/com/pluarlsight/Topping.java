@@ -90,6 +90,10 @@ public class Topping {
     public Topping() {
     }
 
+    public double getPremToppingsTotalPrice () {
+        return premToppingsTotalPrice;
+    }
+
     public void setPremiumTopping(PremiumTopping premiumTopping) {
         this.premiumTopping = premiumTopping;
     }

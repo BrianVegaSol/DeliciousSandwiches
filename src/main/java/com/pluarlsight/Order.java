@@ -29,8 +29,9 @@ public class Order <T> {
         this.products = products;
     }
 
-    public Sandwich getSandwich() {
-        return sandwich;
+    public double getOrderSubTotal () {
+        return 0;
+                //sandwich.getCombinedPrice() + products.getDrinkMenuPrice() + products.getChipsMenuPrice();
     }
 
     /*public Order (Bread bread, Toppings toppings) {

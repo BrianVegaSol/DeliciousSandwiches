@@ -51,7 +51,8 @@ public class Sandwich{
 
         sb.append("\033[33m").append("Sandwich Details\n===============================\n\n").append("\033[0m")
                 .append(bread.print())
-                .append(toppings.print());
+                .append(toppings.print())
+                        .append(String.format("Subtotal: $%.2f%n", combinedPrice));
         System.out.println(sb.toString());
         sb.setLength(0);
         return "";

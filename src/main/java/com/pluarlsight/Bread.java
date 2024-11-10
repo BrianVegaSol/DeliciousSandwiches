@@ -102,6 +102,8 @@ public class Bread extends Sandwich{
         while (sandwichesMade < (numOfSandwiches)) {
             Bread bread;
         bread = (Bread) sizeAndTypeMenu();
+        if (Topping.confirmOrder("Bread"))
+            //System.out.println("Bread Subtotal: $" + bread.calcBreadPriceTotal() + "\n" + bread.print());
             //byte sandwichInput;
             //TODO Make Validations into methods w/ returns
             /*//EXPLAIN Validation for type ->

@@ -128,7 +128,7 @@ public class Topping {
                     """);
             //EXPLAIN Input Validation
             try {
-            input = scan.nextByte();
+                input = scan.nextByte();
             } catch (InputMismatchException e) {
                 System.err.println("I'm sorry,");
                 scan.nextLine();
@@ -143,13 +143,13 @@ public class Topping {
                 case 1:
                     //FIXME Causing issues since the orders can potentially be semi-null EITHER
                     // Make premTop Object null before exiting & before returning from confirmOrder()
-                    if ((prem =  PremiumTopping.premiumToppingsMenu()) == null) {
+                    if ((prem = PremiumTopping.premiumToppingsMenu()) == null) {
                         //if null then order was cancelled, so should return to this toppingsMenu
                         continue;
                     } else {
                         top = new Topping(prem);
 
-                        if ((top = Topping.regularToppingsMenu()) == null) {
+                        if ((top = Topping.regularToppingsMenu(top)) == null) {
                             //if cancels order in regToppingsMenu() then come back here
                             continue;
                         } else {
@@ -163,7 +163,7 @@ public class Topping {
                     System.out.print("No Extra Toppings? Alright!\nOnto the ");
                     //System.out.println(prem);
                     //System.out.println(top);
-                    if ((top = regularToppingsMenu()) == null) {
+                    if ((top = regularToppingsMenu(top)) == null) {
                         return null;
                     } else {
                         prem = null;
@@ -176,8 +176,8 @@ public class Topping {
 
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
-    public static Topping regularToppingsMenu() throws InterruptedException {
-        System.out.println("TEST PREM TOP:\n" + );
+    public static Topping regularToppingsMenu(Topping topping) throws InterruptedException {
+        System.out.println("TEST PREM TOP:\n" + topping);
         ArrayList<String> currentToppingsList = dynamicToppingsList();
         byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
@@ -293,7 +293,7 @@ public class Topping {
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
                         //END <-
                         //EXPLAIN Confirm Sandwich order ->
-                        Topping topping = new Topping();
+                        //Topping topping = new Topping();
                         if (confirmOrder("Sandwich") == -1) {
                             continue;
                         } else {
@@ -343,7 +343,7 @@ public class Topping {
                 case 0:
                     System.out.println("Alright, lets go back");
                     return -1;
-                    //return null;
+                //return null;
                 case 1:
                     sb.append("\033[32m").append("Processing order").append("\033[0m");
                     System.out.print(sb.toString());
@@ -363,7 +363,7 @@ public class Topping {
                     Thread.sleep(600);
                     //Topping top = new Topping();
                     return 1;
-                    //return new Topping();
+                //return new Topping();
                 default:
                     System.err.println("Im sorry,");
                     scan.nextLine();
@@ -485,24 +485,73 @@ public class Topping {
         if (premiumTopping != null) {
             sb.append(premiumTopping);
         } else {
-            sb.append("No Premium Toppings Added\n========================\n\n");
+            sb.append("\033[31m").append("No Premium Toppings Added\n========================\n\n").append("\033[0m");
         }
+
+        if (removedToppingsList.isEmpty()) {
+            sb.append("\033[32m").append("Included\n========").append("\033[0m");
+            /*for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
+                System.out.print(currentToppingsList.get(i));
+                if (i < currentToppingsList.size() - 1) {
+                    System.out.print(", ");
+                    if (i == 8 && removedToppingsList.isEmpty()) {
+                        System.out.println();
+                    }
+                }
+            }*/
+
+            return sb.toString() + "\nNothing removed";
+        }
+
+       /* //EXPLAIN Leave this for default assumptions
+        sb.append("\033[32m").append("Included\n========").append("\033[0m");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        for (int i = 0; i < currentToppingsList.size(); i++) {
+            System.out.print(currentToppingsList.get(i));
+            if (i < currentToppingsList.size() - 1) {
+                System.out.print(", ");
+                if (i == 8 && removedToppingsList.isEmpty()) {
+                    System.out.println();
+                }
+            }
+        }
+
+        if (removedToppingsList.isEmpty()) {
+            System.out.println();
+        } else {
+            sb.append("\033[31m").append("\n\nRemoved\n=======").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+            for (int i = 0; i < removedToppingsList.size(); i++) {
+                System.out.print(removedToppingsList.get(i));
+                if (i < removedToppingsList.size() - 1) {
+                    System.out.print(", ");
+                }
+            }
+            System.out.println("\n\n");
+        }
+
+
+
+
+
         //TODO have removed and the updated currentList in here and see if they update after confirming the order
         // May need to make a method/ make currentList static at the top of the class to use
         // as just a reference, not instantiating it
-        if (removedToppingsList.isEmpty()) {
-            return "Nothing removed";
-        }
+        *//*if (removedToppingsList.isEmpty()) {
+            return sb.toString() + "\nNothing removed";
+        }*//*
         //TODO Reuse the Included and Removed sb, make it a method and replace this filler test text
-        return  sb.toString() + //TODO Make all of this part of the sb //FIXME TRACK DOWN WHERE THIS PRINTS AND
+        return sb.toString() + //TODO Make all of this part of the sb //FIXME TRACK DOWN WHERE THIS PRINTS AND
                 // FIXME SB.SETLENGTH(0)
                 "Removed: " + removedToppingsList.getFirst();
-        /*if (this instanceof PremiumTopping) {
+        *//*if (this instanceof PremiumTopping) {
 
-        }*/
+        }*//*
 
-
-    }
+*/
+    return "";}
 
 }
 

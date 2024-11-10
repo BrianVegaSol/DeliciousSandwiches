@@ -247,17 +247,29 @@ public class PremiumTopping extends Topping {
             //END
 
             //EXPLAIN Cheese Options
+            while (true) {
             System.out.println("Do you want Cheese?\n1) Yes\n0) No");
+            //FIXME # Over not working >:(
             try {
                 input = scan.nextByte();
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                System.err.println("I'm sorry,");
+                System.out.println("\033[31m" + "I'm sorry, " + "\033[0m");
                 scan.nextLine();
+                continue;
             }
-            if (input == 1) {
-                //premiumTopping = sizeAndTypeMenu("Cheese", premiumTopping);
-                sizeAndTypeMenu("Cheese", premiumTopping);
-                //System.out.println(premiumTopping);
+
+            switch (input) {
+                case 0:
+                    break;
+                case 1:
+                    sizeAndTypeMenu("Cheese", premiumTopping);
+                    break;
+                default:
+                    System.out.println("\033[31m" + "So..." + "\033[0m");
+                    scan.nextLine();
+                    continue;
+            }
+            break;
             }
             //END
 

@@ -178,7 +178,7 @@ public class Topping {
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static Topping regularToppingsMenu(Topping topping) throws InterruptedException {
         currentToppingsList = dynamicToppingsList();
-        System.out.println("TEST PREM TOP:\n" + topping);
+        //System.out.println("TEST PREM TOP:\n" + topping);
         byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
         //boolean runRemainingRegularToppingsMenu = true;
@@ -253,8 +253,11 @@ public class Topping {
                         //END
                         break;
                     case 3:
-                        System.out.println("Let's go over your order\n");
-                        sb.append("\033[32m").append("Included\n========").append("\033[0m");
+                        System.out.println("Let's go over your order");
+                        System.out.println(topping);
+                        sb.setLength(0);
+                        //EXPLAIN Legacy
+                        /*sb.append("\033[32m").append("Included\n========").append("\033[0m");
                         System.out.println(sb.toString());
                         sb.setLength(0);
                         for (int i = 0; i < currentToppingsList.size(); i++) {
@@ -267,13 +270,13 @@ public class Topping {
                             }
                         }
                         //Playing around with stream()
-                        /*ArrayList<String> finalCurrentToppingsList = currentToppingsList;
+                        *//*ArrayList<String> finalCurrentToppingsList = currentToppingsList;
                         List<String> printList = currentToppingsList.forEach((i) -> {
                                 System.out.print(finalCurrentToppingsList.get(Integer.parseInt(i)));
                         if (i < (String.valueOf(finalCurrentToppingsList.size()) - 1)) {
                             System.out.print(", ");
                         }}
-                        ).collect(Collectors.toList());*/
+                        ).collect(Collectors.toList());*//*
                         //FIXME Add Bread details here
                         //EXPLAIN Printing Full Sandwich order ->
                         if (removedToppingsList.isEmpty()) {
@@ -289,9 +292,10 @@ public class Topping {
                                 }
                             }
                             System.out.println("\n\n");
-                        }
+                        }*/
+                        //END of Legacy Code
                         //sout what's included on top and removed on the bottom Hold the pickles, etc
-                        //END <-
+                        //END of Sandwich Order <-
                         //EXPLAIN Confirm Sandwich order ->
                         //Topping topping = new Topping();
                         if (confirmOrder("Sandwich") == -1) {
@@ -481,15 +485,15 @@ public class Topping {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
+        //StringBuilder sb = new StringBuilder();
         if (premiumTopping != null) {
             sb.append(premiumTopping);
-        } else {
-            sb.append("\033[31m").append("No Premium Toppings Added\n=========================").append("\033[0m");
-        }
+        } /*else {
+            //sb.append("\033[31m").append("No Premium Toppings Added\n=========================").append("\033[0m");
+        }*/
 
         if (removedToppingsList.isEmpty()) {
-            sb.append("\033[31m").append("\n\nRegular Topping Details")
+            sb.append("\033[31m").append("\nRegular Topping Details")
                     .append("\n=======================").append("\033[0m\n\n")
                     .append("\033[32m").append("Included\n").append("\033[0m");
             for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
@@ -503,32 +507,36 @@ public class Topping {
                 }
             }
             System.out.println();
-            sb.append("\033[31m").append("\n\nRemoved").append("\033[0m");
-            return sb.toString() + "\nNothing removed\n";
+            sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
+            return sb.toString() + "Nothing removed\n";
         }
 
         //EXPLAIN Under normal circumstances
-        sb.append("\033[32m").append("Included\n========\n").append("\033[0m");
+        sb.append("\033[31m").append("\n\nRegular Topping Details")
+                .append("\n=======================").append("\033[0m\n\n")
+                .append("\033[32m").append("Included\n").append("\033[0m");
         //System.out.println(sb.toString());
         //sb.setLength(0);
-        for (int i = 0; i < currentToppingsList.size(); i++) {
+        for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
             sb.append(currentToppingsList.get(i));
             //FIXME Should toString then setLength
             if (i < currentToppingsList.size() - 1) {
-               sb.append(", ");
-                if (i == 8 && removedToppingsList.isEmpty()) {
-                    System.out.println();
+                sb.append(", ");
+                if (i == 8 ) {
+                    sb.append("\n");
                 }
             }
         }
-
-        sb.append("\033[31m").append("\n\nRemoved\n=======").append("\033[0m");
-        System.out.println(sb.toString());
-        sb.setLength(0);
+        System.out.println();
+        sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
+        //System.out.println(sb.toString());
+        //sb.setLength(0);
         for (int i = 0; i < removedToppingsList.size(); i++) {
-            System.out.print(removedToppingsList.get(i));
+            sb.append(removedToppingsList.get(i));
+            //System.out.print(removedToppingsList.get(i));
             if (i < removedToppingsList.size() - 1) {
-                System.out.print(", ");
+                //System.out.print(", ");
+                sb.append(", ");
             }
         }
         System.out.println("\n\n");

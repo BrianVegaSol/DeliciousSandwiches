@@ -462,38 +462,39 @@ public class PremiumTopping extends Topping {
         return prem;
     }
     //return null;
+@Override
+public String print () {
+    sb.append("\033[31m").append("Premium Topping Details")
+            .append("\n===========================================").append("\033[0m");
+    if (meatSize != null) {
+        sb.append("\n").append(meatType.menuName).append(" Added")
+                .append("\nSize: ").append(meatSize.sizeName)
+                .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
+        if (extraMeatSize != null) {
+            sb.append("\nExtra ").append(meatType.menuName).append(" Added")
+                    .append("\nSize: ").append(extraMeatSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+        }
+    }
 
 
+    if (cheeseSize != null) {
+        sb.append("\n===========================================")
+                .append("\n").append(cheeseType.menuName).append(" Cheese Added")
+                .append("\nSize: ").append(cheeseSize.sizeName)
+                .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
+        if (extraCheeseSize != null) {
+            sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
+                    .append("\nSize: ").append(extraCheeseSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
+        }
+    }
+    System.out.print(sb.toString());
+    sb.setLength(0);
+    return "";
+}
     @Override
     public String toString() {
-        sb.append("\033[31m").append("Premium Topping Details")
-                .append("\n===========================================").append("\033[0m");
-        if (meatSize != null) {
-                    sb.append("\n").append(meatType.menuName).append(" Added")
-                    .append("\nSize: ").append(meatSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
-            if (extraMeatSize != null) {
-                sb.append("\nExtra ").append(meatType.menuName).append(" Added")
-                        .append("\nSize: ").append(extraMeatSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
-            }
-        }
-
-
-        if (cheeseSize != null) {
-            sb.append("\n===========================================")
-                    .append("\n").append(cheeseType.menuName).append(" Cheese Added")
-                    .append("\nSize: ").append(cheeseSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
-            if (extraCheeseSize != null) {
-                sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
-                        .append("\nSize: ").append(extraCheeseSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
-            }
-        }
-        System.out.print(sb.toString());
-        sb.setLength(0);
-
         return "";
     }
 }

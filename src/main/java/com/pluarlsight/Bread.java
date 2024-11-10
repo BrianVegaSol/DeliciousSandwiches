@@ -281,9 +281,20 @@ public static Object sizeAndTypeMenu () {
                 return bread = new Bread(type, size);
 }
 
-    @Override
+public String print () {
+    return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+            //TODO Add a type + Details for when writing to .csv receipt???
+            .append("\n\nBread Details")
+            //TODO .repeat()??? might add more workload
+            .append("\n===========================================")
+            .append("\nType: ").append(breadType.name).append(" Bread")
+            .append("\nSize: ").append(breadSize.sizeName)
+            .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
+            .toString();
+}
+
+   /* @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
         //homeSB.setLength(0);
         return sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
                 //TODO Add a type + Details for when writing to .csv receipt???
@@ -294,7 +305,7 @@ public static Object sizeAndTypeMenu () {
                 .append("\nSize: ").append(breadSize.sizeName)
                 .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
                 .toString();
-    }
+    }*/
 }
 
 

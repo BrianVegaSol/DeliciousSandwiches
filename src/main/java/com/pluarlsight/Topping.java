@@ -483,41 +483,17 @@ public class Topping {
 
         System.out.println("After added from Removed []: " + Arrays.toString(removedToppings));
     }*/
-
-    @Override
-    public String toString() {
-        //StringBuilder sb = new StringBuilder();
-        if (premiumTopping != null) {
-            sb.append(premiumTopping);
-        } /*else {
+    public String print () {
+    if (premiumTopping != null) {
+        sb.append(premiumTopping);
+    } /*else {
             //sb.append("\033[31m").append("No Premium Toppings Added\n=========================").append("\033[0m");
         }*/
 
-        if (removedToppingsList.isEmpty()) {
-            sb.append("\033[31m").append("Regular Topping Details")
-                    .append("\n=======================").append("\033[0m\n\n")
-                    .append("\033[32m").append("Included\n").append("\033[0m");
-            for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
-                sb.append(currentToppingsList.get(i));
-                //FIXME Should toString then setLength
-                if (i < currentToppingsList.size() - 1) {
-                    sb.append(", ");
-                    if (i == 8 ) {
-                        sb.append("\n");
-                    }
-                }
-            }
-            System.out.println();
-            sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
-            return sb.toString() + "Nothing removed\n";
-        }
-
-        //EXPLAIN Under normal circumstances
+    if (removedToppingsList.isEmpty()) {
         sb.append("\033[31m").append("Regular Topping Details")
-                .append("\n=======================").append("\033[0m\n")
+                .append("\n=======================").append("\033[0m\n\n")
                 .append("\033[32m").append("Included\n").append("\033[0m");
-        //System.out.println(sb.toString());
-        //sb.setLength(0);
         for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
             sb.append(currentToppingsList.get(i));
             //FIXME Should toString then setLength
@@ -530,19 +506,46 @@ public class Topping {
         }
         System.out.println();
         sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
-        //System.out.println(sb.toString());
-        //sb.setLength(0);
-        for (int i = 0; i < removedToppingsList.size(); i++) {
-            sb.append(removedToppingsList.get(i));
-            //System.out.print(removedToppingsList.get(i));
-            if (i < removedToppingsList.size() - 1) {
-                //System.out.print(", ");
-                sb.append(", ");
+        return sb.toString() + "Nothing removed\n";
+    }
+
+    //EXPLAIN Under normal circumstances
+    sb.append("\033[31m").append("Regular Topping Details")
+            .append("\n=======================").append("\033[0m\n")
+            .append("\033[32m").append("Included\n").append("\033[0m");
+    //System.out.println(sb.toString());
+    //sb.setLength(0);
+    for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
+        sb.append(currentToppingsList.get(i));
+        //FIXME Should toString then setLength
+        if (i < currentToppingsList.size() - 1) {
+            sb.append(", ");
+            if (i == 8 ) {
+                sb.append("\n");
             }
         }
-        //System.out.println("\n\n");
-        System.out.println(sb.toString());
-        sb.setLength(0);
+    }
+    System.out.println();
+    sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
+    //System.out.println(sb.toString());
+    //sb.setLength(0);
+    for (int i = 0; i < removedToppingsList.size(); i++) {
+        sb.append(removedToppingsList.get(i));
+        //System.out.print(removedToppingsList.get(i));
+        if (i < removedToppingsList.size() - 1) {
+            //System.out.print(", ");
+            sb.append(", ");
+        }
+    }
+    //System.out.println("\n\n");
+    System.out.println(sb.toString());
+    sb.setLength(0);
+    return "";
+    }
+
+    @Override
+    public String toString() {
+        //StringBuilder sb = new StringBuilder();
         return "";
         //END
 

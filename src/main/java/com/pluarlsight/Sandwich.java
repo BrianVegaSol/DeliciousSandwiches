@@ -49,8 +49,8 @@ public class Sandwich{
         }
 
         sb.append("\033[34m").append("Sandwich Details\n===============================\n").append("\033[0m")
-                .append(bread)
-                .append(toppings);
+                .append(bread.print())
+                .append(toppings.print());
         System.out.println(sb.toString());
         sb.setLength(0);
         return "";

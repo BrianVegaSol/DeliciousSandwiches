@@ -271,7 +271,7 @@ public class PremiumTopping extends Topping {
                     premiumTopping = sizeAndTypeMenu("Cheese");
                     break;
             }*/
-            System.out.println("Let's go over your order\n");
+            System.out.println("Let's go over your order");
             System.out.println(premiumTopping);
             sb.setLength(0);
             if (Topping.confirmOrder("Premium Toppings") == -1) {
@@ -446,50 +446,8 @@ public class PremiumTopping extends Topping {
                 continue;
             }
             break;
-
         }
-        /*while (true) {
-            if (extraInput == 1) {
-                System.out.println("""
-                        What size would you like?
-                        ==================================
-                        1) 4"
-                        2) 8"
-                        3) 12"
-                        ==================================
-                        """);
-                //EXPLAIN Validation for Extra topping ->
-                try {
-                    extraInput = scanner.nextInt();
-                    if (topping.equalsIgnoreCase("Meat")) {
-                        extraMeat = ExtraMeatSize.values()[extraInput - 1];
-                        prem.setExtraMeatSize(extraMeat);
-                    }
 
-                    if (topping.equalsIgnoreCase("Cheese")) {
-                        extraCheese = ExtraCheeseSize.values()[extraInput - 1];
-                        prem.setExtraCheeseSize(extraCheese);
-                    }
-                    break;
-                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                    System.err.println("Sorry! We don't make them that long!");
-                    scanner.nextLine();
-                    continue;
-                }
-                //END <-
-            } else if (extraInput == 0){
-                System.out.println("No Extra " + topping + ", got it!");
-                break;
-            } else {
-                continue;
-            }
-            }*/
-        //break;
-        //END <-
-
-        //break;
-            /*if (Topping.confirmOrder("Extra Toppings") == null) {
-                return null;*/
 
         //FIXME Need to either separate the Meat and Cheese menus ANDOR add validation so that the values stay null
         // and only get updated by user but also get nulled when user cancels order

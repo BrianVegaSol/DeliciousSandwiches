@@ -177,6 +177,7 @@ public class Topping {
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static Topping regularToppingsMenu() throws InterruptedException {
+        System.out.println("TEST PREM TOP:\n" + );
         ArrayList<String> currentToppingsList = dynamicToppingsList();
         byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
@@ -356,7 +357,7 @@ public class Topping {
                     System.out.print(sb.toString());
                     sb.setLength(0);
                     Thread.sleep(600);
-                    sb.append("\033[32m").append(" . ").append("\033[0m");
+                    sb.append("\033[32m").append(" . \n").append("\033[0m");
                     System.out.print(sb.toString());
                     sb.setLength(0);
                     Thread.sleep(600);

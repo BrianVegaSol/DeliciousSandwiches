@@ -159,15 +159,17 @@ public class Bread extends Sandwich{
             //FIXME Probably need to return -1 for extraToppingsMenu() as well
             // Rerunning itself
             //EXPLAIN Validation for Toppings Menu ->
-            if ((Topping.toppingsMenu() == null)) {
+            Topping topping;
+            if ((topping = Topping.toppingsMenu()) == null) {
                 return;
             } else {
+                System.out.println(topping);
                 //TASK Planning on removing keeping the numOfSandwiches as a loop condition and instead
                 // just making 1 sandwich at a time
                 // Then have Topping and Bread added to Sandwich class here, ordersMap.add(sandwich) and
                 // sout Order Placed Successfully, reflect this change in the Checkout()
                 //Bread breadName = new Bread(type, size, numOfSandwiches);
-                System.out.println(bread);
+                //System.out.println(bread);
                 //Sandwich sandwich = new Sandwich(bread, );
                 System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here

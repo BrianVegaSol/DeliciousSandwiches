@@ -282,11 +282,11 @@ public static Object sizeAndTypeMenu () {
 }
 
 public String print () {
-     sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+     //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
             //TODO Add a type + Details for when writing to .csv receipt???
-            .append("\n\nBread Details")
+            sb.append("\033[34m").append("Bread Details")
             //TODO .repeat()??? might add more workload
-            .append("\n===========================================")
+            .append("\n=============").append("\033[0m")
             .append("\nType: ").append(breadType.name).append(" Bread")
             .append("\nSize: ").append(breadSize.sizeName)
             .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice));

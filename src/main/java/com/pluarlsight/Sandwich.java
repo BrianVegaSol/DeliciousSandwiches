@@ -41,6 +41,7 @@ public class Sandwich{
 
     @Override
     public String toString() {
+        //TASK if toasted, then add "Toasted", no need for else if false
         return bread.toString() +
                 "\n\n" +
                 toppings.toString();

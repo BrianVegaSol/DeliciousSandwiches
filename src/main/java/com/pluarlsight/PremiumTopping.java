@@ -411,7 +411,7 @@ public class PremiumTopping extends Topping {
                                 3) 12"
                                 ==================================
                                 """);
-                        //EXPLAIN Validation for Extra topping ->
+                        //EXPLAIN More Validation for Extra topping ->
                         try {
                             extraInput = scanner.nextInt();
                             if (topping.equalsIgnoreCase("Meat")) {

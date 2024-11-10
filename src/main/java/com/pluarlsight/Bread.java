@@ -10,6 +10,7 @@ public class Bread extends Sandwich{
     private int numOfSandwiches;
     private BreadType breadType;
     private BreadSize breadSize;
+    private static boolean isToasted;
     static Scanner scan = new Scanner(System.in);
 
     public Bread(BreadType breadType, BreadSize breadSize, int numOfSandwiches) {
@@ -172,7 +173,8 @@ public class Bread extends Sandwich{
                 //System.out.println(bread);
                 //Sandwich sandwich = new Sandwich(bread, );
                 //TASK Make menu to check if user wants sandwich toasted
-                Sandwich sandwich = new Sandwich(bread, topping, true);
+                //boolean isToasted = wantsToasted();
+                Sandwich sandwich = new Sandwich(bread, topping, isToasted);
                 System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here
                 sandwichPriceTally += bread.breadSize.menuPrice;
@@ -185,10 +187,38 @@ public class Bread extends Sandwich{
         //TODO return Bread Object???;
     }
 
-    public static boolean wantsToasted () {
-        boolean response = false;
+    public static boolean wantsToasted () throws InterruptedException {
+        isToasted = false;
+        while (true){
+            int input = -1;
+            System.out.println("Do you want your sandwich toasted?\n1) Yes\n0) No");
+            try {
+                input = scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\033[31m" + "I'm sorry, " + "\033[0m");
 
-        return response;
+            }
+            switch (input) {
+                case 0:
+                    isToasted = false;
+                    return isToasted;
+                case 1:
+                    System.out.print("\033[32m" + "Toasting sandwich");
+                    Thread.sleep(700);
+                    System.out.print(" .");
+                    Thread.sleep(700);
+                    System.out.print(" .");
+                    Thread.sleep(700);
+                    System.out.print(" ." + "\033[0m\n");
+                    Thread.sleep(700);
+                    isToasted = true;
+                    return isToasted;
+                default:
+                    System.out.println("\033[31m" + "So..." + "\033[0m");
+                    scan.nextLine();
+            }
+
+        }
     }
     public double calcBreadPriceTotal() {
         double total = 0;

@@ -301,6 +301,7 @@ public class Topping {
                         if (confirmOrder("Sandwich") == -1) {
                             continue;
                         } else {
+                            Bread.wantsToasted();
                             //FIXME May need to add topping to orderMap??? then return
                             return topping;
                         }

@@ -490,8 +490,9 @@ public class PremiumTopping extends Topping {
 @Override
 public String print () {
     sb.append("\033[31m").append("Premium Topping Details")
-            .append("\n===========================================").append("\033[0m");
+            .append("\n===========================================\n").append("\033[0m");
     if (meatSize != null) {
+        sb.append("\033[31m").append("\nMeat\n====").append("\033[0m");
         sb.append("\n").append(meatType.menuName).append(" Added")
                 .append("\nSize: ").append(meatSize.sizeName)
                 .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
@@ -504,8 +505,8 @@ public String print () {
 
 
     if (cheeseSize != null) {
-        sb.append("\n===========================================")
-                .append("\n").append(cheeseType.menuName).append(" Cheese Added")
+        sb.append("\033[31m").append("\nCheese\n======").append("\033[0m");
+                sb.append("\n").append(cheeseType.menuName).append(" Cheese Added")
                 .append("\nSize: ").append(cheeseSize.sizeName)
                 .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
         if (extraCheeseSize != null) {

@@ -466,10 +466,10 @@ public class PremiumTopping extends Topping {
 
     @Override
     public String toString() {
-        sb.append("\n\nPremium Topping Details");
+        sb.append("\033[31m").append("\n\nPremium Topping Details")
+                .append("\n===========================================").append("\033[0m");
         if (meatSize != null) {
-            sb.append("\n===========================================")
-                    .append("\n").append(meatType.menuName).append(" Added")
+                    sb.append("\n").append(meatType.menuName).append(" Added")
                     .append("\nSize: ").append(meatSize.sizeName)
                     .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
             if (extraMeatSize != null) {

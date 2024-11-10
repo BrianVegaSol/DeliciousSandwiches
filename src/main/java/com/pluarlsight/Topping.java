@@ -14,7 +14,7 @@ public class Topping {
     private PremiumTopping premiumTopping;
     double premToppingsTotalPrice;
     static ArrayList<String> removedToppingsList = new ArrayList<>();
-    //static ArrayList<String> currentToppingsList;
+    static ArrayList<String> currentToppingsList;
     //FIXME Not sure how to handle the Regular toppings since they're already included???
     // Should I ask if the user wants to remove certain toppings instead of asking to add???
     // Hashmap prefilled with RegToppings, have user remove those toppings, then add remaining toppings to???
@@ -177,8 +177,8 @@ public class Topping {
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static Topping regularToppingsMenu(Topping topping) throws InterruptedException {
+        currentToppingsList = dynamicToppingsList();
         System.out.println("TEST PREM TOP:\n" + topping);
-        ArrayList<String> currentToppingsList = dynamicToppingsList();
         byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
         //boolean runRemainingRegularToppingsMenu = true;
@@ -489,8 +489,10 @@ public class Topping {
         }
 
         if (removedToppingsList.isEmpty()) {
-            sb.append("\033[32m").append("Included\n========").append("\033[0m");
-            /*for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
+            sb.append("\033[31m").append("\n\nRegular Topping Details")
+                    .append("\n===========================================\n").append("\033[0m")
+                    .append("\033[32m").append("Included\n========").append("\033[0m");
+            for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
                 System.out.print(currentToppingsList.get(i));
                 if (i < currentToppingsList.size() - 1) {
                     System.out.print(", ");
@@ -498,60 +500,59 @@ public class Topping {
                         System.out.println();
                     }
                 }
-            }*/
-
-            return sb.toString() + "\nNothing removed";
+            }
+            System.out.println();
+            sb.append("\033[31m").append("\n\nRemoved\n=======").append("\033[0m");
+            return sb.toString() + "\nNothing removed\n";
         }
 
-       /* //EXPLAIN Leave this for default assumptions
+        //EXPLAIN Under normal circumstances
         sb.append("\033[32m").append("Included\n========").append("\033[0m");
-        System.out.println(sb.toString());
+        //System.out.println(sb.toString());
         sb.setLength(0);
         for (int i = 0; i < currentToppingsList.size(); i++) {
-            System.out.print(currentToppingsList.get(i));
+            sb.append(currentToppingsList.get(i));
+            //FIXME Should toString then setLength
             if (i < currentToppingsList.size() - 1) {
-                System.out.print(", ");
+               sb.append(", ");
                 if (i == 8 && removedToppingsList.isEmpty()) {
                     System.out.println();
                 }
             }
         }
 
-        if (removedToppingsList.isEmpty()) {
-            System.out.println();
-        } else {
-            sb.append("\033[31m").append("\n\nRemoved\n=======").append("\033[0m");
-            System.out.println(sb.toString());
-            sb.setLength(0);
-            for (int i = 0; i < removedToppingsList.size(); i++) {
-                System.out.print(removedToppingsList.get(i));
-                if (i < removedToppingsList.size() - 1) {
-                    System.out.print(", ");
-                }
+        sb.append("\033[31m").append("\n\nRemoved\n=======").append("\033[0m");
+        System.out.println(sb.toString());
+        sb.setLength(0);
+        for (int i = 0; i < removedToppingsList.size(); i++) {
+            System.out.print(removedToppingsList.get(i));
+            if (i < removedToppingsList.size() - 1) {
+                System.out.print(", ");
             }
-            System.out.println("\n\n");
         }
+        System.out.println("\n\n");
+        return sb.toString();
+        //END
 
 
 
 
 
-        //TODO have removed and the updated currentList in here and see if they update after confirming the order
+        /*//TODO have removed and the updated currentList in here and see if they update after confirming the order
         // May need to make a method/ make currentList static at the top of the class to use
         // as just a reference, not instantiating it
-        *//*if (removedToppingsList.isEmpty()) {
+        if (removedToppingsList.isEmpty()) {
             return sb.toString() + "\nNothing removed";
-        }*//*
+        }
         //TODO Reuse the Included and Removed sb, make it a method and replace this filler test text
         return sb.toString() + //TODO Make all of this part of the sb //FIXME TRACK DOWN WHERE THIS PRINTS AND
                 // FIXME SB.SETLENGTH(0)
                 "Removed: " + removedToppingsList.getFirst();
-        *//*if (this instanceof PremiumTopping) {
+        if (this instanceof PremiumTopping) {
 
-        }*//*
+        }*/
 
-*/
-    return "";}
+    }
 
 }
 

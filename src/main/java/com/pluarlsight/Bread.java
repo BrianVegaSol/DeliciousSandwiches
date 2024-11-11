@@ -181,7 +181,7 @@ public class Bread extends Sandwich{
                 //TASK Make menu to check if user wants sandwich toasted
                 //boolean isToasted = wantsToasted();
                 Sandwich sandwich = new Sandwich(bread, topping, isToasted);
-                System.out.println(sandwich.print());
+                System.out.println(sandwich.print("Print"));
                 Order.ordersMap.put(++Order.itemOrderNumber, sandwich);
                 //System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here

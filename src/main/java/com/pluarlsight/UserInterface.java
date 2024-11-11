@@ -206,11 +206,11 @@ o Cancel - delete order and go back to the home screen
     public static void checkout () {
         homeSB.append("\033[36m").append("\nCheckout Menu!\n==============\n")
                 .append("\033[0m")
-                .append("Let's go over your order\n");
+                .append("Let's go over your order");
         System.out.println(homeSB.toString());
         homeSB.setLength(0);
         Order.formatReceipt("Print");
-                homeSB.append("Ready to Checkout?\n\n")
+                homeSB.append("\033[36m").append("\nReady to Checkout?\n\n").append("\033[0m")
                 .append("\033[32m").append("1) Sure am!\n").append("\033[0m")
                 .append("\033[31m").append("0) Hold on! I forgot something!").append("\033[0m");
         System.out.println(homeSB.toString());

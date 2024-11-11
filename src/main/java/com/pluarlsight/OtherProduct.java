@@ -165,7 +165,7 @@ public class OtherProduct extends Order {
         //TODO Add DateTime and Object to HashMap
         OtherProduct drink = new OtherProduct(size, type);
         System.out.print("Let's go over your order\n");
-        System.out.println(drink.print());
+        System.out.print(drink.print("Print"));
         sb.setLength(0);
         if (Topping.confirmOrder("Drink") == -1) {
             drink = null;
@@ -180,36 +180,36 @@ public class OtherProduct extends Order {
 
 
     public static void addChips() throws InterruptedException {
-            DelishChipsType type;
-            Scanner scan = new Scanner(System.in);
-            int chipsInput = -1;
-            while (true) {
-                System.out.println("""
+        DelishChipsType type;
+        Scanner scan = new Scanner(System.in);
+        int chipsInput = -1;
+        while (true) {
+            System.out.println("""
                     What flavor do you want?
                     1) Classic
                     2) Flamin Hot
                     3) Sour Cream
                     """);
-                try {
-                    chipsInput = scan.nextInt();
-                    type = DelishChipsType.values()[chipsInput - 1];
-                    break;
-                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                    System.err.println("Sorry, we don't offer that flavor here!");
-                    scan.nextLine();
-                }
+            try {
+                chipsInput = scan.nextInt();
+                type = DelishChipsType.values()[chipsInput - 1];
+                break;
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("Sorry, we don't offer that flavor here!");
+                scan.nextLine();
             }
-            OtherProduct chips = new OtherProduct(type);
-            System.out.print("Let's go over your order\n");
-            System.out.println(chips.print());
-            sb.setLength(0);
-            if (Topping.confirmOrder("Chips") == -1) {
-                chips = null;
-                return;
-            }
-            chips.drinkPriceTotal += type.menuPrice;
-            Order.ordersMap.put(++Order.itemOrderNumber, chips);
-            System.out.println("\033[32m" + "Drink Order Placed Successfully" + "\033[0m\n");
+        }
+        OtherProduct chips = new OtherProduct(type);
+        System.out.print("Let's go over your order\n");
+        System.out.print(chips.print("Print"));
+        sb.setLength(0);
+        if (Topping.confirmOrder("Chips") == -1) {
+            chips = null;
+            return;
+        }
+        chips.drinkPriceTotal += type.menuPrice;
+        Order.ordersMap.put(++Order.itemOrderNumber, chips);
+        System.out.println("\033[32m" + "Drink Order Placed Successfully" + "\033[0m\n");
     }
 
     /* public static validation () {
@@ -224,16 +224,26 @@ public class OtherProduct extends Order {
    /* @Override
     public String toString() {*/
     @Override
-    public String print () {
+    public String print(String function) {
         sb.setLength(0);
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {
-            sb.append("\033[35m").append("Drink Details")
-                    .append("\n=============").append("\033[0m")
-                    .append("\nFlavor: ").append(deliColaType.menuName)
-                    .append("\nSize: ").append(deliColaSize.menuName)
-                    .append("\033[32m").append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice))
-                    .append("\033[0m");
+            if (function.equalsIgnoreCase("Receipt")) {
+                sb.append("Drink Details")
+                        .append("\n=============");
+                        //.append("Quantity: ").append(countUniqueOrders());
+            } else {
+                sb.append("\033[35m").append("Drink Details")
+                        .append("\n=============").append("\033[0m");
+            }
+            sb.append("\nFlavor: ").append(deliColaType.menuName)
+                    .append("\nSize: ").append(deliColaSize.menuName);
+            if (function.equalsIgnoreCase("Receipt")) {
+                //sb.append(String.format("\nPrice: $%.2f%n", (deliColaSize.menuPrice * countUniqueOrders())));
+            } else {
+                sb.append("\033[32m").append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice))
+                        .append("\033[0m\n");
+            }
             //System.out.print(sb.toString());
             //sb.setLength(0);
             //return "";
@@ -244,7 +254,7 @@ public class OtherProduct extends Order {
                     .append("\n============").append("\033[0m")
                     .append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice))
-                    .append("\033[0m");
+                    .append("\033[0m\n");
             //System.out.print(sb.toString());
             //sb.setLength(0);
         }

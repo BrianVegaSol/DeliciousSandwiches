@@ -45,7 +45,7 @@ public class Sandwich extends Order{
    /* @Override
     public String toString() {*/
     @Override
-    public String print () {
+    public String print (String function) {
         sb.setLength(0);
         sb.append("\033[33m").append("Custom ").append("\033[0m");
 

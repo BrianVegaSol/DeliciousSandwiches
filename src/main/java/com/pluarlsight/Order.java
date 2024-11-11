@@ -95,9 +95,10 @@ public class Order {
 
 
         } else {
+            //FIXME Will paste this into method later
             Order.ordersMap.forEach((key, value) -> {
-                sb.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m");
-                System.out.println(sb.toString());
+                sb.append("\n\033[33m").append("Item #").append(key + 1).append("\033[0m\n");
+                //System.out.println(sb.toString());
                 //sb.setLength(0);
 
                         /*if (value instanceof OtherProduct) {
@@ -109,11 +110,11 @@ public class Order {
                             }
                         }*/
                 if (value instanceof OtherProduct) {
-                    sb.append(((OtherProduct) value).print());
+                    sb.append(((OtherProduct) value).print("Receipt"));
                 }
 
                 if (value instanceof Sandwich) {
-                    sb.append(((Sandwich) value).print());
+                    sb.append(((Sandwich) value).print("Receipt"));
                 }
                 /*if (function.equalsIgnoreCase("Print")) {
                     System.out.println(sb + "\n");
@@ -148,7 +149,7 @@ public class Order {
 
     }*/
 
-    public String print () {
+    public String print (String function) {
         return "";
     }
 }

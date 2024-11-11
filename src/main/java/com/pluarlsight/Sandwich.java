@@ -1,6 +1,6 @@
 package com.pluarlsight;
 
-public class Sandwich{
+public class Sandwich extends Order{
     private Bread bread;
     private Topping toppings;
     private double combinedPrice;
@@ -15,6 +15,7 @@ public class Sandwich{
     //FIXME Make sure that when asking for toasted or not, to add that to the String where Sandwich
     // is being displayed, otherwise will need to make a Sandwich enum with String "Toasted"
     public Sandwich (Bread bread, Topping toppings, boolean isToasted) {
+        super();
         this.bread = bread;
         this.toppings = toppings;
         this.isToasted = isToasted;
@@ -25,6 +26,7 @@ public class Sandwich{
     }
 
     public Sandwich() {
+        super();
 
     }
 
@@ -42,6 +44,7 @@ public class Sandwich{
 
    /* @Override
     public String toString() {*/
+    @Override
     public String print () {
         sb.append("\033[33m").append("Custom ").append("\033[0m");
 

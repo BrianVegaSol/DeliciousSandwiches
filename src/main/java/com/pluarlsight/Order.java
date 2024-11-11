@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Order<T> {
+public class Order {
     static StringBuilder sb = new StringBuilder();
     //FIXME Need to either make toString here, update all other toStrings, or accept all other Objects into Order Obj
     // OR can just chop off the Order# (since it needs to get deleted anyway) and only show that in checkout() 0.0
@@ -32,6 +32,10 @@ public class Order<T> {
         this.products = products;
     }
 
+    public Order() {
+
+    }
+
     public double getOrderSubTotal() {
         return 0;
         //sandwich.getCombinedPrice() + products.getDrinkMenuPrice() + products.getChipsMenuPrice();
@@ -51,7 +55,7 @@ public class Order<T> {
     //TASK Use this in dynamicMenu(), return Sandwich Object, feed Sandwich Object to printSandwich()
     // all for last step in dynamicMenu()
     //TODO Move the bottom half of this method into Sandwich and do as above ^
-    public void sandwichBuilder() {
+   /* public void sandwichBuilder() {
         if (ordersMap.containsValue(sandwich instanceof Bread)) {
             System.out.println(sandwich.getBread().toString()); // Rely on toString() of each class
             System.out.println(sandwich.getCombinedPrice()); // Probably need to manually format this one, OR
@@ -59,13 +63,13 @@ public class Order<T> {
         }
 
         //TODO Implement this in the Sandwich class to make the above the only necessary code
-        /*if (ordersMap.containsValue(toppings)) {
+        *//*if (ordersMap.containsValue(toppings)) {
             System.out.println(bread); // Rely on toString() of each class
         }
         if (ordersMap.containsValue(bread)) {
             System.out.println(bread); // Rely on toString() of each class
-        }*/
-    }
+        }*//*
+    }*/
 
 //Unless theres a better way to do this, like having an Order Builder
 //Where there is a centralized method that takes in all situations for cases like
@@ -94,7 +98,7 @@ public class Order<T> {
             Order.ordersMap.forEach((key, value) -> {
                 sb.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m");
                 System.out.println(sb.toString());
-                sb.setLength(0);
+                //sb.setLength(0);
 
                         /*if (value instanceof OtherProduct) {
                             if (OtherProduct.getType().equals("Drink")) {
@@ -104,7 +108,13 @@ public class Order<T> {
                                 System.out.println(((OtherProduct) value).print("Drink"));
                             }
                         }*/
-                sb.append(value.print());
+                if (value instanceof OtherProduct) {
+                    sb.append(((OtherProduct) value).print());
+                }
+
+                if (value instanceof Sandwich) {
+                    sb.append(((Sandwich) value).print());
+                }
                 /*if (function.equalsIgnoreCase("Print")) {
                     System.out.println(sb + "\n");
                 }*/
@@ -113,12 +123,12 @@ public class Order<T> {
                 return sb.toString();
             }
         }
+        System.out.println(sb.toString());
         sb.setLength(0);
         return "";
     }
 
-    public static void writeReceipt() {
-
+     static void writeReceipt() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
         String now = LocalDateTime.now().format(format);
         String filePath = "receipts/" + now + ".txt";
@@ -134,7 +144,11 @@ public class Order<T> {
 // String timeNow = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
     // where should the file that holds receipts be???
     //file path = receipts\fileName
-    public void writeToReceiptFolder() {
+    /*public void writeToReceiptFolder() {
 
+    }*/
+
+    public String print () {
+        return "";
     }
 }

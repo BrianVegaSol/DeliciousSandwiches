@@ -3,7 +3,7 @@ package com.pluarlsight;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class OtherProduct {
+public class OtherProduct extends Order {
     private DeliColaSize deliColaSize;
     private DeliColaType deliColaType;
     private DelishChipsType delishChipsType;

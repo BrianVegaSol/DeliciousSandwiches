@@ -204,7 +204,7 @@ o Cancel - delete order and go back to the home screen
     }
 
     public static void checkout () {
-        homeSB.append("\033[36m").append("\nCheckout Menu!\n==================\n")
+        homeSB.append("\033[36m").append("\nCheckout Menu!\n==============\n")
                 .append("\033[0m")
                 .append("Ready to Checkout?\n\n")
                 .append("\033[32m").append("1) Sure am!\n").append("\033[0m")

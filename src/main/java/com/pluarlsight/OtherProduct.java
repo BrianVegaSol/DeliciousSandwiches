@@ -225,6 +225,7 @@ public class OtherProduct extends Order {
     public String toString() {*/
     @Override
     public String print () {
+        sb.setLength(0);
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {
             sb.append("\033[35m").append("Drink Details")
@@ -233,8 +234,8 @@ public class OtherProduct extends Order {
                     .append("\nSize: ").append(deliColaSize.menuName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice))
                     .append("\033[0m");
-            System.out.print(sb.toString());
-            sb.setLength(0);
+            //System.out.print(sb.toString());
+            //sb.setLength(0);
             //return "";
         }
 
@@ -244,11 +245,11 @@ public class OtherProduct extends Order {
                     .append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice))
                     .append("\033[0m");
-            System.out.print(sb.toString());
-            sb.setLength(0);
+            //System.out.print(sb.toString());
+            //sb.setLength(0);
         }
 
-        return "";
+        return sb.toString();
     }
 
     /*@Override

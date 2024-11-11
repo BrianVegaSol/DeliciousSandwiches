@@ -46,6 +46,7 @@ public class Sandwich extends Order{
     public String toString() {*/
     @Override
     public String print () {
+        sb.setLength(0);
         sb.append("\033[33m").append("Custom ").append("\033[0m");
 
         if (isToasted) {
@@ -56,9 +57,9 @@ public class Sandwich extends Order{
                 .append(bread.print())
                 .append(toppings.print());
                 //.append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
-        System.out.print(sb.toString());
-        sb.setLength(0);
-        return "";
+        //System.out.print(sb.toString());
+        //sb.setLength(0);
+        return sb.toString();
         //TASK if toasted, then add "Toasted", no need for else if false
          /*"Custom" + isToasted + "Sandwich Details\n" + bread.toString() +
                 "\n\n" +

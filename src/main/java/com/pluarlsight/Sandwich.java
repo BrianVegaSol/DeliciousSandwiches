@@ -40,8 +40,9 @@ public class Sandwich{
         return toppings;
     }
 
-    @Override
-    public String toString() {
+   /* @Override
+    public String toString() {*/
+    public String print () {
 
         sb.append("\033[33m").append("Custom ").append("\033[0m");
 

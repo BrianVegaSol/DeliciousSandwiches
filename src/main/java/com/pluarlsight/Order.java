@@ -80,6 +80,7 @@ public class Order<T> {
         /*return sb.append("s")//.append(var).
                 //.append()
                 .toString();*/
+    //FIXME ditch toString()s, name them all print() and hope that value prints it properly? :')
     public static String formatReceipt(String function) {
         sb.setLength(0);
         if (Order.ordersMap.isEmpty()) {

@@ -165,7 +165,7 @@ public class OtherProduct {
         //TODO Add DateTime and Object to HashMap
         OtherProduct drink = new OtherProduct(size, type);
         System.out.print("Let's go over your order\n");
-        System.out.println(drink);
+        System.out.println(drink.print());
         sb.setLength(0);
         if (Topping.confirmOrder("Drink") == -1) {
             drink = null;
@@ -221,8 +221,9 @@ public class OtherProduct {
     }
 
     //public String print(String type) {
-    @Override
-    public String toString() {
+   /* @Override
+    public String toString() {*/
+    public String print () {
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {
             sb.append("\033[35m").append("Drink Details")

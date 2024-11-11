@@ -222,11 +222,21 @@ o Cancel - delete order and go back to the home screen
                     homeSB.setLength(0);
                 } else {
                     //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
-                    Order.ordersMap.forEach((key, value) ->
-                            homeSB.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m").
-                                    append(value.toString()));
-                    System.out.println(homeSB + "\n");
-                    homeSB.setLength(0);
+                    Order.ordersMap.forEach((key, value) -> {
+                        homeSB.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m");
+                        /*if (value instanceof OtherProduct) {
+                            if (OtherProduct.getType().equals("Drink")) {
+                                System.out.println(((OtherProduct) value).print("Drink"));
+                            }
+                            if (OtherProduct.getType().equals("Chips")) {
+                                System.out.println(((OtherProduct) value).print("Drink"));
+                            }
+
+                        }*/
+                        homeSB.append(value.toString());
+                        System.out.println(homeSB + "\n");
+                        homeSB.setLength(0);
+                    });
                 }
                 break;
         }

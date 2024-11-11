@@ -94,7 +94,7 @@ public class Bread extends Sandwich{
     public static void sandwichMenu(byte numOfSandwiches) throws InterruptedException {
         byte sandwichesMade = 0;
         int breadSizeInput = -1;
-        double sandwichPriceTally = 0;
+        //double sandwichPriceTally = 0;
         //FIXME Prooobably gonna break stuff ToT
         BreadType type = BreadType.RYE;
         BreadSize size = BreadSize.FOUR_INCH;
@@ -102,6 +102,7 @@ public class Bread extends Sandwich{
         while (sandwichesMade < (numOfSandwiches)) {
             Bread bread;
         bread = (Bread) sizeAndTypeMenu();
+            //System.out.println(bread.print());
         if (Topping.confirmOrder("Bread") == -1) {
             bread = null;
             return;
@@ -184,7 +185,7 @@ public class Bread extends Sandwich{
                 Order.ordersMap.put(++Order.itemOrderNumber, sandwich);
                 //System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here
-                sandwichPriceTally += bread.breadSize.menuPrice;
+                //sandwichPriceTally += bread.breadSize.menuPrice;
                 //END
                 sandwichesMade++;
             }
@@ -296,6 +297,7 @@ public String print () {
             .append("\nSize: ").append(breadSize.sizeName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
                     .append("\033[0m");
+            //sb.append("\033[92m").append(String.format("Subtotal: $%.2f%n", getBreadMenuPrice())).append("\033[0m");
     System.out.println(sb.toString());
     sb.setLength(0);
      return "";

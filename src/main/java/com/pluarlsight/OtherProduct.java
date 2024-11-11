@@ -20,6 +20,10 @@ public class OtherProduct {
         OtherProduct.this.type = "Drink";
     }
 
+    public String getType() {
+        return type;
+    }
+
     public double getDrinkPriceTotal() {
         return drinkPriceTotal;
     }
@@ -122,7 +126,7 @@ public class OtherProduct {
     public static void addDrink() throws InterruptedException {
         //TODO Make Val a meThod that takes 2 prompts
         DeliColaSize size = null;
-        DeliColaType type = null;
+        DeliColaType type;
         Scanner scan = new Scanner(System.in);
         int drinkInput = -1;
         while (true) {
@@ -136,8 +140,6 @@ public class OtherProduct {
             try {
                 drinkInput = scan.nextInt();
                 size = DeliColaSize.values()[drinkInput - 1];
-
-                break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                 System.err.println("Sorry, we don't offer that size here!");
                 scan.nextLine();

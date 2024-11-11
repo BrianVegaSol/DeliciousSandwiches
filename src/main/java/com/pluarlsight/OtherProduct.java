@@ -247,6 +247,7 @@ public class OtherProduct extends Order {
             //System.out.print(sb.toString());
             //sb.setLength(0);
             //return "";
+            sb.append("\n");
         }
 
         if (type.equalsIgnoreCase("Chips")) {
@@ -254,7 +255,7 @@ public class OtherProduct extends Order {
                     .append("\n============").append("\033[0m")
                     .append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice))
-                    .append("\033[0m\n");
+                    .append("\033[0m");
             //System.out.print(sb.toString());
             //sb.setLength(0);
         }

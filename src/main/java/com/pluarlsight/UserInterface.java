@@ -204,6 +204,7 @@ o Cancel - delete order and go back to the home screen
     }
 
     public static void checkout () {
+        homeSB.setLength(0);
         homeSB.append("\033[36m").append("\nCheckout Menu!\n==============\n")
                 .append("\033[0m")
                 .append("Let's go over your order");

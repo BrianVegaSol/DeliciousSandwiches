@@ -260,6 +260,7 @@ public class Topping {
                         System.out.print("Let's go over your order\n");
                         System.out.println(topping.print());
                         sb.setLength(0);
+                        sb.setLength(0);
                         //EXPLAIN Legacy
                         /*sb.append("\033[32m").append("Included\n========").append("\033[0m");
                         System.out.println(sb.toString());
@@ -305,7 +306,9 @@ public class Topping {
                         if (confirmOrder("Toppings") == -1) {
                             continue;
                         } else {
+                            sb.setLength(0);
                             Bread.wantsToasted();
+
                             //FIXME May need to add topping to orderMap??? then return
                             return topping;
                         }
@@ -333,7 +336,8 @@ public class Topping {
 
     public static int confirmOrder(String menuType) throws InterruptedException {
         while (true) {
-            sb.append("\033[36m").append("Would you like to Confirm your " + menuType + " Order?\n\n")
+            sb.setLength(0);
+            sb.append("\033[36m").append("Would you like to Confirm your ").append(menuType).append(" Order?\n\n")
                     .append("\033[0m");
             sb.append("\033[32m").append("1) Yes\n").append("\033[0m");
             sb.append("\033[31m").append("0) No, let me change some things\n").append("\033[0m");
@@ -488,6 +492,7 @@ public class Topping {
         System.out.println("After added from Removed []: " + Arrays.toString(removedToppings));
     }*/
     public String print () {
+        sb.setLength(0);
     if (premiumTopping != null) {
         sb.append(premiumTopping.print());
     } /*else {
@@ -510,7 +515,7 @@ public class Topping {
                 }
             }
         }
-        System.out.println();
+
         sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
         return sb.toString() + "Nothing removed\n";
     }
@@ -531,7 +536,6 @@ public class Topping {
             }
         }
     }
-    System.out.println();
     sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
     //System.out.println(sb.toString());
     //sb.setLength(0);
@@ -543,10 +547,11 @@ public class Topping {
             sb.append(", ");
         }
     }
+    sb.append("\n");
     //System.out.println("\n\n");
-    System.out.print(sb.toString());
-    sb.setLength(0);
-    return "";
+    //System.out.print(sb.toString());
+    //sb.setLength(0);
+    return sb.toString();
     }
 
     @Override

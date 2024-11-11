@@ -12,7 +12,7 @@ public class PremiumTopping extends Topping {
     private ExtraCheeseSize extraCheeseSize;
     private double premiumToppingsMenuPrice;
     private static StringBuilder sb = new StringBuilder();
-    static Scanner scanner = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
     public PremiumTopping() {
         super();
@@ -494,6 +494,7 @@ public class PremiumTopping extends Topping {
     //return null;
     @Override
     public String print() {
+        sb.setLength(0);
         sb.append("\033[31m").append("Premium Topping Details")
                 .append("\n=======================\n").append("\033[0m");
         if (meatSize != null) {
@@ -523,9 +524,10 @@ public class PremiumTopping extends Topping {
                         .append("\033[0m");
             }
         }
+        sb.append("\n");
                         //sb.append(String.format("Subtotal: $%.2f%n", premiumToppingsMenuPrice));
-        System.out.print(sb.toString());
-        sb.setLength(0);
-        return "";
+        //System.out.print(sb.toString());
+        //sb.setLength(0);
+        return sb.toString();
     }
 }

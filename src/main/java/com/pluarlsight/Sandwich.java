@@ -5,7 +5,7 @@ public class Sandwich extends Order{
     private Topping toppings;
     private double combinedPrice;
     private boolean isToasted;
-    static StringBuilder sb = new StringBuilder();
+    private static StringBuilder sb = new StringBuilder();
     //TASK Try to have Bread and Topping become interfaces and have Sandwich implement both
     // OR have Bread and Toppings extend Sandwich (y tho???)
 

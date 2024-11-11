@@ -11,7 +11,8 @@ public class Bread extends Sandwich{
     private BreadType breadType;
     private BreadSize breadSize;
     private static boolean isToasted;
-    static Scanner scan = new Scanner(System.in);
+    private static Scanner scan = new Scanner(System.in);
+    private static StringBuilder sb = new StringBuilder();
 
     public Bread(BreadType breadType, BreadSize breadSize, int numOfSandwiches) {
         super();
@@ -102,6 +103,9 @@ public class Bread extends Sandwich{
         while (sandwichesMade < (numOfSandwiches)) {
             Bread bread;
         bread = (Bread) sizeAndTypeMenu();
+            System.out.println("Let's go over your order");
+            System.out.println(bread.print());
+            sb.setLength(0);
             //System.out.println(bread.print());
         if (Topping.confirmOrder("Bread") == -1) {
             bread = null;
@@ -182,6 +186,7 @@ public class Bread extends Sandwich{
                 //boolean isToasted = wantsToasted();
                 Sandwich sandwich = new Sandwich(bread, topping, isToasted);
                 System.out.println(sandwich.print("Print"));
+                sb.setLength(0);
                 Order.ordersMap.put(++Order.itemOrderNumber, sandwich);
                 //System.out.println("Sandwich Order Placed Successfully!");
                 //EXPLAIN Trying to tally price for each sandwich here
@@ -288,7 +293,8 @@ public static Object sizeAndTypeMenu () {
 }
 
 public String print () {
-     //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+    sb.setLength(0);
+    //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
             //TODO Add a type + Details for when writing to .csv receipt???
             sb.append("\033[34m").append("Bread Details")
             //TODO .repeat()??? might add more workload
@@ -297,10 +303,11 @@ public String print () {
             .append("\nSize: ").append(breadSize.sizeName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
                     .append("\033[0m");
+            sb.append("\n");
             //sb.append("\033[92m").append(String.format("Subtotal: $%.2f%n", getBreadMenuPrice())).append("\033[0m");
-    System.out.println(sb.toString());
-    sb.setLength(0);
-     return "";
+    //System.out.println(sb.toString());
+    //sb.setLength(0);
+     return sb.toString();
 }
 
    /* @Override

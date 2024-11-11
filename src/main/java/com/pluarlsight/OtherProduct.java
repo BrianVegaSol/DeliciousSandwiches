@@ -165,7 +165,7 @@ public class OtherProduct {
         //TODO Add DateTime and Object to HashMap
         OtherProduct drink = new OtherProduct(size, type);
         System.out.print("Let's go over your order\n");
-        System.out.println(drink.print("Drink"));
+        System.out.println(drink);
         sb.setLength(0);
         if (Topping.confirmOrder("Drink") == -1) {
             drink = null;
@@ -191,16 +191,18 @@ public class OtherProduct {
 
     }
 
-    public String print(String type) {
+    //public String print(String type) {
+    @Override
+    public String toString() {
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {
             sb.append("\033[35m").append("Drink Details")
                     .append("\n=============").append("\033[0m")
                     .append("\nFlavor: ").append(deliColaType.menuName)
                     .append("\nSize: ").append(deliColaSize.menuName)
-                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", deliColaSize.menuPrice))
+                    .append("\033[32m").append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice))
                     .append("\033[0m");
-            System.out.println(sb.toString());
+            System.out.print(sb.toString());
             sb.setLength(0);
             //return "";
         }
@@ -209,9 +211,9 @@ public class OtherProduct {
             sb.append("\033[97m").append("Chip Details")
                     .append("\n============").append("\033[0m")
                     .append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
-                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", delishChipsType.menuPrice))
+                    .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice))
                     .append("\033[0m");
-            System.out.println(sb.toString());
+            System.out.print(sb.toString());
             sb.setLength(0);
         }
 

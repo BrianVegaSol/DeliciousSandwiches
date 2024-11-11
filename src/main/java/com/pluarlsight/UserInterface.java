@@ -216,29 +216,13 @@ o Cancel - delete order and go back to the home screen
             case 0:
                 break;
             case 1:
-                if (Order.ordersMap.isEmpty()) {
-                    homeSB.append("\033[31m").append("Hmmm, it doesn't look like you've ordered anything yet!\n")
-                            .append("\033[0m");
-                    System.out.println(homeSB.toString());
-                    homeSB.setLength(0);
-                } else {
-                    //FIXME if ordersMap == null then sout It doesn't look like you've ordered anything yet!
-                    Order.ordersMap.forEach((key, value) -> {
-                        homeSB.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m");
-                        /*if (value instanceof OtherProduct) {
-                            if (OtherProduct.getType().equals("Drink")) {
-                                System.out.println(((OtherProduct) value).print("Drink"));
-                            }
-                            if (OtherProduct.getType().equals("Chips")) {
-                                System.out.println(((OtherProduct) value).print("Drink"));
-                            }
+                Order.formatReceipt("Print");
 
-                        }*/
-                        homeSB.append(value.toString());
-                        System.out.println(homeSB + "\n");
-                        homeSB.setLength(0);
-                    });
-                }
+                //TASK Either "give" copy of receipt, exit app here && change text for Home Screen
+                // OR Make this loop back into the OrdersMenu
+                // Either way, need to write to .csv
+
+                Order.writeReceipt();
                 break;
         }
     }

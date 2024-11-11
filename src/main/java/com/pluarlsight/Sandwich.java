@@ -53,7 +53,7 @@ public class Sandwich{
                 .append(bread.print())
                 .append(toppings.print());
                 //.append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
-        System.out.println(sb.toString());
+        System.out.print(sb.toString());
         sb.setLength(0);
         return "";
         //TASK if toasted, then add "Toasted", no need for else if false

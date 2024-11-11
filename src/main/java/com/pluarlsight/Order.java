@@ -1,11 +1,14 @@
 package com.pluarlsight;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Order <T> {
-    StringBuilder sb = new StringBuilder();
+public class Order<T> {
+    static StringBuilder sb = new StringBuilder();
     //FIXME Need to either make toString here, update all other toStrings, or accept all other Objects into Order Obj
     // OR can just chop off the Order# (since it needs to get deleted anyway) and only show that in checkout() 0.0
     static HashMap<Integer, Object> ordersMap = new HashMap<>();
@@ -29,9 +32,9 @@ public class Order <T> {
         this.products = products;
     }
 
-    public double getOrderSubTotal () {
+    public double getOrderSubTotal() {
         return 0;
-                //sandwich.getCombinedPrice() + products.getDrinkMenuPrice() + products.getChipsMenuPrice();
+        //sandwich.getCombinedPrice() + products.getDrinkMenuPrice() + products.getChipsMenuPrice();
     }
 
     /*public Order (Bread bread, Toppings toppings) {
@@ -73,10 +76,57 @@ public class Order <T> {
     }
 
     //Super long toString for Checkout
-    public String formatReceipt(HashMap<LocalDateTime, Order> orders) {
-        return sb.append("s")//.append(var).
+    //public String formatReceipt(HashMap<LocalDateTime, Order> orders) {
+        /*return sb.append("s")//.append(var).
                 //.append()
-                .toString();
+                .toString();*/
+    public static String formatReceipt(String function) {
+        sb.setLength(0);
+        if (Order.ordersMap.isEmpty()) {
+            sb.append("\033[31m").append("Hmmm, it doesn't look like you've ordered anything yet!\n")
+                    .append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+
+
+        } else {
+            Order.ordersMap.forEach((key, value) -> {
+                sb.append("\n\033[33m").append("Order# ").append(key + 1).append("\033[0m");
+                System.out.println(sb.toString());
+                sb.setLength(0);
+
+                        /*if (value instanceof OtherProduct) {
+                            if (OtherProduct.getType().equals("Drink")) {
+                                System.out.println(((OtherProduct) value).print("Drink"));
+                            }
+                            if (OtherProduct.getType().equals("Chips")) {
+                                System.out.println(((OtherProduct) value).print("Drink"));
+                            }
+                        }*/
+                sb.append(value);
+                /*if (function.equalsIgnoreCase("Print")) {
+                    System.out.println(sb + "\n");
+                }*/
+            });
+            if (function.equalsIgnoreCase("Write")) {
+                return sb.toString();
+            }
+        }
+        sb.setLength(0);
+        return "";
+    }
+
+    public static void writeReceipt() {
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
+        String now = LocalDateTime.now().format(format);
+        String filePath = "receipts/" + now + ".txt";
+        try (FileWriter writer = new FileWriter(filePath, true)) {
+            writer.write(formatReceipt("Write"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        sb.setLength(0);
     }
 
     //TODO needs to be names LocalDateTime.now().txt

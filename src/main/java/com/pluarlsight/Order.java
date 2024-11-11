@@ -104,7 +104,7 @@ public class Order<T> {
                                 System.out.println(((OtherProduct) value).print("Drink"));
                             }
                         }*/
-                sb.append(value);
+                sb.append(value.print());
                 /*if (function.equalsIgnoreCase("Print")) {
                     System.out.println(sb + "\n");
                 }*/

@@ -201,7 +201,7 @@ public class OtherProduct {
             }
             OtherProduct chips = new OtherProduct(type);
             System.out.print("Let's go over your order\n");
-            System.out.println(chips);
+            System.out.println(chips.print());
             sb.setLength(0);
             if (Topping.confirmOrder("Chips") == -1) {
                 chips = null;
@@ -223,6 +223,7 @@ public class OtherProduct {
     //public String print(String type) {
    /* @Override
     public String toString() {*/
+    @Override
     public String print () {
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {

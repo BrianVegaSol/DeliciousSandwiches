@@ -174,6 +174,7 @@ o Cancel - delete order and go back to the home screen
                         break;
                     //FIXME
                     case 3:
+                        OtherProduct.addChips();
                         break;
                     //FIXME/TODO BONUS??? Make the receipt show 5 sandwiches made, exclude duplicates, and tally price for duplicates
                     // Only show Unique entries and keep tally of quantity of items and total cost, sub-dividing all sections

@@ -179,8 +179,37 @@ public class OtherProduct {
     }
 
 
-    public static void addChips() {
-
+    public static void addChips() throws InterruptedException {
+            DelishChipsType type;
+            Scanner scan = new Scanner(System.in);
+            int chipsInput = -1;
+            while (true) {
+                System.out.println("""
+                    What flavor do you want?
+                    1) Classic
+                    2) Flamin Hot
+                    3) Sour Cream
+                    """);
+                try {
+                    chipsInput = scan.nextInt();
+                    type = DelishChipsType.values()[chipsInput - 1];
+                    break;
+                } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                    System.err.println("Sorry, we don't offer that flavor here!");
+                    scan.nextLine();
+                }
+            }
+            OtherProduct chips = new OtherProduct(type);
+            System.out.print("Let's go over your order\n");
+            System.out.println(chips);
+            sb.setLength(0);
+            if (Topping.confirmOrder("Chips") == -1) {
+                chips = null;
+                return;
+            }
+            chips.drinkPriceTotal += type.menuPrice;
+            Order.ordersMap.put(++Order.itemOrderNumber, chips);
+            System.out.println("\033[32m" + "Drink Order Placed Successfully" + "\033[0m\n");
     }
 
     /* public static validation () {

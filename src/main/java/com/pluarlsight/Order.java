@@ -177,8 +177,31 @@ public class Order {
     }
 
     public static Map<Object, Long> distinctMapEntriesAndQuantity () {
-        return ordersMap.values().stream().distinct()
+        /*var fileredMap = ordersMap.values().stream().distinct()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        return fileredMap.values().stream().collect(Collectors.toMap(
+                Function.identity(),
+                value -> ordersMap.values().stream()
+                        .filter(v -> v.equals(value))
+                        .count()
+        ));*/
+
+       /* return ordersMap.values().stream()
+                .distinct()
+                .collect(Collectors.toMap(
+                        Function.identity(), // Key is the distinct value itself
+                        value -> ordersMap.values().stream()
+                                .filter(value2 -> value2.equals(value))
+                                .count() // Value is the count of this distinct value
+                ));*/
+
+        //If only the comparison worked :')
+        /*return ordersMap.values().stream()
+                .collect(Collectors.groupingBy(
+                        Sandwich::print,
+                        Collectors.counting()
+                ));*/
     }
 
     /*public static void workPLS () {

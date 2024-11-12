@@ -113,7 +113,9 @@ public class Order {
                 //EXPLAIN Holds all distinct Objects in ordersMap as its Key, and # occurrences as its Value
                 //TODO So should forEach
                 sb.append("\n\n\nTESTING AREA AHEAD\n\n");
-                    distinctMapEntriesAndQuantity().forEach((Object,count) ->{
+                distinctWithQuantity();
+            System.out.println("\n\n\n\n");
+            distinctMapEntriesAndQuantity().forEach((Object,count) ->{
                         if (Object instanceof Sandwich) {
                             sb.append(((Sandwich) Object).print("Checkout", count));
                         }
@@ -177,6 +179,7 @@ public class Order {
     }
 
     public static Map<Object, Long> distinctMapEntriesAndQuantity () {
+        //EXPLAIN Duplicate Keys error, probably closest to solution
         /*var fileredMap = ordersMap.values().stream().distinct()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
@@ -186,15 +189,16 @@ public class Order {
                         .filter(v -> v.equals(value))
                         .count()
         ));*/
+        //END
 
-       /* return ordersMap.values().stream()
+       return ordersMap.values().stream()
                 .distinct()
                 .collect(Collectors.toMap(
                         Function.identity(), // Key is the distinct value itself
                         value -> ordersMap.values().stream()
                                 .filter(value2 -> value2.equals(value))
                                 .count() // Value is the count of this distinct value
-                ));*/
+                ));
 
         //If only the comparison worked :')
         /*return ordersMap.values().stream()
@@ -202,6 +206,39 @@ public class Order {
                         Sandwich::print,
                         Collectors.counting()
                 ));*/
+
+    }
+
+    public static Map <String, Integer> distinctWithQuantity () {
+        /*for (Map.Entry<Integer, Object> entry : ordersMap.entrySet()) {
+            System.out.println(entry.getKey() + " -> Count: " + entry.getValue());
+        }*/
+        String orderDetails = "";
+        Map <String, Integer> duplicatesWithCount = new HashMap<>();
+        for (Object obj : ordersMap.values()) {
+            if (obj instanceof Sandwich) {
+                orderDetails = ((Sandwich) obj).print2();
+            }
+
+            if (obj instanceof OtherProduct) {
+                if (((OtherProduct) obj).getType().equalsIgnoreCase("Drink")) {
+                    orderDetails = ((OtherProduct) obj).print2();
+                }
+
+                if (((OtherProduct) obj).getType().equalsIgnoreCase("Chips")) {
+                    orderDetails = ((OtherProduct) obj).print2();
+                }
+            }
+
+            duplicatesWithCount.put(orderDetails, duplicatesWithCount.getOrDefault(orderDetails, 0) + 1);
+        }
+
+        for (String souts : duplicatesWithCount.keySet()) {
+            //FIXME Can probably still keep the old prints and feel the value into them now!
+            System.out.println(souts);
+
+        }
+        return duplicatesWithCount;
     }
 
     /*public static void workPLS () {
@@ -213,11 +250,11 @@ public class Order {
                 .collect(Collectors.groupingBy());
     }*/
 
-    public static Map <Object, Long> workPLS () {
+    /*public static Map <Object, Long> workPLS () {
         return ordersMap.values().stream().filter(o -> o instanceof OtherProduct)
                 .distinct()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-    }
+    }*/
 
     //public static long countUniqueOrdersSandwich() {
         //long count =

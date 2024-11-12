@@ -1,5 +1,7 @@
 package com.pluarlsight;
 
+import java.util.Objects;
+
 public class Sandwich extends Order{
     private Bread bread;
     private Topping toppings;
@@ -27,7 +29,23 @@ public class Sandwich extends Order{
 
     public Sandwich() {
         super();
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Sandwich sandwich = (Sandwich) obj;
+        return bread == bread.getBread() && toppings == getToppings();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bread, toppings);
     }
 
     public double getCombinedPrice() {
@@ -68,4 +86,28 @@ public class Sandwich extends Order{
                 "\n\n" +
                 toppings.toString();*/
     }
+
+    public String print2 () {
+        sb.setLength(0);
+        sb.append("\033[33m").append("Custom ").append("\033[0m");
+
+        if (isToasted) {
+            sb.append("\033[93m").append("Toasted ").append("\033[0m");
+        }
+
+        sb.append("\033[33m").append("Sandwich Details\n===============================\n\n").append("\033[0m");
+            sb.append("\033[33m").append("Quantity: ").append("\033[0m");
+
+        sb.append(bread.print())
+                .append(toppings.print());
+        //.append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
+        //System.out.print(sb.toString());
+        //sb.setLength(0);
+        return sb.toString();
+        //TASK if toasted, then add "Toasted", no need for else if false
+         /*"Custom" + isToasted + "Sandwich Details\n" + bread.toString() +
+                "\n\n" +
+                toppings.toString();*/
+    }
+
 }

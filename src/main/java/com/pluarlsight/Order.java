@@ -110,6 +110,33 @@ public class Order {
                                 System.out.println(((OtherProduct) value).print("Drink"));
                             }
                         }*/
+                //EXPLAIN Holds all distinct Objects in ordersMap as its Key, and # occurrences as its Value
+                //TODO So should forEach
+                sb.append("\n\n\nTESTING AREA AHEAD\n\n");
+                    distinctMapEntriesAndQuantity().forEach((Object,count) ->{
+                        if (Object instanceof Sandwich) {
+                            sb.append(((Sandwich) Object).print("Checkout", count));
+                        }
+
+                        if (Object instanceof OtherProduct){
+                            if (((OtherProduct) Object).getType().equalsIgnoreCase("Drink")) {
+                                sb.append(((OtherProduct) Object).print("Checkout"));
+                            }
+
+                            if (((OtherProduct) Object).getType().equalsIgnoreCase("Chips")) {
+                                sb.append(((OtherProduct) Object).print("Checkout"));
+                            }
+
+                        }
+                    });
+                    sb.append("END OF TEST\n\n\n");
+
+
+
+
+
+
+
                 if (value instanceof Sandwich) {
                     sb.append(((Sandwich) value).print("Checkout"));
                 }
@@ -149,7 +176,7 @@ public class Order {
         sb.setLength(0);
     }
 
-    public Map<Object, Long> distinctMapEntriesAndQuantity () {
+    public static Map<Object, Long> distinctMapEntriesAndQuantity () {
         return ordersMap.values().stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }

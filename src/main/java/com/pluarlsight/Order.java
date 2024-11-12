@@ -97,8 +97,8 @@ public class Order {
 
         } else {
             //FIXME Will paste this into method later
-            Order.ordersMap.forEach((key, value) -> {
-                sb.append("\n\033[33m").append("Item #").append(key + 1).append("\033[0m\n");
+           /* Order.ordersMap.forEach((key, value) -> {
+                sb.append("\n\033[33m").append("Item #").append(key + 1).append("\033[0m\n");*/
                 //System.out.println(sb.toString());
                 //sb.setLength(0);
 
@@ -120,11 +120,11 @@ public class Order {
 
                         if (Object instanceof OtherProduct){
                             if (((OtherProduct) Object).getType().equalsIgnoreCase("Drink")) {
-                                sb.append(((OtherProduct) Object).print("Checkout"));
+                                sb.append(((OtherProduct) Object).print("Checkout", count));
                             }
 
                             if (((OtherProduct) Object).getType().equalsIgnoreCase("Chips")) {
-                                sb.append(((OtherProduct) Object).print("Checkout"));
+                                sb.append(((OtherProduct) Object).print("Checkout", count));
                             }
 
                         }
@@ -137,7 +137,7 @@ public class Order {
 
 
 
-                if (value instanceof Sandwich) {
+                /*if (value instanceof Sandwich) {
                     sb.append(((Sandwich) value).print("Checkout"));
                 }
 
@@ -151,13 +151,13 @@ public class Order {
                     }
                 }
 
-                /*if (function.equalsIgnoreCase("Print")) {
+                *//*if (function.equalsIgnoreCase("Print")) {
                     System.out.println(sb + "\n");
-                }*/
+                }*//*
             });
             if (function.equalsIgnoreCase("Write")) {
                 return sb.toString();
-            }
+            }*/
         }
         System.out.println(sb.toString());
         sb.setLength(0);
@@ -177,7 +177,22 @@ public class Order {
     }
 
     public static Map<Object, Long> distinctMapEntriesAndQuantity () {
-        return ordersMap.values().stream()
+        return ordersMap.values().stream().distinct()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
+
+    /*public static void workPLS () {
+        ordersMap.values().stream().filter(order -> order instanceof Sandwich)
+                .map(order -> (Sandwich) order)
+                .map(Sandwich::getBread)
+
+                .distinct()
+                .collect(Collectors.groupingBy());
+    }*/
+
+    public static Map <Object, Long> workPLS () {
+        return ordersMap.values().stream().filter(o -> o instanceof OtherProduct)
+                .distinct()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 

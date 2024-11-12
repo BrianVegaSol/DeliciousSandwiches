@@ -223,8 +223,8 @@ public class OtherProduct extends Order {
     //public String print(String type) {
    /* @Override
     public String toString() {*/
-    @Override
-    public String print(String function) {
+    //@Override
+    public String print(String function, long count) {
         sb.setLength(0);
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {
@@ -235,6 +235,7 @@ public class OtherProduct extends Order {
             } else {
                 sb.append("\033[35m").append("Drink Details")
                         .append("\n=============").append("\033[0m");
+                sb.append("Quantity: ").append(count);
             }
             sb.append("\nFlavor: ").append(deliColaType.menuName)
                     .append("\nSize: ").append(deliColaSize.menuName);
@@ -252,8 +253,9 @@ public class OtherProduct extends Order {
 
         if (type.equalsIgnoreCase("Chips")) {
             sb.append("\033[97m").append("Chip Details")
-                    .append("\n============").append("\033[0m")
-                    .append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
+                    .append("\n============").append("\033[0m");
+            sb.append("Quantity: ").append(count);
+                    sb.append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice))
                     .append("\033[0m");
             sb.append("\n");

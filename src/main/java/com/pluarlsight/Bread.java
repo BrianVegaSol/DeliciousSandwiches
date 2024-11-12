@@ -43,6 +43,14 @@ public class Bread extends Sandwich{
         return breadType;
     }
 
+    public int getBreadTypeMenuNum () {
+        return breadType.menuNum;
+    }
+
+    public int getBreadSizeMenuNum () {
+        return breadSize.menuNum;
+    }
+
     public void setBreadType(BreadType breadType) {
         this.breadType = breadType;
     }
@@ -78,6 +86,10 @@ public class Bread extends Sandwich{
             this.menuPrice = menuPrice;
             this.sizeName = sizeName;
         }
+
+        public int getMenuNum() {
+            return menuNum;
+        }
     }
 
     private enum BreadType {
@@ -90,6 +102,10 @@ public class Bread extends Sandwich{
         BreadType(int menuNum, String name) {
             this.menuNum = menuNum;
             this.name = name;
+        }
+
+        public int getMenuNum() {
+            return menuNum;
         }
     }
 
@@ -305,7 +321,7 @@ public static long countUniqueOrders () {
                 });*/
 
 
-    long duplcateValues = ordersMap.values().stream().
+    long duplicateValues = ordersMap.values().stream().
             collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
 
     /*AtomicLong quantity = new AtomicLong();
@@ -319,7 +335,7 @@ public static long countUniqueOrders () {
             .count();
 
 
-        return duplcateValues;
+        return duplicateValues;
 }
 
 public String print () {

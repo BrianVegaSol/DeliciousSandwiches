@@ -4,8 +4,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Order {
     static StringBuilder sb = new StringBuilder();
@@ -109,13 +110,20 @@ public class Order {
                                 System.out.println(((OtherProduct) value).print("Drink"));
                             }
                         }*/
-                if (value instanceof OtherProduct) {
-                    sb.append(((OtherProduct) value).print("Receipt"));
+                if (value instanceof Sandwich) {
+                    sb.append(((Sandwich) value).print("Checkout"));
                 }
 
-                if (value instanceof Sandwich) {
-                    sb.append(((Sandwich) value).print("Receipt"));
+                if (value instanceof OtherProduct) {
+                    if (((OtherProduct) value).getType().equalsIgnoreCase("Drink")) {
+                        sb.append(((OtherProduct) value).print("Checkout"));
+                    }
+
+                    if (((OtherProduct) value).getType().equalsIgnoreCase("Chips")) {
+                        sb.append(((OtherProduct) value).print("Checkout"));
+                    }
                 }
+
                 /*if (function.equalsIgnoreCase("Print")) {
                     System.out.println(sb + "\n");
                 }*/
@@ -129,7 +137,7 @@ public class Order {
         return "";
     }
 
-     static void writeReceipt() {
+    static void writeReceipt() {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss");
         String now = LocalDateTime.now().format(format);
         String filePath = "receipts/" + now + ".txt";
@@ -141,6 +149,44 @@ public class Order {
         sb.setLength(0);
     }
 
+    public Map<Object, Long> distinctMapEntriesAndQuantity () {
+        return ordersMap.values().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    }
+
+    //public static long countUniqueOrdersSandwich() {
+        //long count =
+                /*var o = ordersMap.values().stream().filter(order -> order instanceof Sandwich)
+                        .distinct().co
+                .map(order -> (sandwich.print("Receipt")));*/
+
+        /*long count = ordersMap.values().stream().filter(order -> order instanceof Sandwich)
+                .map(order -> (Sandwich) order)
+                .forEach(order -> Comparator.comparing(Sandwich.bread.getBreadType()))
+                .count();
+
+        ordersMap.values().stream().filter(order -> order instanceof Sandwich)
+                .map(order -> (Sandwich) order)
+                .distinct()
+                .forEach(order -> order.print("Receipt" , count));*/
+        //EXPLAIN Not sure what this is counting but looks promising
+        /*long duplcateValues = ordersMap.values().stream().
+                collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .values().stream().filter(quantity -> quantity > 1)
+                .count();
+        return duplcateValues;*/
+        //END
+
+        //EXPLAIN Also looked promising
+        /*var count = ordersMap.values().stream().distinct()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.summingLong(e -> 1L)));
+                return count;*/
+        //END
+    //}
+
+
+
+
     //TODO needs to be names LocalDateTime.now().txt
 // String timeNow = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
     // where should the file that holds receipts be???
@@ -149,7 +195,7 @@ public class Order {
 
     }*/
 
-    public String print (String function) {
+    public String print(String function) {
         return "";
     }
 }

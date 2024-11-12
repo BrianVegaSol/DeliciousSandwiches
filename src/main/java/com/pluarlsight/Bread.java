@@ -2,6 +2,10 @@ package com.pluarlsight;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+//import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 //TASK Can use setters to change order at CheckOut Menu ugh
 // Maybe ovverride the Menus so that they look the same but use setters?
 public class Bread extends Sandwich{
@@ -185,7 +189,7 @@ public class Bread extends Sandwich{
                 //TASK Make menu to check if user wants sandwich toasted
                 //boolean isToasted = wantsToasted();
                 Sandwich sandwich = new Sandwich(bread, topping, isToasted);
-                System.out.println(sandwich.print("Print"));
+                System.out.println(sandwich.print("Print", 1));
                 sb.setLength(0);
                 Order.ordersMap.put(++Order.itemOrderNumber, sandwich);
                 //System.out.println("Sandwich Order Placed Successfully!");
@@ -290,6 +294,32 @@ public static Object sizeAndTypeMenu () {
                     //END <-
                 }
                 return bread = new Bread(type, size);
+}
+
+public static long countUniqueOrders () {
+        /*var count = ordersMap.values().stream().filter(order -> order instanceof Sandwich)
+                .map(order -> (Sandwich) order)
+                .forEach(order1 -> { ordersMap.values().stream()
+                        .mapToInt(Object::hashCode)
+                        .count();
+                });*/
+
+
+    long duplcateValues = ordersMap.values().stream().
+            collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+
+    /*AtomicLong quantity = new AtomicLong();
+    duplcateValues.forEach((value, count) -> {
+        if (count > 1) {
+                    quantity.set(quantity.get() + count);
+        }
+    });*/
+
+            .values().stream().filter(quantity -> quantity > 1)
+            .count();
+
+
+        return duplcateValues;
 }
 
 public String print () {

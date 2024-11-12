@@ -242,7 +242,7 @@ public class OtherProduct extends Order {
                 //sb.append(String.format("\nPrice: $%.2f%n", (deliColaSize.menuPrice * countUniqueOrders())));
             } else {
                 sb.append("\033[32m").append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice))
-                        .append("\033[0m\n");
+                        .append("\033[0m");
             }
             //System.out.print(sb.toString());
             //sb.setLength(0);
@@ -256,10 +256,11 @@ public class OtherProduct extends Order {
                     .append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice))
                     .append("\033[0m");
+            sb.append("\n");
             //System.out.print(sb.toString());
             //sb.setLength(0);
         }
-
+        sb.append("\n");
         return sb.toString();
     }
 

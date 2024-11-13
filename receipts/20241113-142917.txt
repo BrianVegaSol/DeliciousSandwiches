@@ -1,0 +1,6 @@
+Chip Details
+============
+Quantity: 1
+Delish Chips Flavor: Classic
+Price: $1.50
+

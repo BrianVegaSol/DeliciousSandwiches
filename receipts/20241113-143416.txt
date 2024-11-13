@@ -1,0 +1,43 @@
+[33mCustom [0m[93mToasted [0m[33mSandwich Details
+===============================
+[0m[33mQuantity: 1[0m
+
+[34mBread Details
+=============[0m
+Type: White Bread
+Size: 4"[32m
+Price: $5.50
+[0m
+[31mPremium Topping Details
+=======================
+[0m[31m
+Meat
+====[0m
+Pepperoni Added
+Size: 4"[32m
+Price: $1.00
+[0m
+Extra Pepperoni Added
+Size: 4"[32m
+Price: $0.50
+[0m[31m
+Cheese
+======[0m
+American Cheese Added
+Size: 4"[32m
+Price: $0.75
+[0m
+Extra American Added
+Size: 4"[32m
+Price: $0.30
+[0m
+[31mRegular Topping Details
+=======================[0m
+
+[32mIncluded
+[0mLettuce, Peppers, Onions, Tomatoes, Jalepeños, Cucumbers, Pickles, Guacamole, Mushrooms, 
+Mayo, Mustard, Ketchup, Ranch, Thousand Islands, Vinaigrette, au jus, Sauce[31m
+
+Removed
+[0mNothing removed
+[92mSandwich Cumulative Price: $8.05[0m

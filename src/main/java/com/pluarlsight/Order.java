@@ -113,7 +113,7 @@ public class Order {
             //EXPLAIN Holds all distinct Objects in ordersMap as its Key, and # occurrences as its Value
             //TODO So should forEach
             //sb.append("\n\n\nTESTING AREA AHEAD\n\n");
-            distinctWithQuantity(function);
+            return distinctWithQuantity(function);
             //System.out.println("\n\n\n\n");
             //EXPLAIN Legacy version w/o distinct printing
             /*distinctMapEntriesAndQuantity().forEach((Object,count) ->{
@@ -163,9 +163,9 @@ public class Order {
                 return sb.toString();
             }*/
         }
-        System.out.println(sb.toString());
+        //System.out.println(sb.toString());
         //sb.setLength(0);
-        return "";
+return "";
     }
 
     static void writeReceipt() {
@@ -212,10 +212,12 @@ public class Order {
     }
 
     //public static Map<String, Integer> distinctWithQuantity() {
-    public static void distinctWithQuantity(String function) {
+    public static String distinctWithQuantity(String function) {
         /*for (Map.Entry<Integer, Object> entry : ordersMap.entrySet()) {
             System.out.println(entry.getKey() + " -> Count: " + entry.getValue());
         }*/
+        //FIXME May cause issues
+        sb.setLength(0);
         String orderDetails = "";
         Map<String, Integer> duplicatesWithCount = new HashMap<>();
         for (Object obj : ordersMap.values()) {
@@ -301,7 +303,8 @@ public class Order {
             sb.append("\033[32m").append(("\nPrice: $%.2f" ))
                     .append("\033[0m");*/
         System.out.println(sb.toString());
-        sb.setLength(0);
+        return sb.toString();
+        //sb.setLength(0);
 
         // return duplicatesWithCount;
     }

@@ -199,7 +199,7 @@ public class OtherProduct extends Order {
         //TODO Add DateTime and Object to HashMap
         OtherProduct drink = new OtherProduct(size, type);
         System.out.print("Let's go over your order\n");
-        System.out.print(drink.print("Print"));
+        System.out.print(drink.print("Print" , 1));
         sb.setLength(0);
         if (Topping.confirmOrder("Drink") == -1) {
             drink = null;
@@ -235,7 +235,7 @@ public class OtherProduct extends Order {
         }
         OtherProduct chips = new OtherProduct(type);
         System.out.print("Let's go over your order\n");
-        System.out.print(chips.print("Print"));
+        System.out.print(chips.print("Print" ,1));
         sb.setLength(0);
         if (Topping.confirmOrder("Chips") == -1) {
             chips = null;

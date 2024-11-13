@@ -99,8 +99,8 @@ public class Order {
             //FIXME Will paste this into method later
            /* Order.ordersMap.forEach((key, value) -> {
                 sb.append("\n\033[33m").append("Item #").append(key + 1).append("\033[0m\n");*/
-                //System.out.println(sb.toString());
-                //sb.setLength(0);
+            //System.out.println(sb.toString());
+            //sb.setLength(0);
 
                         /*if (value instanceof OtherProduct) {
                             if (OtherProduct.getType().equals("Drink")) {
@@ -110,12 +110,13 @@ public class Order {
                                 System.out.println(((OtherProduct) value).print("Drink"));
                             }
                         }*/
-                //EXPLAIN Holds all distinct Objects in ordersMap as its Key, and # occurrences as its Value
-                //TODO So should forEach
-                sb.append("\n\n\nTESTING AREA AHEAD\n\n");
-                distinctWithQuantity();
+            //EXPLAIN Holds all distinct Objects in ordersMap as its Key, and # occurrences as its Value
+            //TODO So should forEach
+            sb.append("\n\n\nTESTING AREA AHEAD\n\n");
+            distinctWithQuantity();
             System.out.println("\n\n\n\n");
-            distinctMapEntriesAndQuantity().forEach((Object,count) ->{
+            //EXPLAIN Legacy version w/o distinct printing
+            /*distinctMapEntriesAndQuantity().forEach((Object,count) ->{
                         if (Object instanceof Sandwich) {
                             sb.append(((Sandwich) Object).print("Checkout", count));
                         }
@@ -130,8 +131,9 @@ public class Order {
                             }
 
                         }
-                    });
-                    sb.append("END OF TEST\n\n\n");
+                    });*/
+            //END
+            sb.append("END OF TEST\n\n\n");
 
 
 
@@ -178,7 +180,7 @@ public class Order {
         sb.setLength(0);
     }
 
-    public static Map<Object, Long> distinctMapEntriesAndQuantity () {
+    public static Map<Object, Long> distinctMapEntriesAndQuantity() {
         //EXPLAIN Duplicate Keys error, probably closest to solution
         /*var fileredMap = ordersMap.values().stream().distinct()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
@@ -191,7 +193,7 @@ public class Order {
         ));*/
         //END
 
-       return ordersMap.values().stream()
+        return ordersMap.values().stream()
                 .distinct()
                 .collect(Collectors.toMap(
                         Function.identity(), // Key is the distinct value itself
@@ -209,12 +211,12 @@ public class Order {
 
     }
 
-    public static Map <String, Integer> distinctWithQuantity () {
+    public static Map<String, Integer> distinctWithQuantity() {
         /*for (Map.Entry<Integer, Object> entry : ordersMap.entrySet()) {
             System.out.println(entry.getKey() + " -> Count: " + entry.getValue());
         }*/
         String orderDetails = "";
-        Map <String, Integer> duplicatesWithCount = new HashMap<>();
+        Map<String, Integer> duplicatesWithCount = new HashMap<>();
         for (Object obj : ordersMap.values()) {
             if (obj instanceof Sandwich) {
                 orderDetails = ((Sandwich) obj).print2();
@@ -222,21 +224,44 @@ public class Order {
 
             if (obj instanceof OtherProduct) {
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Drink")) {
-                    orderDetails = ((OtherProduct) obj).print2();
+                    orderDetails = ((OtherProduct) obj).print2(1);
                 }
 
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Chips")) {
-                    orderDetails = ((OtherProduct) obj).print2();
+                    orderDetails = ((OtherProduct) obj).print2(1);
                 }
             }
 
             duplicatesWithCount.put(orderDetails, duplicatesWithCount.getOrDefault(orderDetails, 0) + 1);
         }
 
-        for (String souts : duplicatesWithCount.keySet()) {
-            //FIXME Can probably still keep the old prints and feel the value into them now!
-            System.out.println(souts);
+        for (Map.Entry<String, Integer> sout : duplicatesWithCount.entrySet()) {
+            if (ordersMap.values() instanceof Sandwich) {
+                if (sout.getKey().equals(((Sandwich) ordersMap.values()).print2())) {
+                    sb.append(((Sandwich) ordersMap.values()).print2());
+                }
+            }
 
+            if (ordersMap.values() instanceof OtherProduct) {
+                if (((OtherProduct) ordersMap.values()).getType().equalsIgnoreCase("Drink")) {
+                    if (sout.getKey().equals(((OtherProduct) ordersMap.values()).print2(1))) {
+                        sb.append(((OtherProduct) ordersMap.values()).print2(sout.getValue()));
+                    }
+                }
+
+                if (((OtherProduct) ordersMap.values()).getType().equalsIgnoreCase("Chips")) {
+                    if (sout.getKey().equals(((OtherProduct) ordersMap.values()).print2(1))) {
+                        sb.append(((OtherProduct) ordersMap.values()).print2(sout.getValue()));
+                    }
+                }
+            }
+            //FIXME Can probably still keep the old prints and feel the value into them now!
+            /*sb.append("Quantity: ").append(sout.getValue());
+            sb.append("\n").append(sout.getKey());
+            sb.append("\033[32m").append(("\nPrice: $%.2f" ))
+                    .append("\033[0m");*/
+            System.out.println(sb.toString());
+            sb.setLength(0);
         }
         return duplicatesWithCount;
     }
@@ -257,7 +282,7 @@ public class Order {
     }*/
 
     //public static long countUniqueOrdersSandwich() {
-        //long count =
+    //long count =
                 /*var o = ordersMap.values().stream().filter(order -> order instanceof Sandwich)
                         .distinct().co
                 .map(order -> (sandwich.print("Receipt")));*/
@@ -271,22 +296,20 @@ public class Order {
                 .map(order -> (Sandwich) order)
                 .distinct()
                 .forEach(order -> order.print("Receipt" , count));*/
-        //EXPLAIN Not sure what this is counting but looks promising
+    //EXPLAIN Not sure what this is counting but looks promising
         /*long duplcateValues = ordersMap.values().stream().
                 collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .values().stream().filter(quantity -> quantity > 1)
                 .count();
         return duplcateValues;*/
-        //END
+    //END
 
-        //EXPLAIN Also looked promising
+    //EXPLAIN Also looked promising
         /*var count = ordersMap.values().stream().distinct()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.summingLong(e -> 1L)));
                 return count;*/
-        //END
+    //END
     //}
-
-
 
 
     //TODO needs to be names LocalDateTime.now().txt

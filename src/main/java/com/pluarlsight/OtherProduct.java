@@ -333,15 +333,15 @@ public class OtherProduct extends Order {
             //EXPLAIN Without color for receipt
             if (function.equalsIgnoreCase("Receipt")) {
                 sb.append("Chip Details\n============")
-                        .append("Quantity: ").append(count)
-                        .append("\nDelish Chips Flavor: ")
+                        .append("\nQuantity: ").append(count)
+                        .append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                         .append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice * count));
                 sb.append("\n");
             } else {
                 //EXPLAIN With color for most cases
                 sb.append("\033[97m").append("Chip Details")
                         .append("\n============").append("\033[0m");
-                sb.append("Quantity: ").append(count);
+                sb.append("\nQuantity: ").append(count);
                 sb.append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                         .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice * count))
                         .append("\033[0m");

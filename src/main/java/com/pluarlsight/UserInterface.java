@@ -226,7 +226,8 @@ o Cancel - delete order and go back to the home screen
                 //TASK Either "give" copy of receipt, exit app here && change text for Home Screen
                 // OR Make this loop back into the OrdersMenu
                 // Either way, need to write to .csv
-
+                homeSB.append("\033[92m").append("Thank You For Shopping at Delicious Sandwiches! :D\n\n")
+                        .append("Here is a copy of you receipt!\n").append("\033[0m");
                 Order.writeReceipt();
                 homeSB.append("\033[32m").append("Is there anything else I can help you with?").append("\033[0m");
                 System.out.println(homeSB.toString());

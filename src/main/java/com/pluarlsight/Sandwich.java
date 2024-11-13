@@ -2,7 +2,7 @@ package com.pluarlsight;
 
 import java.util.Objects;
 
-public class Sandwich extends Order{
+public class Sandwich extends Order {
     private Bread bread;
     private Topping toppings;
     private double combinedPrice;
@@ -16,7 +16,7 @@ public class Sandwich extends Order{
 
     //FIXME Make sure that when asking for toasted or not, to add that to the String where Sandwich
     // is being displayed, otherwise will need to make a Sandwich enum with String "Toasted"
-    public Sandwich (Bread bread, Topping toppings, boolean isToasted) {
+    public Sandwich(Bread bread, Topping toppings, boolean isToasted) {
         super();
         this.bread = bread;
         this.toppings = toppings;
@@ -87,20 +87,33 @@ public class Sandwich extends Order{
                 toppings.toString();*//*
     }*/
 
-    public String print (String function, long count) {
+    public String print(String function, long count) {
         sb.setLength(0);
-        sb.append("\033[33m").append("Custom ").append("\033[0m");
+        if (function.equalsIgnoreCase("Receipt")) {
+            sb.append("Custom");
+            if (isToasted) {
+                sb.append("Toasted");
+            }
+            sb.append("Sandwich Details\n===============================\n")
+                    .append("Quantity: ").append(count)
+                    .append("\n\n")
+                    .append(bread.print())
+                    .append(toppings.print())
+                    .append(String.format("Sandwich Cumulative Price: $%.2f%n%n", combinedPrice * count));
+            return sb.toString();
+        }
 
+        //EXPLAIN For most cases
+        sb.append("\033[33m").append("Custom ").append("\033[0m");
         if (isToasted) {
             sb.append("\033[93m").append("Toasted ").append("\033[0m");
         }
-
         sb.append("\033[33m").append("Sandwich Details\n===============================\n").append("\033[0m");
-            sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
-            sb.append("\n\n");
+        sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
+        sb.append("\n\n");
         sb.append(bread.print())
                 .append(toppings.print())
-        .append("\033[92m").append(String.format("Sandwich Cumulative Price: $%.2f", combinedPrice * count))
+                .append("\033[92m").append(String.format("Sandwich Cumulative Price: $%.2f%n%n", combinedPrice * count))
                 .append("\033[0m");
         //System.out.print(sb.toString());
         //sb.setLength(0);

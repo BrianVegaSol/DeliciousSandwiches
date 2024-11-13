@@ -112,9 +112,9 @@ public class Order {
                         }*/
             //EXPLAIN Holds all distinct Objects in ordersMap as its Key, and # occurrences as its Value
             //TODO So should forEach
-            sb.append("\n\n\nTESTING AREA AHEAD\n\n");
+            //sb.append("\n\n\nTESTING AREA AHEAD\n\n");
             distinctWithQuantity(function);
-            System.out.println("\n\n\n\n");
+            //System.out.println("\n\n\n\n");
             //EXPLAIN Legacy version w/o distinct printing
             /*distinctMapEntriesAndQuantity().forEach((Object,count) ->{
                         if (Object instanceof Sandwich) {
@@ -133,7 +133,7 @@ public class Order {
                         }
                     });*/
             //END
-            sb.append("END OF TEST\n\n\n");
+           // sb.append("END OF TEST\n\n\n");
 
 
 
@@ -164,7 +164,7 @@ public class Order {
             }*/
         }
         System.out.println(sb.toString());
-        sb.setLength(0);
+        //sb.setLength(0);
         return "";
     }
 
@@ -271,7 +271,7 @@ public class Order {
                     }*/
                 }
 
-                //EXPLAIN This is so close!
+                //EXPLAIN This is so close! :')
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Chips")) {
                     orderDetails = ((OtherProduct) sout.getValue()).print("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);

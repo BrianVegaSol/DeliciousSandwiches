@@ -228,6 +228,10 @@ o Cancel - delete order and go back to the home screen
                 // Either way, need to write to .csv
 
                 Order.writeReceipt();
+                homeSB.append("\033[32m").append("Is there anything else I can help you with?").append("\033[0m");
+                System.out.println(homeSB.toString());
+                homeSB.setLength(0);
+
                 break;
         }
     }

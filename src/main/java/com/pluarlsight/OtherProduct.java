@@ -55,7 +55,6 @@ public class OtherProduct extends Order {
     }
 
 
-
     public DeliColaSize getDeliColaSize() {
         return deliColaSize;
     }
@@ -266,7 +265,7 @@ public class OtherProduct extends Order {
             if (function.equalsIgnoreCase("Receipt")) {
                 sb.append("Drink Details")
                         .append("\n=============");
-                        //.append("Quantity: ").append(countUniqueOrders());
+                //.append("Quantity: ").append(countUniqueOrders());
             } else {
                 sb.append("\033[35m").append("Drink Details")
                         .append("\n=============").append("\033[0m");
@@ -290,7 +289,7 @@ public class OtherProduct extends Order {
             sb.append("\033[97m").append("Chip Details")
                     .append("\n============").append("\033[0m");
             sb.append("Quantity: ").append(count);
-                    sb.append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
+            sb.append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
                     .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice))
                     .append("\033[0m");
             sb.append("\n");
@@ -301,35 +300,55 @@ public class OtherProduct extends Order {
         return sb.toString();
     }
 
-    public String print2(long count) {
+    public String print2(String function, long count) {
         sb.setLength(0);
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {
+            //EXPLAIN Without color for receipt
+            if (function.equalsIgnoreCase("Receipt")) {
+                sb.append("Drink Details\n=============")
+                        .append("\nQuantity: ").append(count)
+                        .append("\nFlavor: ").append(deliColaType.menuName)
+                        .append("\nSize: ").append(deliColaSize.menuName)
+                        .append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice * count))
+                        .append("\n");
+                //EXPLAIN With color for most cases
+            } else {
                 sb.append("\033[35m").append("Drink Details")
-                        .append("\n=============").append("\033[0m");
-                sb.append("\nQuantity: ").append(count);
-
-            sb.append("\nFlavor: ").append(deliColaType.menuName)
-                    .append("\nSize: ").append(deliColaSize.menuName);
-                sb.append("\033[32m").append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice * count))
+                        .append("\n=============").append("\033[0m")
+                        .append("\nQuantity: ").append(count)
+                        .append("\nFlavor: ").append(deliColaType.menuName)
+                        .append("\nSize: ").append(deliColaSize.menuName)
+                        .append("\033[32m").append(String.format("\nPrice: $%.2f", deliColaSize.menuPrice * count))
                         .append("\033[0m");
 
-            //System.out.print(sb.toString());
-            //sb.setLength(0);
-            //return "";
-            sb.append("\n");
+                //System.out.print(sb.toString());
+                //sb.setLength(0);
+                //return "";
+                sb.append("\n");
+            }
         }
 
         if (type.equalsIgnoreCase("Chips")) {
-            sb.append("\033[97m").append("Chip Details")
-                    .append("\n============").append("\033[0m");
-            sb.append("Quantity: ").append(count);
-            sb.append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
-                    .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice * count))
-                    .append("\033[0m");
-            sb.append("\n");
-            //System.out.print(sb.toString());
-            //sb.setLength(0);
+            //EXPLAIN Without color for receipt
+            if (function.equalsIgnoreCase("Receipt")) {
+                sb.append("Chip Details\n============")
+                        .append("Quantity: ").append(count)
+                        .append("\nDelish Chips Flavor: ")
+                        .append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice * count));
+                sb.append("\n");
+            } else {
+                //EXPLAIN With color for most cases
+                sb.append("\033[97m").append("Chip Details")
+                        .append("\n============").append("\033[0m");
+                sb.append("Quantity: ").append(count);
+                sb.append("\nDelish Chips Flavor: ").append(delishChipsType.menuName)
+                        .append("\033[32m").append(String.format("\nPrice: $%.2f", delishChipsType.menuPrice * count))
+                        .append("\033[0m");
+                sb.append("\n");
+                //System.out.print(sb.toString());
+                //sb.setLength(0);
+            }
         }
         sb.append("\n");
         return sb.toString();

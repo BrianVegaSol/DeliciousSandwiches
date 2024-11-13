@@ -225,11 +225,11 @@ public class Order {
 
             if (obj instanceof OtherProduct) {
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Drink")) {
-                    orderDetails = ((OtherProduct) obj).print2(1);
+                    orderDetails = ((OtherProduct) obj).print2("Checkout", 1);
                 }
 
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Chips")) {
-                    orderDetails = ((OtherProduct) obj).print2(1);
+                    orderDetails = ((OtherProduct) obj).print2("Checkout", 1);
                 }
             }
 
@@ -250,12 +250,12 @@ public class Order {
 
             if (sout.getValue() instanceof OtherProduct) {
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Drink")) {
-                    orderDetails = ((OtherProduct) sout.getValue()).print2(1);
+                    orderDetails = ((OtherProduct) sout.getValue()).print2("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);
                     //EXPLAIN Adding unique entries to Hashset and sb to filter out duplicates
                     if (!seenEntries.contains(orderDetails)) {
                         seenEntries.add(orderDetails);
-                        sb.append(((OtherProduct) sout.getValue()).print2(quantity));
+                        sb.append(((OtherProduct) sout.getValue()).print2("Checkout", quantity));
                     }
                     /*if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
                         if (quantity == 1) {
@@ -269,10 +269,10 @@ public class Order {
 
                 //EXPLAIN This is so close!
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Chips")) {
-                    orderDetails = ((OtherProduct) sout.getValue()).print2(1);
+                    orderDetails = ((OtherProduct) sout.getValue()).print2("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);
                     //Add this to HashSet<String> then loop through the HashSet and print that?
-                    sb.append(((OtherProduct) sout.getValue()).print2(quantity));
+                    sb.append(((OtherProduct) sout.getValue()).print2("Checkout", quantity));
                 }
             }
         }

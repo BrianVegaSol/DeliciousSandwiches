@@ -63,7 +63,7 @@ public class Sandwich extends Order{
    /* @Override
     public String toString() {*/
     //@Override
-    public String print (String function, long count) {
+    /*public String print (String function, long count) {
         sb.setLength(0);
         sb.append("\033[33m").append("Custom ").append("\033[0m");
 
@@ -82,12 +82,12 @@ public class Sandwich extends Order{
         //sb.setLength(0);
         return sb.toString();
         //TASK if toasted, then add "Toasted", no need for else if false
-         /*"Custom" + isToasted + "Sandwich Details\n" + bread.toString() +
+         *//*"Custom" + isToasted + "Sandwich Details\n" + bread.toString() +
                 "\n\n" +
-                toppings.toString();*/
-    }
+                toppings.toString();*//*
+    }*/
 
-    public String print2 () {
+    public String print (String function, long count) {
         sb.setLength(0);
         sb.append("\033[33m").append("Custom ").append("\033[0m");
 
@@ -96,11 +96,11 @@ public class Sandwich extends Order{
         }
 
         sb.append("\033[33m").append("Sandwich Details\n===============================\n\n").append("\033[0m");
-            sb.append("\033[33m").append("Quantity: ").append("\033[0m");
+            sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
 
         sb.append(bread.print())
-                .append(toppings.print());
-        //.append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
+                .append(toppings.print())
+        .append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
         //System.out.print(sb.toString());
         //sb.setLength(0);
         return sb.toString();

@@ -133,7 +133,7 @@ public class Order {
                         }
                     });*/
             //END
-           // sb.append("END OF TEST\n\n\n");
+            // sb.append("END OF TEST\n\n\n");
 
 
 
@@ -220,7 +220,7 @@ public class Order {
         Map<String, Integer> duplicatesWithCount = new HashMap<>();
         for (Object obj : ordersMap.values()) {
             if (obj instanceof Sandwich) {
-                orderDetails = ((Sandwich) obj).print2();
+                orderDetails = ((Sandwich) obj).print("Checkout" , 1);
             }
 
             if (obj instanceof OtherProduct) {
@@ -237,14 +237,22 @@ public class Order {
         }
         int quantity = 0;
         Set<String> seenEntries = new HashSet<>();
+
         for (Map.Entry<Integer, Object> sout : ordersMap.entrySet()) {
             if (ordersMap.values() instanceof Sandwich) {
                 if (sout instanceof Sandwich) {
                     //orderDetails = ((Sandwich) obj).print2();
                     //if (sout.getKey().equals(((Sandwich) ordersMap.values()).print2())) {
-                    orderDetails = ((Sandwich) sout.getValue()).print2();
+                    orderDetails = ((Sandwich) sout.getValue()).print("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);
-                    sb.append(((Sandwich) ordersMap.values()).print2()); //FIXME Quantity goes inside print2()
+                    if (!seenEntries.contains(orderDetails)) {
+                        seenEntries.add(orderDetails);
+                        if (function.equals("Receipt")) {
+                            sb.append(((Sandwich) ordersMap.values()).print("Receipt")); //FIXME Quantity goes inside print2()
+                        } else {
+                            sb.append(((Sandwich) ordersMap.values()).print("Checkout"));
+                        }
+                    }
                 }
             }
 
@@ -276,10 +284,13 @@ public class Order {
                     orderDetails = ((OtherProduct) sout.getValue()).print("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);
                     //Add this to HashSet<String> then loop through the HashSet and print that?
-                    if (function.equals("Receipt")) {
-                        sb.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
-                    } else {
-                        sb.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                    if (!seenEntries.contains(orderDetails)) {
+                        seenEntries.add(orderDetails);
+                        if (function.equals("Receipt")) {
+                            sb.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
+                        } else {
+                            sb.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                        }
                     }
                 }
             }

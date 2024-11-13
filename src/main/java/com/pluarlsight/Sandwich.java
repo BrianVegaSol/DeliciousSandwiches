@@ -95,12 +95,13 @@ public class Sandwich extends Order{
             sb.append("\033[93m").append("Toasted ").append("\033[0m");
         }
 
-        sb.append("\033[33m").append("Sandwich Details\n===============================\n\n").append("\033[0m");
+        sb.append("\033[33m").append("Sandwich Details\n===============================\n").append("\033[0m");
             sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
-
+            sb.append("\n\n");
         sb.append(bread.print())
                 .append(toppings.print())
-        .append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
+        .append("\033[92m").append(String.format("Sandwich Cumulative Price: $%.2f", combinedPrice * count))
+                .append("\033[0m");
         //System.out.print(sb.toString());
         //sb.setLength(0);
         return sb.toString();

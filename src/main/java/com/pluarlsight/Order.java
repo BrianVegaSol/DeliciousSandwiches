@@ -220,7 +220,7 @@ public class Order {
         Map<String, Integer> duplicatesWithCount = new HashMap<>();
         for (Object obj : ordersMap.values()) {
             if (obj instanceof Sandwich) {
-                orderDetails = ((Sandwich) obj).print("Checkout" , 1);
+                orderDetails = ((Sandwich) obj).print("Checkout", 1);
             }
 
             if (obj instanceof OtherProduct) {
@@ -239,22 +239,22 @@ public class Order {
         Set<String> seenEntries = new HashSet<>();
 
         for (Map.Entry<Integer, Object> sout : ordersMap.entrySet()) {
-            if (ordersMap.values() instanceof Sandwich) {
-                if (sout instanceof Sandwich) {
-                    //orderDetails = ((Sandwich) obj).print2();
-                    //if (sout.getKey().equals(((Sandwich) ordersMap.values()).print2())) {
-                    orderDetails = ((Sandwich) sout.getValue()).print("Checkout", 1);
-                    quantity = duplicatesWithCount.get(orderDetails);
-                    if (!seenEntries.contains(orderDetails)) {
-                        seenEntries.add(orderDetails);
-                        if (function.equals("Receipt")) {
-                            sb.append(((Sandwich) ordersMap.values()).print("Receipt")); //FIXME Quantity goes inside print2()
-                        } else {
-                            sb.append(((Sandwich) ordersMap.values()).print("Checkout"));
-                        }
+            //if (ordersMap.values() instanceof Sandwich) {
+            if (sout.getValue() instanceof Sandwich) {
+                //orderDetails = ((Sandwich) obj).print2();
+                //if (sout.getKey().equals(((Sandwich) ordersMap.values()).print2())) {
+                orderDetails = ((Sandwich) sout.getValue()).print("Checkout", 1);
+                quantity = duplicatesWithCount.get(orderDetails);
+                if (!seenEntries.contains(orderDetails)) {
+                    seenEntries.add(orderDetails);
+                    if (function.equals("Receipt")) {
+                        sb.append(((Sandwich) sout.getValue()).print("Receipt" , quantity)); //FIXME Quantity goes inside print2()
+                    } else {
+                        sb.append(((Sandwich) sout.getValue()).print("Checkout" , quantity));
                     }
                 }
             }
+            //}
 
             if (sout.getValue() instanceof OtherProduct) {
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Drink")) {

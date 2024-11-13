@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 //TASK Can use setters to change order at CheckOut Menu ugh
 // Maybe override the Menus so that they look the same but use setters?
-public class Bread extends Sandwich{
+public class Bread extends Sandwich {
     //FIXME Separate Bread and make this Sandwich
     // might need to make the enums not private
     private int numOfSandwiches;
@@ -43,11 +43,11 @@ public class Bread extends Sandwich{
         return breadType;
     }
 
-    public int getBreadTypeMenuNum () {
+    public int getBreadTypeMenuNum() {
         return breadType.menuNum;
     }
 
-    public int getBreadSizeMenuNum () {
+    public int getBreadSizeMenuNum() {
         return breadSize.menuNum;
     }
 
@@ -63,7 +63,7 @@ public class Bread extends Sandwich{
         this.numOfSandwiches = numOfSandwiches;
     }
 
-    public double getBreadMenuPrice () {
+    public double getBreadMenuPrice() {
         return breadSize.getMenuPrice();
     }
 
@@ -122,15 +122,15 @@ public class Bread extends Sandwich{
         //EXPLAIN Loop until all sandwiches are made
         while (sandwichesMade < (numOfSandwiches)) {
             Bread bread;
-        bread = (Bread) sizeAndTypeMenu();
+            bread = (Bread) sizeAndTypeMenu();
             System.out.println("Let's go over your order");
-            System.out.println(bread.print());
+            System.out.println(bread.print("Print"));
             sb.setLength(0);
             //System.out.println(bread.print());
-        if (Topping.confirmOrder("Bread") == -1) {
-            bread = null;
-            return;
-        }
+            if (Topping.confirmOrder("Bread") == -1) {
+                bread = null;
+                return;
+            }
             //System.out.println("Bread Subtotal: $" + bread.calcBreadPriceTotal() + "\n" + bread.print());
             //byte sandwichInput;
             //TODO Make Validations into methods w/ returns
@@ -220,9 +220,9 @@ public class Bread extends Sandwich{
         //TODO return Bread Object???;
     }
 
-    public static boolean wantsToasted () throws InterruptedException {
+    public static boolean wantsToasted() throws InterruptedException {
         isToasted = false;
-        while (true){
+        while (true) {
             int input = -1;
             System.out.println("Do you want your sandwich toasted?\n1) Yes\n0) No");
             try {
@@ -254,65 +254,66 @@ public class Bread extends Sandwich{
 
         }
     }
+
     public double calcBreadPriceTotal() {
         double total = 0;
         return total;
     }
 
-public static Object sizeAndTypeMenu () {
+    public static Object sizeAndTypeMenu() {
         byte input = -1;
-                Bread bread = null;
-                BreadSize size;
-                BreadType type;
-                //EXPLAIN Validation for type ->
-                while (true) {
-                    System.out.println("""
-                        What type of bread would you like?
-                        ==================================
-                        1) White
-                        2) Wheat
-                        3) Rye
-                        4) Wrap
-                        ==================================
-                        """);
+        Bread bread = null;
+        BreadSize size;
+        BreadType type;
+        //EXPLAIN Validation for type ->
+        while (true) {
+            System.out.println("""
+                    What type of bread would you like?
+                    ==================================
+                    1) White
+                    2) Wheat
+                    3) Rye
+                    4) Wrap
+                    ==================================
+                    """);
 
-                    try {
-                        //FIXME should be at the top?
-                        int breadTypeInput = scan.nextInt();
-                        type = BreadType.values()[breadTypeInput - 1];
-                        break;
-                    } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                        System.err.println("Sorry! We don't have that in stock right now!");
-                        scan.nextLine();
-                    }
-                }
-                //END <-
+            try {
+                //FIXME should be at the top?
+                int breadTypeInput = scan.nextInt();
+                type = BreadType.values()[breadTypeInput - 1];
+                break;
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("Sorry! We don't have that in stock right now!");
+                scan.nextLine();
+            }
+        }
+        //END <-
 
-                //EXPLAIN Validation for size ->
-                while (true) {
+        //EXPLAIN Validation for size ->
+        while (true) {
 
-                    System.out.println("""
-                        What size of bread would you like?
-                        ==================================
-                        1) 4"
-                        2) 8"
-                        3) 12"
-                        ==================================
-                        """);
-                    try {
-                        int breadSizeInput = scan.nextInt();
-                        size = BreadSize.values()[breadSizeInput - 1];
-                        break;
-                    } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
-                        System.err.println("Sorry! We don't make them that long!");
-                        scan.nextLine();
-                    }
-                    //END <-
-                }
-                return bread = new Bread(type, size);
-}
+            System.out.println("""
+                    What size of bread would you like?
+                    ==================================
+                    1) 4"
+                    2) 8"
+                    3) 12"
+                    ==================================
+                    """);
+            try {
+                int breadSizeInput = scan.nextInt();
+                size = BreadSize.values()[breadSizeInput - 1];
+                break;
+            } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
+                System.err.println("Sorry! We don't make them that long!");
+                scan.nextLine();
+            }
+            //END <-
+        }
+        return bread = new Bread(type, size);
+    }
 
-public static long countUniqueOrders () {
+    public static long countUniqueOrders() {
         /*var count = ordersMap.values().stream().filter(order -> order instanceof Sandwich)
                 .map(order -> (Sandwich) order)
                 .forEach(order1 -> { ordersMap.values().stream()
@@ -321,40 +322,49 @@ public static long countUniqueOrders () {
                 });*/
 
 
-    long duplicateValues = ordersMap.values().stream().
-            collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+        long duplicateValues = ordersMap.values().stream().
+                collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
 
-    /*AtomicLong quantity = new AtomicLong();
-    duplcateValues.forEach((value, count) -> {
-        if (count > 1) {
-                    quantity.set(quantity.get() + count);
-        }
-    });*/
+                /*AtomicLong quantity = new AtomicLong();
+                duplcateValues.forEach((value, count) -> {
+                    if (count > 1) {
+                                quantity.set(quantity.get() + count);
+                    }
+                });*/
 
-            .values().stream().filter(quantity -> quantity > 1)
-            .count();
+                .values().stream().filter(quantity -> quantity > 1)
+                .count();
 
 
         return duplicateValues;
-}
+    }
 
-public String print () {
-    sb.setLength(0);
-    //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
-            //TODO Add a type + Details for when writing to .csv receipt???
-            sb.append("\033[34m").append("Bread Details")
-            //TODO .repeat()??? might add more workload
-            .append("\n=============").append("\033[0m")
-            .append("\nType: ").append(breadType.name).append(" Bread")
-            .append("\nSize: ").append(breadSize.sizeName)
-                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
-                    .append("\033[0m");
-            sb.append("\n");
-            //sb.append("\033[92m").append(String.format("Subtotal: $%.2f%n", getBreadMenuPrice())).append("\033[0m");
-    //System.out.println(sb.toString());
-    //sb.setLength(0);
-     return sb.toString();
-}
+    @Override
+    public String print(String function) {
+        sb.setLength(0);
+        if (function.equalsIgnoreCase("Receipt")) {
+            sb.append("Bread Details\n=============")
+                    .append("\nType: ").append(breadType.name).append(" Bread")
+                    .append("\nSize: ").append(breadSize.sizeName)
+                    .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
+                    .append("\n");
+            return sb.toString();
+        }
+        //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
+        //TODO Add a type + Details for when writing to .csv receipt???
+        sb.append("\033[34m").append("Bread Details")
+                //TODO .repeat()??? might add more workload
+                .append("\n=============").append("\033[0m")
+                .append("\nType: ").append(breadType.name).append(" Bread")
+                .append("\nSize: ").append(breadSize.sizeName)
+                .append("\033[32m").append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
+                .append("\033[0m");
+        sb.append("\n");
+        //sb.append("\033[92m").append(String.format("Subtotal: $%.2f%n", getBreadMenuPrice())).append("\033[0m");
+        //System.out.println(sb.toString());
+        //sb.setLength(0);
+        return sb.toString();
+    }
 
    /* @Override
     public String toString() {

@@ -86,7 +86,6 @@ public class Sandwich extends Order {
                 "\n\n" +
                 toppings.toString();*//*
     }*/
-
     public String print(String function, long count) {
         sb.setLength(0);
         if (function.equalsIgnoreCase("Receipt")) {
@@ -97,7 +96,7 @@ public class Sandwich extends Order {
             sb.append("Sandwich Details\n===============================\n")
                     .append("Quantity: ").append(count)
                     .append("\n\n")
-                    .append(bread.print())
+                    .append(bread.print(function))
                     .append(toppings.print())
                     .append(String.format("Sandwich Cumulative Price: $%.2f%n%n", combinedPrice * count));
             return sb.toString();
@@ -111,7 +110,7 @@ public class Sandwich extends Order {
         sb.append("\033[33m").append("Sandwich Details\n===============================\n").append("\033[0m");
         sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
         sb.append("\n\n");
-        sb.append(bread.print())
+        sb.append(bread.print(function))
                 .append(toppings.print())
                 .append("\033[92m").append(String.format("Sandwich Cumulative Price: $%.2f%n%n", combinedPrice * count))
                 .append("\033[0m");

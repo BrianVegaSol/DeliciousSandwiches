@@ -307,7 +307,7 @@ public class OtherProduct extends Order {
         if (type.equalsIgnoreCase("Drink")) {
                 sb.append("\033[35m").append("Drink Details")
                         .append("\n=============").append("\033[0m");
-                sb.append("Quantity: ").append(count);
+                sb.append("\nQuantity: ").append(count);
 
             sb.append("\nFlavor: ").append(deliColaType.menuName)
                     .append("\nSize: ").append(deliColaSize.menuName);

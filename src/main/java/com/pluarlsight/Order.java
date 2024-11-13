@@ -236,6 +236,7 @@ public class Order {
             duplicatesWithCount.put(orderDetails, duplicatesWithCount.getOrDefault(orderDetails, 0) + 1);
         }
         int quantity = 0;
+        Set<String> seenEntries = new HashSet<>();
         for (Map.Entry<Integer, Object> sout : ordersMap.entrySet()) {
             if (ordersMap.values() instanceof Sandwich) {
                 if (sout instanceof Sandwich) {
@@ -251,20 +252,26 @@ public class Order {
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Drink")) {
                     orderDetails = ((OtherProduct) sout.getValue()).print2(1);
                     quantity = duplicatesWithCount.get(orderDetails);
-                    if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
+                    //EXPLAIN Adding unique entries to Hashset and sb to filter out duplicates
+                    if (!seenEntries.contains(orderDetails)) {
+                        seenEntries.add(orderDetails);
+                        sb.append(((OtherProduct) sout.getValue()).print2(quantity));
+                    }
+                    /*if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
                         if (quantity == 1) {
                             sb.append(((OtherProduct) sout.getValue()).print2(quantity));
                         }
                     }
                     if (((OtherProduct) sout.getValue()).print2(1).equalsIgnoreCase(orderDetails)) {
                         int seenCounter = 0;
-                    }
+                    }*/
                 }
 
                 //EXPLAIN This is so close!
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Chips")) {
                     orderDetails = ((OtherProduct) sout.getValue()).print2(1);
                     quantity = duplicatesWithCount.get(orderDetails);
+                    //Add this to HashSet<String> then loop through the HashSet and print that?
                     sb.append(((OtherProduct) sout.getValue()).print2(quantity));
                 }
             }

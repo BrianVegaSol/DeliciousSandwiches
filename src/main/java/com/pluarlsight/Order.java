@@ -113,7 +113,7 @@ public class Order {
             //EXPLAIN Holds all distinct Objects in ordersMap as its Key, and # occurrences as its Value
             //TODO So should forEach
             sb.append("\n\n\nTESTING AREA AHEAD\n\n");
-            distinctWithQuantity();
+            distinctWithQuantity(function);
             System.out.println("\n\n\n\n");
             //EXPLAIN Legacy version w/o distinct printing
             /*distinctMapEntriesAndQuantity().forEach((Object,count) ->{
@@ -173,7 +173,7 @@ public class Order {
         String now = LocalDateTime.now().format(format);
         String filePath = "receipts/" + now + ".txt";
         try (FileWriter writer = new FileWriter(filePath, true)) {
-            writer.write(formatReceipt("Write"));
+            writer.write(formatReceipt("Receipt"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -212,7 +212,7 @@ public class Order {
     }
 
     //public static Map<String, Integer> distinctWithQuantity() {
-    public static void distinctWithQuantity() {
+    public static void distinctWithQuantity(String function) {
         /*for (Map.Entry<Integer, Object> entry : ordersMap.entrySet()) {
             System.out.println(entry.getKey() + " -> Count: " + entry.getValue());
         }*/
@@ -225,11 +225,11 @@ public class Order {
 
             if (obj instanceof OtherProduct) {
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Drink")) {
-                    orderDetails = ((OtherProduct) obj).print2("Checkout", 1);
+                    orderDetails = ((OtherProduct) obj).print("Checkout", 1);
                 }
 
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Chips")) {
-                    orderDetails = ((OtherProduct) obj).print2("Checkout", 1);
+                    orderDetails = ((OtherProduct) obj).print("Checkout", 1);
                 }
             }
 
@@ -250,12 +250,16 @@ public class Order {
 
             if (sout.getValue() instanceof OtherProduct) {
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Drink")) {
-                    orderDetails = ((OtherProduct) sout.getValue()).print2("Checkout", 1);
+                    orderDetails = ((OtherProduct) sout.getValue()).print("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);
                     //EXPLAIN Adding unique entries to Hashset and sb to filter out duplicates
                     if (!seenEntries.contains(orderDetails)) {
                         seenEntries.add(orderDetails);
-                        sb.append(((OtherProduct) sout.getValue()).print2("Checkout", quantity));
+                        if (function.equals("Receipt")) {
+                            sb.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
+                        } else {
+                            sb.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                        }
                     }
                     /*if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
                         if (quantity == 1) {
@@ -269,10 +273,14 @@ public class Order {
 
                 //EXPLAIN This is so close!
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Chips")) {
-                    orderDetails = ((OtherProduct) sout.getValue()).print2("Checkout", 1);
+                    orderDetails = ((OtherProduct) sout.getValue()).print("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);
                     //Add this to HashSet<String> then loop through the HashSet and print that?
-                    sb.append(((OtherProduct) sout.getValue()).print2("Checkout", quantity));
+                    if (function.equals("Receipt")) {
+                        sb.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
+                    } else {
+                        sb.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                    }
                 }
             }
         }

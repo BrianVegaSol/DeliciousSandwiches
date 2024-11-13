@@ -227,7 +227,7 @@ o Cancel - delete order and go back to the home screen
                 // OR Make this loop back into the OrdersMenu
                 // Either way, need to write to .csv
 
-                //Order.writeReceipt();
+                Order.writeReceipt();
                 break;
         }
     }

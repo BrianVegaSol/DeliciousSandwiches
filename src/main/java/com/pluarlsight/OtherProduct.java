@@ -258,7 +258,7 @@ public class OtherProduct extends Order {
    /* @Override
     public String toString() {*/
     //@Override
-    public String print(String function, long count) {
+    /*public String print(String function, long count) {
         sb.setLength(0);
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {
@@ -298,9 +298,9 @@ public class OtherProduct extends Order {
         }
         sb.append("\n");
         return sb.toString();
-    }
+    }*/
 
-    public String print2(String function, long count) {
+    public String print(String function, long count) {
         sb.setLength(0);
         //sb.append("\033[33m").append("Order# ").append((Order.itemOrderNumber + 1)).append("\033[0m")
         if (type.equalsIgnoreCase("Drink")) {

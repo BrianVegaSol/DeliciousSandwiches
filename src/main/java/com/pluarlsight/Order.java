@@ -251,8 +251,13 @@ public class Order {
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Drink")) {
                     orderDetails = ((OtherProduct) sout.getValue()).print2(1);
                     quantity = duplicatesWithCount.get(orderDetails);
-                    if (quantity == 1) {
-                        sb.append(((OtherProduct) sout.getValue()).print2(quantity));
+                    if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
+                        if (quantity == 1) {
+                            sb.append(((OtherProduct) sout.getValue()).print2(quantity));
+                        }
+                    }
+                    if (((OtherProduct) sout.getValue()).print2(1).equalsIgnoreCase(orderDetails)) {
+                        int seenCounter = 0;
                     }
                 }
 

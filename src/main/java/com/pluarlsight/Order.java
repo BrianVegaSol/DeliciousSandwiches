@@ -211,7 +211,8 @@ public class Order {
 
     }
 
-    public static Map<String, Integer> distinctWithQuantity() {
+    //public static Map<String, Integer> distinctWithQuantity() {
+    public static void distinctWithQuantity() {
         /*for (Map.Entry<Integer, Object> entry : ordersMap.entrySet()) {
             System.out.println(entry.getKey() + " -> Count: " + entry.getValue());
         }*/
@@ -234,36 +235,44 @@ public class Order {
 
             duplicatesWithCount.put(orderDetails, duplicatesWithCount.getOrDefault(orderDetails, 0) + 1);
         }
-
-        for (Map.Entry<String, Integer> sout : duplicatesWithCount.entrySet()) {
+        int quantity = 0;
+        for (Map.Entry<Integer, Object> sout : ordersMap.entrySet()) {
             if (ordersMap.values() instanceof Sandwich) {
-                if (sout.getKey().equals(((Sandwich) ordersMap.values()).print2())) {
-                    sb.append(((Sandwich) ordersMap.values()).print2());
+                if (sout instanceof Sandwich) {
+                    //orderDetails = ((Sandwich) obj).print2();
+                    //if (sout.getKey().equals(((Sandwich) ordersMap.values()).print2())) {
+                    orderDetails = ((Sandwich) sout.getValue()).print2();
+                    quantity = duplicatesWithCount.get(orderDetails);
+                    sb.append(((Sandwich) ordersMap.values()).print2()); //FIXME Quantity goes inside print2()
                 }
             }
 
-            if (ordersMap.values() instanceof OtherProduct) {
-                if (((OtherProduct) ordersMap.values()).getType().equalsIgnoreCase("Drink")) {
-                    if (sout.getKey().equals(((OtherProduct) ordersMap.values()).print2(1))) {
-                        sb.append(((OtherProduct) ordersMap.values()).print2(sout.getValue()));
+            if (sout.getValue() instanceof OtherProduct) {
+                if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Drink")) {
+                    orderDetails = ((OtherProduct) sout.getValue()).print2(1);
+                    quantity = duplicatesWithCount.get(orderDetails);
+                    if (quantity == 1) {
+                        sb.append(((OtherProduct) sout.getValue()).print2(quantity));
                     }
                 }
 
-                if (((OtherProduct) ordersMap.values()).getType().equalsIgnoreCase("Chips")) {
-                    if (sout.getKey().equals(((OtherProduct) ordersMap.values()).print2(1))) {
-                        sb.append(((OtherProduct) ordersMap.values()).print2(sout.getValue()));
-                    }
+                //EXPLAIN This is so close!
+                if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Chips")) {
+                    orderDetails = ((OtherProduct) sout.getValue()).print2(1);
+                    quantity = duplicatesWithCount.get(orderDetails);
+                    sb.append(((OtherProduct) sout.getValue()).print2(quantity));
                 }
             }
-            //FIXME Can probably still keep the old prints and feel the value into them now!
+        }
+        //FIXME Can probably still keep the old prints and feel the value into them now!
             /*sb.append("Quantity: ").append(sout.getValue());
             sb.append("\n").append(sout.getKey());
             sb.append("\033[32m").append(("\nPrice: $%.2f" ))
                     .append("\033[0m");*/
-            System.out.println(sb.toString());
-            sb.setLength(0);
-        }
-        return duplicatesWithCount;
+        System.out.println(sb.toString());
+        sb.setLength(0);
+
+        // return duplicatesWithCount;
     }
 
     /*public static void workPLS () {
@@ -281,8 +290,8 @@ public class Order {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }*/
 
-    //public static long countUniqueOrdersSandwich() {
-    //long count =
+//public static long countUniqueOrdersSandwich() {
+//long count =
                 /*var o = ordersMap.values().stream().filter(order -> order instanceof Sandwich)
                         .distinct().co
                 .map(order -> (sandwich.print("Receipt")));*/
@@ -296,26 +305,26 @@ public class Order {
                 .map(order -> (Sandwich) order)
                 .distinct()
                 .forEach(order -> order.print("Receipt" , count));*/
-    //EXPLAIN Not sure what this is counting but looks promising
+//EXPLAIN Not sure what this is counting but looks promising
         /*long duplcateValues = ordersMap.values().stream().
                 collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .values().stream().filter(quantity -> quantity > 1)
                 .count();
         return duplcateValues;*/
-    //END
+//END
 
-    //EXPLAIN Also looked promising
+//EXPLAIN Also looked promising
         /*var count = ordersMap.values().stream().distinct()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.summingLong(e -> 1L)));
                 return count;*/
-    //END
-    //}
+//END
+//}
 
 
-    //TODO needs to be names LocalDateTime.now().txt
+//TODO needs to be names LocalDateTime.now().txt
 // String timeNow = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd-HHmmss"));
-    // where should the file that holds receipts be???
-    //file path = receipts\fileName
+// where should the file that holds receipts be???
+//file path = receipts\fileName
     /*public void writeToReceiptFolder() {
 
     }*/

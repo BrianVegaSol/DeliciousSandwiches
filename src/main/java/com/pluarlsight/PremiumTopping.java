@@ -297,7 +297,7 @@ public class PremiumTopping extends Topping {
                     break;
             }*/
             System.out.println("Let's go over your order");
-            System.out.println(premiumTopping.print());
+            System.out.println(premiumTopping.print("Print"));
             sb.setLength(0);
             if (Topping.confirmOrder("Premium Toppings") == -1) {
                 return premiumTopping = null;
@@ -493,8 +493,39 @@ public class PremiumTopping extends Topping {
 
     //return null;
     @Override
-    public String print() {
+    public String print(String function) {
         sb.setLength(0);
+
+        if (function.equalsIgnoreCase("Receipt")) {
+            sb.append("Premium Topping Details\n=======================\n");
+            if (meatSize != null) {
+                sb.append("\nMeat\n====")
+                        .append("\n").append(meatType.menuName).append(" Added")
+                        .append("\nSize: ").append(meatSize.sizeName)
+                        .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
+                if (extraMeatSize != null) {
+                    sb.append("\nExtra ").append(meatType.menuName).append(" Added")
+                            .append("\nSize: ").append(extraMeatSize.sizeName)
+                            .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+                }
+            }
+
+            if (cheeseSize != null) {
+                sb.append("\nCheese\n======")
+                .append("\n").append(cheeseType.menuName).append(" Cheese Added")
+                        .append("\nSize: ").append(cheeseSize.sizeName)
+                        .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
+                if (extraCheeseSize != null) {
+                    sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
+                            .append("\nSize: ").append(extraCheeseSize.sizeName)
+                            .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
+                }
+            }
+            sb.append("\n");
+            return sb.toString();
+
+
+        }
         sb.append("\033[31m").append("Premium Topping Details")
                 .append("\n=======================\n").append("\033[0m");
         if (meatSize != null) {
@@ -525,7 +556,7 @@ public class PremiumTopping extends Topping {
             }
         }
         sb.append("\n");
-                        //sb.append(String.format("Subtotal: $%.2f%n", premiumToppingsMenuPrice));
+        //sb.append(String.format("Subtotal: $%.2f%n", premiumToppingsMenuPrice));
         //System.out.print(sb.toString());
         //sb.setLength(0);
         return sb.toString();

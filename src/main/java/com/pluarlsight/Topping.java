@@ -258,7 +258,7 @@ public class Topping {
                         break;
                     case 3:
                         System.out.print("Let's go over your order\n");
-                        System.out.println(topping.print());
+                        System.out.println(topping.print("Print"));
                         sb.setLength(0);
                         sb.setLength(0);
                         //EXPLAIN Legacy
@@ -492,10 +492,10 @@ public class Topping {
         System.out.println("After added from Removed []: " + Arrays.toString(removedToppings));
     }*/
     //@Override
-    public String print() {
+    public String print(String function) {
         sb.setLength(0);
         if (premiumTopping != null) {
-            sb.append(premiumTopping.print());
+            sb.append(premiumTopping.print("Print"));
         } /*else {
             //sb.append("\033[31m").append("No Premium Toppings Added\n=========================").append("\033[0m");
         }*/

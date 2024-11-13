@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Topping {
     private int numOfToppings;
-    private static final String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalepeños",
+    private static final String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños",
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
             "au jus", "Sauce"};
@@ -91,7 +91,11 @@ public class Topping {
     }
 
     public double getPremToppingsTotalPrice() {
-        return premiumTopping.getPremiumToppingsMenuPrice();
+        if (premiumTopping == null) {
+            return 0.0;
+        } else {
+            return premiumTopping.getPremiumToppingsMenuPrice();
+        }
     }
 
     public void setPremiumTopping(PremiumTopping premiumTopping) {
@@ -510,7 +514,7 @@ public class Topping {
             if (function.equalsIgnoreCase("Receipt")) {
                 sb.append("Regular Topping Details")
                         .append("\n=======================")
-                        .append("Included\n");
+                        .append("\nIncluded\n");
             } else {
                 sb.append("\033[31m").append("Regular Topping Details")
                         .append("\n=======================").append("\033[0m\n\n")
@@ -535,9 +539,15 @@ public class Topping {
         }
 
         //EXPLAIN Under normal circumstances
-        sb.append("\033[31m").append("Regular Topping Details")
-                .append("\n=======================").append("\033[0m\n")
-                .append("\033[32m").append("Included\n").append("\033[0m");
+        if (function.equalsIgnoreCase("Receipt")) {
+            sb.append("Regular Topping Details")
+                    .append("\n=======================")
+                    .append("\nIncluded\n");
+        } else {
+            sb.append("\033[31m").append("Regular Topping Details")
+                    .append("\n=======================").append("\033[0m\n")
+                    .append("\033[32m").append("Included\n").append("\033[0m");
+        }
         //System.out.println(sb.toString());
         //sb.setLength(0);
         for (int i = 0; i < Topping.currentToppingsList.size(); i++) {
@@ -550,7 +560,12 @@ public class Topping {
                 }
             }
         }
-        sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
+
+        if (function.equalsIgnoreCase("Receipt")) {
+            sb.append("\n\nRemoved\n");
+        } else {
+            sb.append("\033[31m").append("\n\nRemoved\n").append("\033[0m");
+        }
         //System.out.println(sb.toString());
         //sb.setLength(0);
         for (int i = 0; i < removedToppingsList.size(); i++) {

@@ -231,7 +231,7 @@ public class PremiumTopping extends Topping {
             sb.setLength(0);
             //EXPLAIN Meat Options
             while (true) {
-                System.out.println("Do you want Meat?\n1) Yes\n0) No");
+                System.out.println("Do you want Meat?\n1) Yes\n0) No\n");
                 try {
                     input = scan.nextByte();
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {

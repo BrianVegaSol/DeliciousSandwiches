@@ -523,9 +523,9 @@ public class PremiumTopping extends Topping {
             }
             sb.append("\n");
             return sb.toString();
-
-
         }
+
+        //EXPLAIN Most cases
         sb.append("\033[31m").append("Premium Topping Details")
                 .append("\n=======================\n").append("\033[0m");
         if (meatSize != null) {

@@ -97,7 +97,7 @@ public class Sandwich extends Order {
                     .append("Quantity: ").append(count)
                     .append("\n\n")
                     .append(bread.print(function))
-                    .append(toppings.print("Print"))
+                    .append(toppings.print(function))
                     .append(String.format("Sandwich Cumulative Price: $%.2f%n%n", combinedPrice * count));
             return sb.toString();
         }
@@ -110,6 +110,7 @@ public class Sandwich extends Order {
         sb.append("\033[33m").append("Sandwich Details\n===============================\n").append("\033[0m");
         sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
         sb.append("\n\n");
+        //FIXME May cause issues
         sb.append(bread.print(function))
                 .append(toppings.print("Print"))
                 .append("\033[92m").append(String.format("Sandwich Cumulative Price: $%.2f%n%n", combinedPrice * count))

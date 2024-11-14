@@ -157,7 +157,7 @@ public class Topping implements Ingredient{
                     } else {
                         top = new Topping(prem);
 
-                        if ((top = Topping.regularToppingsMenu(top)) == null) {
+                        if ((top = Topping.regularToppingsMenu(top, "Normal")) == null) {
                             //if cancels order in regToppingsMenu() then come back here
                             continue;
                         } else {
@@ -171,7 +171,7 @@ public class Topping implements Ingredient{
                     System.out.print("No Extra Toppings? Alright!\nOnto the ");
                     //System.out.println(prem);
                     //System.out.println(top);
-                    if ((top = regularToppingsMenu(top)) == null) {
+                    if ((top = regularToppingsMenu(top, "Normal")) == null) {
                         return null;
                     } else {
                         prem = null;
@@ -184,7 +184,7 @@ public class Topping implements Ingredient{
 
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
-    public static Topping regularToppingsMenu(Topping topping) throws InterruptedException {
+    public static Topping regularToppingsMenu(Topping topping , String function) throws InterruptedException {
         currentToppingsList = Ingredient.ingredients();
         //System.out.println("TEST PREM TOP:\n" + topping);
         byte lastChangeIndex = -1;

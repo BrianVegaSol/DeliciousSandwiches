@@ -90,7 +90,7 @@ public class Sandwich extends Order {
         sb.setLength(0);
         if (function.equalsIgnoreCase("Receipt")) {
             if ( this instanceof SignatureSandwich) {
-                sb.append(signatureName);
+                //sb.append(signatureName);
             }
             sb.append("Custom");
             if (isToasted) {

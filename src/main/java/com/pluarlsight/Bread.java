@@ -8,21 +8,19 @@ import java.util.stream.Collectors;
 
 //TASK Can use setters to change order at CheckOut Menu ugh
 // Maybe override the Menus so that they look the same but use setters?
-public class Bread extends Sandwich {
+public class Bread extends Sandwich implements Ingredient{
     //FIXME Separate Bread and make this Sandwich
     // might need to make the enums not private
-    private int numOfSandwiches;
+    //private int numOfSandwiches;
     private BreadType breadType;
     private BreadSize breadSize;
     private static boolean isToasted;
     private static Scanner scan = new Scanner(System.in);
     private static StringBuilder sb = new StringBuilder();
 
-    public Bread(BreadType breadType, BreadSize breadSize, int numOfSandwiches) {
+    public Bread() {
         super();
-        this.breadType = breadType;
-        this.breadSize = breadSize;
-        this.numOfSandwiches = numOfSandwiches;
+
     }
 
     public Bread(BreadType breadType, BreadSize breadSize) {
@@ -43,71 +41,19 @@ public class Bread extends Sandwich {
         return breadType;
     }
 
-    public int getBreadTypeMenuNum() {
+    /*public int getBreadTypeMenuNum() {
         return breadType.menuNum;
-    }
+    }*/
 
-    public int getBreadSizeMenuNum() {
-        return breadSize.menuNum;
-    }
 
     public void setBreadType(BreadType breadType) {
         this.breadType = breadType;
-    }
-
-    public int getNumOfSandwiches() {
-        return numOfSandwiches;
-    }
-
-    public void setNumOfSandwiches(int numOfSandwiches) {
-        this.numOfSandwiches = numOfSandwiches;
     }
 
     public double getBreadMenuPrice() {
         return breadSize.getMenuPrice();
     }
 
-    private enum BreadSize {
-        FOUR_INCH(1, "4\"", 5.50),
-        EIGHT_INCH(2, "8\"", 7.00),
-        TWELVE_INCH(3, "12\"", 8.50);
-
-        public double getMenuPrice() {
-            return menuPrice;
-        }
-
-        private String itemType;
-        private final int menuNum;
-        private String sizeName;
-        private final double menuPrice;
-
-        BreadSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.menuPrice = menuPrice;
-            this.sizeName = sizeName;
-        }
-
-        public int getMenuNum() {
-            return menuNum;
-        }
-    }
-
-    private enum BreadType {
-        WHITE(1, "White"), WHEAT(2, "Wheat"), RYE(3, "Rye"), WRAP(4, "Wrap");
-
-        private final int menuNum;
-        private String name;
-
-
-        BreadType(int menuNum, String name) {
-            this.menuNum = menuNum;
-            this.name = name;
-        }
-
-        public int getMenuNum() {
-            return menuNum;
-        }
-    }
 
     //FIXME Ensure that Toppings cannot be selected U N L E S S there is a sandwich!
     //TODO Bonus??? Make it so that a customer can edit their order at checkout, must be able to:
@@ -350,9 +296,9 @@ public class Bread extends Sandwich {
         sb.setLength(0);
         if (function.equalsIgnoreCase("Receipt")) {
             sb.append("Bread Details\n=============")
-                    .append("\nType: ").append(breadType.name).append(" Bread")
-                    .append("\nSize: ").append(breadSize.sizeName)
-                    .append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
+                    .append("\nType: ").append(breadType.getName()).append(" Bread")
+                    .append("\nSize: ").append(breadSize.getSizeName())
+                    .append(String.format("\nPrice: $%.2f%n", breadSize.getMenuPrice()))
                     .append("\n");
             return sb.toString();
         }
@@ -361,9 +307,9 @@ public class Bread extends Sandwich {
         sb.append("\033[34m").append("Bread Details")
                 //TODO .repeat()??? might add more workload
                 .append("\n=============").append("\033[0m")
-                .append("\nType: ").append(breadType.name).append(" Bread")
-                .append("\nSize: ").append(breadSize.sizeName)
-                .append("\033[32m").append(String.format("\nPrice: $%.2f%n", breadSize.menuPrice))
+                .append("\nType: ").append(breadType.getName()).append(" Bread")
+                .append("\nSize: ").append(breadSize.getSizeName())
+                .append("\033[32m").append(String.format("\nPrice: $%.2f%n", breadSize.getMenuPrice()))
                 .append("\033[0m");
         sb.append("\n");
         //sb.append("\033[92m").append(String.format("Subtotal: $%.2f%n", getBreadMenuPrice())).append("\033[0m");

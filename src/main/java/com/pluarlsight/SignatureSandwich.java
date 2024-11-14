@@ -23,6 +23,9 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
 
     public static SignatureSandwich signatureSandwichMenu() throws InterruptedException {
         Sandwich sig = new SignatureSandwich();
+        PremiumTopping premiumTopping = new PremiumTopping();
+        Topping topping = new Topping();
+        Bread bread = new Bread();
         byte input;
         while (true) {
             sb.append("\033[31m").append("Signature Sandwich Menu!").append("\033[0m");
@@ -37,15 +40,38 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     3) Deli Delight
                     4) Jill Sandwich (Coming Soon!)
                     """);
+            input = scan.nextByte();
+            switch (input) {
+                case 1:
+                    preloadedList("BLT");
+                    BreadSize breadSize = BreadSize.EIGHT_INCH;
+                    bread.setBreadSize(breadSize);
+                    bread.setBreadType(BreadType.WHITE);
 
+                    Meat
+                    sig(, topping);
+                    break;
+                    case 2:
+                        preloadedList("Philly");
+                        break;
+                case 3:
+                    preloadedList("Deli");
+                    break;
+                default:
+                    //error
+                    scan.nextLine();
+                    continue;
+            }
             //Preload the currentList
+            //Preload Objects
 
             System.out.println("""
                     What do you want to do?
                     1) Change Bread
                     2) Change Meat
                     3) Change Cheese
-                    4) Confirm Order
+                    4) Change Regular Toppings
+                    5) Confirm Order
                     0) Exit
                     """);
 
@@ -60,40 +86,40 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                 scan.nextLine();
                 continue;
             }
-            //END
-            //FIXME Either need the Constructor to accept itself (?)
-            // OR Make a RegularTopping class too UGH
-            /*switch (input) {
+            //EXPLAIN Changes Menu
+            switch (input) {
                 case 0:
                     return null;
                 case 1:
+
+                    //EXPLAIN General Premium Toppings Menu
                     if ((prem = PremiumTopping.premiumToppingsMenu()) == null) {
                         //if null then order was cancelled, so should return to this toppingsMenu
                         continue;
                     } else {
                         top = new Topping(prem);
-
+                        //EXPLAIN Regular Toppings Menu
                         if ((top = Topping.regularToppingsMenu(top)) == null) {
                             //if cancels order in regToppingsMenu() then come back here
                             continue;
                         } else {
-                            //FIXME Might be ok but should find a way to have both Reg and Prem Toppings
-                            // combined into 1 Topping Object
                             return top;
                         }
                     }
                     //break;
                 case 2:
-                    System.out.print("No Extra Toppings? Alright!\nOnto the ");
-                    //System.out.println(prem);
-                    //System.out.println(top);
-                    if ((top = regularToppingsMenu(top)) == null) {
-                        return null;
-                    } else {
-                        prem = null;
-                        return top;
-                    }
-            }*/
+                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Meat" , premiumTopping);
+                   break;
+                case 3:
+                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese" , premiumTopping);
+                    break;
+                case 4:
+                    break;
+                default:
+                    //error
+                    scan.nextLine();
+                    continue;
+            }
         }
     }
 

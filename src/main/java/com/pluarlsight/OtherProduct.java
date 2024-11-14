@@ -241,7 +241,7 @@ public class OtherProduct extends Order {
             chips = null;
             return;
         }
-        chips.drinkPriceTotal += type.menuPrice;
+        chips.chipsPriceTotal += type.menuPrice;
         Order.ordersMap.put(++Order.itemOrderNumber, chips);
         System.out.println("\033[32m" + "Drink Order Placed Successfully" + "\033[0m\n");
     }

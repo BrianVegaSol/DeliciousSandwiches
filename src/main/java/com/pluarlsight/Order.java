@@ -15,6 +15,7 @@ public class Order {
     static HashMap<Integer, Object> ordersMap = new HashMap<>();
     //FIXME is it not saving because of this???
     static int itemOrderNumber = -1;
+    static double subtotal = 0.0;
     //private Bread bread;
     //private Toppings toppings;
     private Sandwich sandwich;
@@ -34,13 +35,39 @@ public class Order {
     }
 
     public Order() {
-
+        subtotal = getSubtotal();
     }
 
-    public double getOrderSubTotal() {
-        return 0;
-        //sandwich.getCombinedPrice() + products.getDrinkMenuPrice() + products.getChipsMenuPrice();
+    public double getSubtotal() {
+        ordersMap.forEach((key, value) -> {
+            if (value instanceof Sandwich) {
+                subtotal += ((Sandwich) value).getCombinedPrice();
+            }
+
+            if (value instanceof OtherProduct) {
+                if (((OtherProduct) value).getType().equalsIgnoreCase("Drink")) {
+                    subtotal += products.getDrinkPriceTotal();
+                }
+            }
+
+            if (value instanceof OtherProduct) {
+                if (((OtherProduct) value).getType().equalsIgnoreCase("Chips")) {
+                    subtotal += products.getChipsPriceTotal();
+                }
+            }
+        });
+        /*if (sandwich != null) {
+            subtotal += sandwich.getCombinedPrice();
+        }
+
+        if (products != null) {
+            subtotal += products.getDrinkPriceTotal() + products.getChipsPriceTotal();
+        }*/
+        return subtotal;
+        //sandwich.getCombinedPrice() + products.getDrinkPriceTotal() + products.getChipsPriceTotal();
     }
+
+
 
     /*public Order (Bread bread, Toppings toppings) {
         this.bread = bread;
@@ -265,16 +292,16 @@ return "";
                     if (function.equals("Receipt")) {
                         //FIXME Need to see how many : splits there are in sandwich
                         sandwichSB.append(((Sandwich) sout.getValue()).print("Receipt" , quantity));//FIXME Quantity goes inside print2()
-                        sandwich = sandwichSB.toString();
+                        /*sandwich = sandwichSB.toString();
                         sandwichSplit = sandwich.split("\\$");
-                        subtotal += Double.parseDouble(sandwichSplit[1] + sandwichSplit[2]);
+                        subtotal += Double.parseDouble(sandwichSplit[1] + sandwichSplit[2]);*/
                     } else {
                         sandwichSB.append(((Sandwich) sout.getValue()).print("Checkout" , quantity));
-                        sandwich = ((Sandwich) sout.getValue()).print("Receipt" , quantity);
+                        /*sandwich = ((Sandwich) sout.getValue()).print("Receipt" , quantity);
                         sandwichSplit = sandwich.split("\\$");
                         double unroundedSubtotal = 0.0;
                         unroundedSubtotal += Double.parseDouble(sandwichSplit[1].replaceAll("[^\\d.]", ""));
-                        subtotal += Math.round(unroundedSubtotal * 100.0) / 100.0;
+                        subtotal += Math.round(unroundedSubtotal * 100.0) / 100.0;*/
                     }
                 }
             }
@@ -345,6 +372,7 @@ return "";
         drinkSB.setLength(0);
         sb.append(chipsSB);
         chipsSB.setLength(0);
+        sb.append(Order.printSubtotal());
         System.out.println(sb.toString());
         return sb.toString();
         //sb.setLength(0);
@@ -405,6 +433,10 @@ return "";
     /*public void writeToReceiptFolder() {
 
     }*/
+    public static String printSubtotal() {
+        return "\n----------------------------------------------------------------------------------------\n" +
+        String.format("Subtotal : $%.2f", subtotal);
+    }
 
     public String print(String function) {
         return "";

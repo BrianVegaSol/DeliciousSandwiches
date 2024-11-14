@@ -120,8 +120,8 @@ o Cancel - delete order and go back to the home screen
                         System.out.println("\n");
                         return;
                     case 1:
-                        //EXPLAIN Validation for Number of Sandwiches
-                        while (true) {
+                        //EXPLAIN Validation for Number of Sandwiches L E G A C Y
+                        /*while (true) {
                             System.out.println("How many sandwiches did you want?");
                             try {
                                 quantity = scan.nextByte();
@@ -145,10 +145,10 @@ o Cancel - delete order and go back to the home screen
                         //EXPLAIN Validation for 0 or Negative # of Sandwiches
                         if (quantity < 1) {
                             System.out.println("No sandwiches? Alright\n");
-                        } else {
+                        } else {*/
                             //EXPLAIN Sandwich Menu
-                            Bread.sandwichMenu(quantity);
-                        }
+                            Bread.sandwichMenu("Normal");
+                        //}
                         break;
                     //FIXME
                     case 2:

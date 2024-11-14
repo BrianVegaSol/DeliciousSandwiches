@@ -112,15 +112,15 @@ public class Bread extends Sandwich {
     //FIXME Ensure that Toppings cannot be selected U N L E S S there is a sandwich!
     //TODO Bonus??? Make it so that a customer can edit their order at checkout, must be able to:
     // Minimum have option during creation (sandwich & toppings menus) to Confirm Order before added to HashMap
-    public static void sandwichMenu(byte numOfSandwiches) throws InterruptedException {
-        byte sandwichesMade = 0;
-        int breadSizeInput = -1;
+    public static Bread sandwichMenu(String function) throws InterruptedException {
+        //byte sandwichesMade = 0;
+        //int breadSizeInput = -1;
         //double sandwichPriceTally = 0;
         //FIXME Prooobably gonna break stuff ToT
-        BreadType type = BreadType.RYE;
-        BreadSize size = BreadSize.FOUR_INCH;
+        //BreadType type = BreadType.RYE;
+        //BreadSize size = BreadSize.FOUR_INCH;
         //EXPLAIN Loop until all sandwiches are made
-        while (sandwichesMade < (numOfSandwiches)) {
+        while (true) {
             Bread bread;
             bread = (Bread) sizeAndTypeMenu();
             System.out.println("Let's go over your order");
@@ -129,7 +129,11 @@ public class Bread extends Sandwich {
             //System.out.println(bread.print());
             if (Topping.confirmOrder("Bread") == -1) {
                 bread = null;
-                return;
+                return null;
+            }
+
+            if (function.equalsIgnoreCase("Signature")) {
+                return bread;
             }
             //System.out.println("Bread Subtotal: $" + bread.calcBreadPriceTotal() + "\n" + bread.print());
             //byte sandwichInput;
@@ -192,7 +196,7 @@ public class Bread extends Sandwich {
             //EXPLAIN Validation for Toppings Menu ->
             Topping topping;
             if ((topping = Topping.toppingsMenu()) == null) {
-                return;
+                return null;
             } else {
                 //System.out.println(topping);
                 //TASK Planning on removing keeping the numOfSandwiches as a loop condition and instead
@@ -212,11 +216,13 @@ public class Bread extends Sandwich {
                 //EXPLAIN Trying to tally price for each sandwich here
                 //sandwichPriceTally += bread.breadSize.menuPrice;
                 //END
-                sandwichesMade++;
+                //sandwichesMade++;
             }
             //END <-
-        }
         System.out.println("\033[92m" + "Sandwich Order Placed Successfully" + "\033[0m\n");
+            break;
+        }
+        return null;
         //TODO return Bread Object???;
     }
 

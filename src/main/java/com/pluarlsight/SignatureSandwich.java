@@ -7,9 +7,21 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
     private static StringBuilder sb = new StringBuilder();
     private static Scanner scan = new Scanner(System.in);
     private double signatureSandwichCombinedPrice;
+    private Bread bread;
+    private Topping topping;
 
+    public SignatureSandwich(Bread bread, Topping topping, boolean isToasted, double signatureSandwichCombinedPrice) {
+        super(bread, topping, isToasted);
+        //this.bread = bread;
+        this.signatureSandwichCombinedPrice = signatureSandwichCombinedPrice;
+        //this.topping = topping;
+    }
 
-    public static SignatureSandwich signatureSandwichMenu() {
+    public void setBread(Bread bread) {
+        this.bread = bread;
+    }
+
+    public static SignatureSandwich signatureSandwichMenu() throws InterruptedException {
         Sandwich sig = new SignatureSandwich();
         byte input;
         while (true) {
@@ -38,6 +50,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     """);
 
             //Send to menus
+
+            Bread.sandwichMenu("Signature");
             //EXPLAIN Input Validation
             try {
                 input = scan.nextByte();
@@ -49,7 +63,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
             //END
             //FIXME Either need the Constructor to accept itself (?)
             // OR Make a RegularTopping class too UGH
-            switch (input) {
+            /*switch (input) {
                 case 0:
                     return null;
                 case 1:
@@ -79,7 +93,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                         prem = null;
                         return top;
                     }
-            }
+            }*/
         }
     }
 

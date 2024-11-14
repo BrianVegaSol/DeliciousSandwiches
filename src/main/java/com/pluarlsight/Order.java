@@ -16,6 +16,7 @@ public class Order {
     //FIXME is it not saving because of this???
     static int itemOrderNumber = -1;
     static double subtotal = 0.0;
+    //private double subTotal = getSubtotal();
     //private Bread bread;
     //private Toppings toppings;
     private Sandwich sandwich;
@@ -38,7 +39,22 @@ public class Order {
         //subtotal += getSubtotal();
     }
 
-    public static double getSubtotal() {
+    /*public double getSubtotal() {
+        return subtotal();
+    }
+
+    public double subtotal () {
+        if (sandwich != null) {
+            subtotal += sandwich.getCombinedPrice();
+        }
+
+        if (products != null) {
+            subtotal += products.getDrinkPriceTotal() + products.getChipsPriceTotal();
+        }
+        return
+        subtotal;
+    }*/
+    /*public static double getSubtotal() {
         for (Object obj : ordersMap.values()) {
             if (obj instanceof Sandwich) {
                 subtotal += ((Sandwich) obj).getCombinedPrice();
@@ -56,16 +72,16 @@ public class Order {
                 }
             }
         }
-        /*if (sandwich != null) {
+        *//*if (sandwich != null) {
             subtotal += sandwich.getCombinedPrice();
         }
 
         if (products != null) {
             subtotal += products.getDrinkPriceTotal() + products.getChipsPriceTotal();
-        }*/
+        }*//*
         return subtotal;
         //sandwich.getCombinedPrice() + products.getDrinkPriceTotal() + products.getChipsPriceTotal();
-    }
+    }*/
 
 
 
@@ -245,40 +261,44 @@ return "";
         }*/
         //FIXME May cause issues
         sb.setLength(0);
+        subtotal = 0.0;
         String orderDetails = "";
         Map<String, Integer> duplicatesWithCount = new HashMap<>();
         for (Object obj : ordersMap.values()) {
             if (obj instanceof Sandwich) {
                 orderDetails = ((Sandwich) obj).print("Checkout", 1);
+                subtotal += ((Sandwich) obj).getCombinedPrice();
             }
 
             if (obj instanceof OtherProduct) {
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Drink")) {
                     orderDetails = ((OtherProduct) obj).print("Checkout", 1);
+                    subtotal += ((OtherProduct) obj).getDrinkPriceTotal();
                 }
 
                 if (((OtherProduct) obj).getType().equalsIgnoreCase("Chips")) {
                     orderDetails = ((OtherProduct) obj).print("Checkout", 1);
+                    subtotal += ((OtherProduct) obj).getChipsPriceTotal();
                 }
             }
 
             duplicatesWithCount.put(orderDetails, duplicatesWithCount.getOrDefault(orderDetails, 0) + 1);
         }
         int quantity = 0;
-        double subtotal = 0;
+        //double subtotal = 0;
         Set<String> seenEntries = new HashSet<>();
         StringBuilder sandwichSB = new StringBuilder();
         StringBuilder drinkSB = new StringBuilder();
         StringBuilder chipsSB = new StringBuilder();
 
-        String sandwich = "";
+        /*String sandwich = "";
         String [] sandwichSplit;
 
         String drink = "";
         String [] drinkSplit;
 
         String chips = "";
-        String [] chipsSplit;
+        String [] chipsSplit;*/
 
         for (Map.Entry<Integer, Object> sout : ordersMap.entrySet()) {
             //if (ordersMap.values() instanceof Sandwich) {
@@ -316,14 +336,14 @@ return "";
                         seenEntries.add(orderDetails);
                         if (function.equals("Receipt")) {
                             drinkSB.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
-                            drink = drinkSB.toString();
+                            /*drink = drinkSB.toString();
                             drinkSplit = drink.split("\\$");
-                            subtotal += Double.parseDouble(drinkSplit[1].trim());
+                            subtotal += Double.parseDouble(drinkSplit[1].trim());*/
                         } else {
                             drinkSB.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
-                            drink = ((OtherProduct) sout.getValue()).print("Receipt", quantity);
+                            /*drink = ((OtherProduct) sout.getValue()).print("Receipt", quantity);
                             drinkSplit = drink.split("\\$");
-                            subtotal += Double.parseDouble(drinkSplit[1].trim());
+                            subtotal += Double.parseDouble(drinkSplit[1].trim());*/
                         }
                     }
                     /*if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
@@ -344,18 +364,18 @@ return "";
                         seenEntries.add(orderDetails);
                         if (function.equals("Receipt")) {
                             chipsSB.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
-                            chips = chipsSB.toString();
+                            /*chips = chipsSB.toString();
                             chipsSplit = chips.split("\\$");
-                            subtotal += Double.parseDouble(chipsSplit[1].trim());
+                            subtotal += Double.parseDouble(chipsSplit[1].trim());*/
                         } else {
                             chipsSB.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
                             //EXPLAIN Must do the Receipt variant since the color text is included in the split
                             // and causing a NumFormatException
-                            chips = ((OtherProduct) sout.getValue()).print("Receipt", quantity);
+                           /* chips = ((OtherProduct) sout.getValue()).print("Receipt", quantity);
                             chipsSplit = chips.split("\\$");
                             //String chipPrice = chipsSplit[1].trim();
                             //System.out.println("b" + chipPrice + "a");
-                            subtotal += Double.parseDouble(chipsSplit[1].trim());
+                            subtotal += Double.parseDouble(chipsSplit[1].trim());*/
                         }
                     }
                 }
@@ -372,7 +392,11 @@ return "";
         drinkSB.setLength(0);
         sb.append(chipsSB);
         chipsSB.setLength(0);
-        sb.append(Order.printSubtotal());
+        if (function.equalsIgnoreCase("Receipt")) {
+            sb.append(Order.printSubtotal());
+        } else {
+            sb.append("\033[92m").append(Order.printSubtotal()).append("\033[0m");
+        }
         System.out.println(sb.toString());
         return sb.toString();
         //sb.setLength(0);
@@ -434,8 +458,9 @@ return "";
 
     }*/
     public static String printSubtotal() {
+        //Order order = new Order();
         return "\n----------------------------------------------------------------------------------------\n" +
-        String.format("Subtotal : $%.2f", getSubtotal());
+        String.format("Subtotal : $%.2f", subtotal);
     }
 
     public String print(String function) {

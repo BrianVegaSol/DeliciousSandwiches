@@ -208,9 +208,11 @@ o Cancel - delete order and go back to the home screen
         homeSB.append("\033[36m").append("\nCheckout Menu!\n==============\n")
                 .append("\033[0m")
                 .append("Let's go over your order");
+        Order order = new Order();
         System.out.println(homeSB.toString());
         homeSB.setLength(0);
         Order.formatReceipt("Print");
+        //order.getSubtotal();
                 homeSB.append("\033[36m").append("\nReady to Checkout?\n\n").append("\033[0m")
                 .append("\033[32m").append("1) Sure am!\n").append("\033[0m")
                 .append("\033[31m").append("0) Hold on! I forgot something!").append("\033[0m");

@@ -239,6 +239,9 @@ return "";
         }
         int quantity = 0;
         Set<String> seenEntries = new HashSet<>();
+        StringBuilder sandwichSB = new StringBuilder();
+        StringBuilder drinkSB = new StringBuilder();
+        StringBuilder chipsSB = new StringBuilder();
 
         for (Map.Entry<Integer, Object> sout : ordersMap.entrySet()) {
             //if (ordersMap.values() instanceof Sandwich) {
@@ -250,9 +253,9 @@ return "";
                 if (!seenEntries.contains(orderDetails)) {
                     seenEntries.add(orderDetails);
                     if (function.equals("Receipt")) {
-                        sb.append(((Sandwich) sout.getValue()).print("Receipt" , quantity)); //FIXME Quantity goes inside print2()
+                        sandwichSB.append(((Sandwich) sout.getValue()).print("Receipt" , quantity)); //FIXME Quantity goes inside print2()
                     } else {
-                        sb.append(((Sandwich) sout.getValue()).print("Checkout" , quantity));
+                        sandwichSB.append(((Sandwich) sout.getValue()).print("Checkout" , quantity));
                     }
                 }
             }
@@ -266,9 +269,9 @@ return "";
                     if (!seenEntries.contains(orderDetails)) {
                         seenEntries.add(orderDetails);
                         if (function.equals("Receipt")) {
-                            sb.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
+                            drinkSB.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
                         } else {
-                            sb.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                            drinkSB.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
                         }
                     }
                     /*if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
@@ -285,13 +288,12 @@ return "";
                 if (((OtherProduct) sout.getValue()).getType().equalsIgnoreCase("Chips")) {
                     orderDetails = ((OtherProduct) sout.getValue()).print("Checkout", 1);
                     quantity = duplicatesWithCount.get(orderDetails);
-                    //Add this to HashSet<String> then loop through the HashSet and print that?
                     if (!seenEntries.contains(orderDetails)) {
                         seenEntries.add(orderDetails);
                         if (function.equals("Receipt")) {
-                            sb.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
+                            chipsSB.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
                         } else {
-                            sb.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                            chipsSB.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
                         }
                     }
                 }
@@ -302,6 +304,12 @@ return "";
             sb.append("\n").append(sout.getKey());
             sb.append("\033[32m").append(("\nPrice: $%.2f" ))
                     .append("\033[0m");*/
+        sb.append(sandwichSB);
+        sandwichSB.setLength(0);
+        sb.append(drinkSB);
+        drinkSB.setLength(0);
+        sb.append(chipsSB);
+        chipsSB.setLength(0);
         System.out.println(sb.toString());
         return sb.toString();
         //sb.setLength(0);

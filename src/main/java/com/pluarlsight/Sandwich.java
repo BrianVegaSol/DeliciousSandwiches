@@ -89,6 +89,9 @@ public class Sandwich extends Order {
     public String print(String function, long count) {
         sb.setLength(0);
         if (function.equalsIgnoreCase("Receipt")) {
+            if ( this instanceof SignatureSandwich) {
+                sb.append(signatureName);
+            }
             sb.append("Custom");
             if (isToasted) {
                 sb.append("Toasted");

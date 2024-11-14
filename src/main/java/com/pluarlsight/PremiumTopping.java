@@ -3,7 +3,7 @@ package com.pluarlsight;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class PremiumTopping extends Topping {
+public class PremiumTopping extends Topping implements Ingredient {
     private MeatType meatType;
     private MeatSize meatSize;
     private ExtraMeatSize extraMeatSize;
@@ -101,7 +101,7 @@ public class PremiumTopping extends Topping {
     //EXPLAIN Meat Enums ->
     //FIXME Probably gonna wanna add the type for HashMap here
     private enum MeatType {
-        PEPPERONI(1, "Pepperoni", false),
+        STEAK(1, "Steak", false),
         HAM(2, "Ham", false),
         SALAMI(3, "Salami", false),
         ROAST_BEEF(4, "Roast Beef", false),
@@ -136,21 +136,7 @@ public class PremiumTopping extends Topping {
         }
     }
 
-    private enum ExtraMeatSize {
-        FOUR_INCH(1, "4\"", 0.50),
-        EIGHT_INCH(2, "8\"", 1.00),
-        TWELVE_INCH(3, "12\"", 1.50);
 
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-
-        ExtraMeatSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-    }
 
     //END <-
     //EXPLAIN Cheese enums ->
@@ -338,7 +324,7 @@ public class PremiumTopping extends Topping {
             if (topping.equalsIgnoreCase("Meat")) {
                 System.out.println("""
                         ==================================
-                        1) Pepperoni
+                        1) Steak
                         2) Ham
                         3) Salami
                         4) Roast Beef
@@ -444,7 +430,7 @@ public class PremiumTopping extends Topping {
                                 if (topping.equalsIgnoreCase("Meat")) {
                                     extraMeat = ExtraMeatSize.values()[extraInput - 1];
                                     prem.setExtraMeatSize(extraMeat);
-                                    prem.premiumToppingsMenuPrice += extraMeat.menuPrice;
+                                    prem.premiumToppingsMenuPrice += extraMeat.getMenuPrice();
                                 }
 
                                 if (topping.equalsIgnoreCase("Cheese")) {
@@ -505,8 +491,8 @@ public class PremiumTopping extends Topping {
                         .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
                 if (extraMeatSize != null) {
                     sb.append("\nExtra ").append(meatType.menuName).append(" Added")
-                            .append("\nSize: ").append(extraMeatSize.sizeName)
-                            .append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice));
+                            .append("\nSize: ").append(extraMeatSize.getSizeName())
+                            .append(String.format("\nPrice: $%.2f%n", extraMeatSize.getMenuPrice()));
                 }
             }
 
@@ -536,8 +522,8 @@ public class PremiumTopping extends Topping {
                     .append("\033[0m");
             if (extraMeatSize != null) {
                 sb.append("\nExtra ").append(meatType.menuName).append(" Added")
-                        .append("\nSize: ").append(extraMeatSize.sizeName)
-                        .append("\033[32m").append(String.format("\nPrice: $%.2f%n", extraMeatSize.menuPrice))
+                        .append("\nSize: ").append(extraMeatSize.getSizeName())
+                        .append("\033[32m").append(String.format("\nPrice: $%.2f%n", extraMeatSize.getMenuPrice()))
                         .append("\033[0m");
             }
         }

@@ -1,0 +1,61 @@
+CustomToastedSandwich Details
+===============================
+Quantity: 1
+
+Bread Details
+=============
+Type: White Bread
+Size: 4"
+Price: $5.50
+
+Premium Topping Details
+=======================
+
+Meat
+====
+Pepperoni Added
+Size: 4"
+Price: $1.00
+
+Extra Pepperoni Added
+Size: 4"
+Price: $0.50
+
+Cheese
+======
+American Cheese Added
+Size: 4"
+Price: $0.75
+
+Extra American Added
+Size: 4"
+Price: $0.30
+
+Regular Topping Details
+=======================
+Included
+Lettuce, Onions, Tomatoes, Jalapeños, Cucumbers, Pickles, Guacamole, Mushrooms, Mayo, 
+Mustard, Ketchup, Ranch, Thousand Islands, Vinaigrette, au jus, Sauce
+
+Removed
+Peppers
+
+----------------------------------------------------------------------------------------
+Sandwich Cumulative Price: $8.05
+
+Drink Details
+=============
+Quantity: 1
+Flavor: Root Beer
+Size: Small
+Price: $2.00
+
+Chip Details
+============
+Quantity: 2
+Delish Chips Flavor: Classic
+Price: $3.00
+
+
+----------------------------------------------------------------------------------------
+Subtotal : $13.05

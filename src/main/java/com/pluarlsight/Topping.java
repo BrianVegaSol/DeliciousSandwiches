@@ -2,12 +2,12 @@ package com.pluarlsight;
 
 import java.util.*;
 
-public class Topping {
+public class Topping implements Ingredient{
     private int numOfToppings;
-    private static final String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños",
+    /*private static final String[] allIngredients = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños",
             "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
             "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
-            "au jus", "Sauce"};
+            "au jus", "Sauce"};*/
     //private static final String [] removedToppings = new String[17]; // TODO Use StringBuilder
     private static StringBuilder sb = new StringBuilder();
     static Scanner scan = new Scanner(System.in);
@@ -185,7 +185,7 @@ public class Topping {
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static Topping regularToppingsMenu(Topping topping) throws InterruptedException {
-        currentToppingsList = dynamicToppingsList();
+        currentToppingsList = Ingredient.ingredients();
         //System.out.println("TEST PREM TOP:\n" + topping);
         byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
@@ -249,7 +249,7 @@ public class Topping {
                         break;
                     case 2:
                         System.out.println("Alright, lets start over!");
-                        currentToppingsList = dynamicToppingsList();
+                        currentToppingsList = Ingredient.ingredients();
                         removedToppingsList.clear();
                         //System.out.println("Removed List: \n" + removedToppingsList.toString());
                         //EXPLAIN String [] Legacy code
@@ -418,11 +418,11 @@ public class Topping {
         }
     }
 
-    public static ArrayList<String> dynamicToppingsList() {
+    /*public static ArrayList<String> dynamicToppingsList() {
         ArrayList<String> allRegularToppingsList = new ArrayList<>();
         allRegularToppingsList.addAll(Arrays.asList(allIngredients));
         return allRegularToppingsList;
-    }
+    }*/
 
     public static void printDynamicList(ArrayList<String> lists) {
         //System.out.println("List Size: " + lists.size());

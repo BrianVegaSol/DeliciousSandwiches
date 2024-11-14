@@ -100,106 +100,8 @@ public class PremiumTopping extends Topping implements Ingredient {
 
     //EXPLAIN Meat Enums ->
     //FIXME Probably gonna wanna add the type for HashMap here
-    private enum MeatType {
-        STEAK(1, "Steak", false),
-        HAM(2, "Ham", false),
-        SALAMI(3, "Salami", false),
-        ROAST_BEEF(4, "Roast Beef", false),
-        CHICKEN(5, "Chicken", false),
-        BACON(6, "Bacon", false);
-
-        private int menuNum;
-        private String menuName;
-        private boolean wantsExtraMeat;
-
-        MeatType(int menuNum, String menuName, boolean wantsExtraMeat) {
-            this.menuNum = menuNum;
-            this.menuName = menuName;
-        }
-
-    }
-
-    private enum MeatSize {
-        FOUR_INCH(1, "4\"", 1.00),
-        EIGHT_INCH(2, "8\"", 2.00),
-        TWELVE_INCH(3, "12\"", 3.00);
-
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-        private boolean wantsExtra;
-
-        MeatSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-    }
-
-
-
     //END <-
-    //EXPLAIN Cheese enums ->
-    private enum CheeseType {
-        AMERICAN(1, "American"),
-        PROVOLONE(2, "Provolone"),
-        CHEDDAR(3, "Cheddar"),
-        SWISS(4, "Swiss");
 
-        private int menuNum;
-        private String menuName;
-
-        CheeseType(int menuNum, String menuName) {
-            this.menuNum = menuNum;
-            this.menuName = menuName;
-        }
-
-    }
-
-    private enum CheeseSize {
-        FOUR_INCH(1, "4\"", 0.75),
-        EIGHT_INCH(2, "8\"", 1.50),
-        TWELVE_INCH(3, "12\"", 2.25);
-
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-
-        CheeseSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-
-        public int getMenuNum() {
-            return menuNum;
-        }
-
-        public double getMenuPrice() {
-            return menuPrice;
-        }
-
-        public String getSizeName() {
-            return sizeName;
-        }
-    }
-
-    private enum ExtraCheeseSize {
-        FOUR_INCH(1, "4\"", 0.30),
-        EIGHT_INCH(2, "8\"", 0.60),
-        TWELVE_INCH(3, "12\"", 0.90);
-
-        private int menuNum;
-        private String sizeName;
-        private double menuPrice;
-
-        ExtraCheeseSize(int menuNum, String sizeName, double menuPrice) {
-            this.menuNum = menuNum;
-            this.sizeName = sizeName;
-            this.menuPrice = menuPrice;
-        }
-    }
-    //END <-
 
     public static PremiumTopping updatePremTop(PremiumTopping premTop) {
         return premTop;
@@ -381,13 +283,13 @@ public class PremiumTopping extends Topping implements Ingredient {
                 if (topping.equalsIgnoreCase("Meat")) {
                     meatSize = MeatSize.values()[sizeInput - 1];
                     prem.setMeatSize(meatSize);
-                    prem.premiumToppingsMenuPrice += meatSize.menuPrice;
+                    prem.premiumToppingsMenuPrice += meatSize.getMenuPrice();
                 }
 
                 if (topping.equalsIgnoreCase("Cheese")) {
                     cheeseSize = CheeseSize.values()[sizeInput - 1];
                     prem.setCheeseSize(cheeseSize);
-                    prem.premiumToppingsMenuPrice += cheeseSize.menuPrice;
+                    prem.premiumToppingsMenuPrice += cheeseSize.getMenuPrice();
                 }
                 break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -436,7 +338,7 @@ public class PremiumTopping extends Topping implements Ingredient {
                                 if (topping.equalsIgnoreCase("Cheese")) {
                                     extraCheese = ExtraCheeseSize.values()[extraInput - 1];
                                     prem.setExtraCheeseSize(extraCheese);
-                                    prem.premiumToppingsMenuPrice += extraCheese.menuPrice;
+                                    prem.premiumToppingsMenuPrice += extraCheese.getMenuPrice();
                                 }
                                 break;
                             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -486,11 +388,11 @@ public class PremiumTopping extends Topping implements Ingredient {
             sb.append("Premium Topping Details\n=======================\n");
             if (meatSize != null) {
                 sb.append("\nMeat\n====")
-                        .append("\n").append(meatType.menuName).append(" Added")
-                        .append("\nSize: ").append(meatSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice));
+                        .append("\n").append(meatType.getMenuName()).append(" Added")
+                        .append("\nSize: ").append(meatSize.getSizeName())
+                        .append(String.format("\nPrice: $%.2f%n", meatSize.getMenuPrice()));
                 if (extraMeatSize != null) {
-                    sb.append("\nExtra ").append(meatType.menuName).append(" Added")
+                    sb.append("\nExtra ").append(meatType.getMenuName()).append(" Added")
                             .append("\nSize: ").append(extraMeatSize.getSizeName())
                             .append(String.format("\nPrice: $%.2f%n", extraMeatSize.getMenuPrice()));
                 }
@@ -498,13 +400,13 @@ public class PremiumTopping extends Topping implements Ingredient {
 
             if (cheeseSize != null) {
                 sb.append("\nCheese\n======")
-                .append("\n").append(cheeseType.menuName).append(" Cheese Added")
-                        .append("\nSize: ").append(cheeseSize.sizeName)
-                        .append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice));
+                .append("\n").append(cheeseType.getMenuName()).append(" Cheese Added")
+                        .append("\nSize: ").append(cheeseSize.getSizeName())
+                        .append(String.format("\nPrice: $%.2f%n", cheeseSize.getMenuPrice()));
                 if (extraCheeseSize != null) {
-                    sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
-                            .append("\nSize: ").append(extraCheeseSize.sizeName)
-                            .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice));
+                    sb.append("\nExtra ").append(cheeseType.getMenuName()).append(" Added")
+                            .append("\nSize: ").append(extraCheeseSize.getSizeName())
+                            .append(String.format("\nPrice: $%.2f%n", extraCheeseSize.getMenuPrice()));
                 }
             }
             sb.append("\n");
@@ -516,12 +418,12 @@ public class PremiumTopping extends Topping implements Ingredient {
                 .append("\n=======================\n").append("\033[0m");
         if (meatSize != null) {
             sb.append("\033[31m").append("\nMeat\n====").append("\033[0m");
-            sb.append("\n").append(meatType.menuName).append(" Added")
-                    .append("\nSize: ").append(meatSize.sizeName)
-                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", meatSize.menuPrice))
+            sb.append("\n").append(meatType.getMenuName()).append(" Added")
+                    .append("\nSize: ").append(meatSize.getSizeName())
+                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", meatSize.getMenuPrice()))
                     .append("\033[0m");
             if (extraMeatSize != null) {
-                sb.append("\nExtra ").append(meatType.menuName).append(" Added")
+                sb.append("\nExtra ").append(meatType.getMenuName()).append(" Added")
                         .append("\nSize: ").append(extraMeatSize.getSizeName())
                         .append("\033[32m").append(String.format("\nPrice: $%.2f%n", extraMeatSize.getMenuPrice()))
                         .append("\033[0m");
@@ -531,13 +433,13 @@ public class PremiumTopping extends Topping implements Ingredient {
 
         if (cheeseSize != null) {
             sb.append("\033[31m").append("\nCheese\n======").append("\033[0m");
-            sb.append("\n").append(cheeseType.menuName).append(" Cheese Added")
-                    .append("\nSize: ").append(cheeseSize.sizeName)
-                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", cheeseSize.menuPrice)).append("\033[0m");
+            sb.append("\n").append(cheeseType.getMenuName()).append(" Cheese Added")
+                    .append("\nSize: ").append(cheeseSize.getSizeName())
+                    .append("\033[32m").append(String.format("\nPrice: $%.2f%n", cheeseSize.getMenuPrice())).append("\033[0m");
             if (extraCheeseSize != null) {
-                sb.append("\nExtra ").append(cheeseType.menuName).append(" Added")
-                        .append("\nSize: ").append(extraCheeseSize.sizeName)
-                        .append("\033[32m").append(String.format("\nPrice: $%.2f%n", extraCheeseSize.menuPrice))
+                sb.append("\nExtra ").append(cheeseType.getMenuName()).append(" Added")
+                        .append("\nSize: ").append(extraCheeseSize.getSizeName())
+                        .append("\033[32m").append(String.format("\nPrice: $%.2f%n", extraCheeseSize.getMenuPrice()))
                         .append("\033[0m");
             }
         }

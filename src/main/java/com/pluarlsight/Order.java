@@ -35,27 +35,27 @@ public class Order {
     }
 
     public Order() {
-        subtotal = getSubtotal();
+        //subtotal += getSubtotal();
     }
 
-    public double getSubtotal() {
-        ordersMap.forEach((key, value) -> {
-            if (value instanceof Sandwich) {
-                subtotal += ((Sandwich) value).getCombinedPrice();
+    public static double getSubtotal() {
+        for (Object obj : ordersMap.values()) {
+            if (obj instanceof Sandwich) {
+                subtotal += ((Sandwich) obj).getCombinedPrice();
             }
 
-            if (value instanceof OtherProduct) {
-                if (((OtherProduct) value).getType().equalsIgnoreCase("Drink")) {
-                    subtotal += products.getDrinkPriceTotal();
+            if (obj instanceof OtherProduct) {
+                if (((OtherProduct) obj).getType().equalsIgnoreCase("Drink")) {
+                    subtotal += ((OtherProduct) obj).getDrinkPriceTotal();
                 }
             }
 
-            if (value instanceof OtherProduct) {
-                if (((OtherProduct) value).getType().equalsIgnoreCase("Chips")) {
-                    subtotal += products.getChipsPriceTotal();
+            if (obj instanceof OtherProduct) {
+                if (((OtherProduct) obj).getType().equalsIgnoreCase("Chips")) {
+                    subtotal += ((OtherProduct) obj).getChipsPriceTotal();
                 }
             }
-        });
+        }
         /*if (sandwich != null) {
             subtotal += sandwich.getCombinedPrice();
         }
@@ -435,7 +435,7 @@ return "";
     }*/
     public static String printSubtotal() {
         return "\n----------------------------------------------------------------------------------------\n" +
-        String.format("Subtotal : $%.2f", subtotal);
+        String.format("Subtotal : $%.2f", getSubtotal());
     }
 
     public String print(String function) {

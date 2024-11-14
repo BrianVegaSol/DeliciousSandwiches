@@ -238,10 +238,20 @@ return "";
             duplicatesWithCount.put(orderDetails, duplicatesWithCount.getOrDefault(orderDetails, 0) + 1);
         }
         int quantity = 0;
+        double subtotal = 0;
         Set<String> seenEntries = new HashSet<>();
         StringBuilder sandwichSB = new StringBuilder();
         StringBuilder drinkSB = new StringBuilder();
         StringBuilder chipsSB = new StringBuilder();
+
+        String sandwich = "";
+        String [] sandwichSplit;
+
+        String drink = "";
+        String [] drinkSplit;
+
+        String chips = "";
+        String [] chipsSplit;
 
         for (Map.Entry<Integer, Object> sout : ordersMap.entrySet()) {
             //if (ordersMap.values() instanceof Sandwich) {
@@ -253,9 +263,18 @@ return "";
                 if (!seenEntries.contains(orderDetails)) {
                     seenEntries.add(orderDetails);
                     if (function.equals("Receipt")) {
-                        sandwichSB.append(((Sandwich) sout.getValue()).print("Receipt" , quantity)); //FIXME Quantity goes inside print2()
+                        //FIXME Need to see how many : splits there are in sandwich
+                        sandwichSB.append(((Sandwich) sout.getValue()).print("Receipt" , quantity));//FIXME Quantity goes inside print2()
+                        sandwich = sandwichSB.toString();
+                        sandwichSplit = sandwich.split("\\$");
+                        subtotal += Double.parseDouble(sandwichSplit[1] + sandwichSplit[2]);
                     } else {
                         sandwichSB.append(((Sandwich) sout.getValue()).print("Checkout" , quantity));
+                        sandwich = ((Sandwich) sout.getValue()).print("Receipt" , quantity);
+                        sandwichSplit = sandwich.split("\\$");
+                        double unroundedSubtotal = 0.0;
+                        unroundedSubtotal += Double.parseDouble(sandwichSplit[1].replaceAll("[^\\d.]", ""));
+                        subtotal += Math.round(unroundedSubtotal * 100.0) / 100.0;
                     }
                 }
             }
@@ -270,8 +289,14 @@ return "";
                         seenEntries.add(orderDetails);
                         if (function.equals("Receipt")) {
                             drinkSB.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
+                            drink = drinkSB.toString();
+                            drinkSplit = drink.split("\\$");
+                            subtotal += Double.parseDouble(drinkSplit[1].trim());
                         } else {
                             drinkSB.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                            drink = ((OtherProduct) sout.getValue()).print("Receipt", quantity);
+                            drinkSplit = drink.split("\\$");
+                            subtotal += Double.parseDouble(drinkSplit[1].trim());
                         }
                     }
                     /*if (!((OtherProduct) sout.getValue()).print2(1).contains(orderDetails)) {
@@ -292,8 +317,18 @@ return "";
                         seenEntries.add(orderDetails);
                         if (function.equals("Receipt")) {
                             chipsSB.append(((OtherProduct) sout.getValue()).print("Receipt", quantity));
+                            chips = chipsSB.toString();
+                            chipsSplit = chips.split("\\$");
+                            subtotal += Double.parseDouble(chipsSplit[1].trim());
                         } else {
                             chipsSB.append(((OtherProduct) sout.getValue()).print("Checkout", quantity));
+                            //EXPLAIN Must do the Receipt variant since the color text is included in the split
+                            // and causing a NumFormatException
+                            chips = ((OtherProduct) sout.getValue()).print("Receipt", quantity);
+                            chipsSplit = chips.split("\\$");
+                            //String chipPrice = chipsSplit[1].trim();
+                            //System.out.println("b" + chipPrice + "a");
+                            subtotal += Double.parseDouble(chipsSplit[1].trim());
                         }
                     }
                 }

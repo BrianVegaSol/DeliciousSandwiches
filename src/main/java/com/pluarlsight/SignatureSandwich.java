@@ -239,8 +239,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                         sb.setLength(0);
                         //if boolean unmodified = true; then skip toasted
                         //any modification means that you have to customize the sandwich from scratch?
-                        Bread.wantsToasted();
-
+                        //Bread.wantsToasted();
+                        ordersMap.put(++Order.itemOrderNumber, sig);
                         //FIXME May need to add topping to orderMap??? then return
                         return sig;
                     }

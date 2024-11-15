@@ -196,8 +196,8 @@ o Cancel - delete order and go back to the home screen
                         System.out.print("Sorry! That's not on the menu!\nLets have a look at the ");
                         continue;
                 }
-                //FIXME Unnecessary?
-                if (orderInput >= 1 && orderInput <= 4) {
+                //FIXME Unnecessary? YES THIS IS MAINTAINING THE LOOP
+                if (orderInput >= 1 && orderInput <= 5) {
                     continue;
                 }
                 break;

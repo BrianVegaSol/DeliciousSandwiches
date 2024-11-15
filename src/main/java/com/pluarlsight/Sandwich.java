@@ -110,11 +110,11 @@ public class Sandwich extends Order {
     public String print(String function, long count) {
         sb.setLength(0);
         if (function.equalsIgnoreCase("Receipt")) {
-            if ( this instanceof SignatureSandwich) {
+            if ( signatureName != null) {
                 if (isToasted) {
-                sb.append("Toasted");
+                sb.append("Toasted ");
                 }
-                sb.append(signatureName);
+                sb.append(signatureName).append(" ");
             } else {
                 sb.append("Custom");
                 if (isToasted) {
@@ -132,10 +132,17 @@ public class Sandwich extends Order {
         }
 
         //EXPLAIN For most cases
-        sb.append("\033[33m").append("Custom ").append("\033[0m");
-        if (isToasted) {
-            sb.append("\033[93m").append("Toasted ").append("\033[0m");
-        }
+            if ( signatureName != null) {
+                if (isToasted) {
+                    sb.append("\033[33m").append("Toasted ");
+                }
+                sb.append(signatureName).append(" ").append("\033[0m");
+            } else {
+                sb.append("\033[33m").append("Custom ").append("\033[0m");
+                if (isToasted) {
+                    sb.append("\033[93m").append("Toasted ").append("\033[0m");
+                }
+            }
         sb.append("\033[33m").append("Sandwich Details\n===============================\n").append("\033[0m");
         sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
         sb.append("\n\n");

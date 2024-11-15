@@ -1,0 +1,53 @@
+
+[33mItem #1[0m
+[33mCustom [0m[93mToasted [0m[33mSandwich Details
+===============================
+
+[0m[34mBread Details
+=============[0m
+Type: White Bread
+Size: 4"[32m
+Price: $5.50
+[0m
+[31mPremium Topping Details
+=======================
+[0m[31m
+Meat
+====[0m
+Pepperoni Added
+Size: 4"[32m
+Price: $1.00
+[0m
+Extra Pepperoni Added
+Size: 4"[32m
+Price: $0.50
+[0m[31m
+Cheese
+======[0m
+American Cheese Added
+Size: 4"[32m
+Price: $0.75
+[0m
+Extra American Added
+Size: 4"[32m
+Price: $0.30
+[0m
+[31mRegular Topping Details
+=======================[0m
+[32mIncluded
+[0mLettuce, Jalepeños, Cucumbers, Pickles, Guacamole, Mushrooms, Mayo, Mustard, Ketchup, 
+Ranch, Thousand Islands, Vinaigrette, au jus, Sauce[31m
+
+Removed
+[0mPeppers, Onions, Tomatoes
+
+[33mItem #2[0m
+Drink Details
+=============
+Flavor: Root Beer
+Size: Small
+[33mItem #3[0m
+[97mChip Details
+============[0m
+Delish Chips Flavor: Classic[32m
+Price: $1.50[0m

@@ -1,0 +1,16 @@
+Drink Details
+=============
+Quantity: 1
+Flavor: Root Beer
+Size: Large
+Price: $3.00
+
+Chip Details
+============
+Quantity: 1
+Delish Chips Flavor: Classic
+Price: $1.50
+
+
+----------------------------------------------------------------------------------------
+Subtotal : $4.50

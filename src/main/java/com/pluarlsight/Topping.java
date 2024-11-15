@@ -186,6 +186,7 @@ public class Topping implements Ingredient{
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
     public static Topping regularToppingsMenu(Topping topping , String function) throws InterruptedException {
+        if (function.equalsIgnoreCase("Signature"))
         currentToppingsList = Ingredient.ingredients();
         //System.out.println("TEST PREM TOP:\n" + topping);
         byte lastChangeIndex = -1;

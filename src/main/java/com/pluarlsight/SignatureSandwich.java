@@ -103,7 +103,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     topping.setPremiumTopping(premiumTopping);
 
                     combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
-
+                    sig.setSignatureName("BLT");
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
                     break;
                 case 2:
@@ -134,7 +134,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     topping.setPremiumTopping(premiumTopping);
 
                     combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
-
+                    sig.setSignatureName("Philly Cheese Steak");
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
                     break;
                 case 3:
@@ -165,7 +165,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     topping.setPremiumTopping(premiumTopping);
 
                     combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
-
+                    sig.setSignatureName("Deli Delight");
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
                     break;
                 default:
@@ -173,6 +173,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     scan.nextLine();
                     continue;
             }
+
             //Preload the currentList
             //Preload Objects
 
@@ -231,8 +232,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese", premiumTopping);
                     break;
                 case 4:
-                    if (Topping.confirmOrder("Signature Sandwich") == -1) {
-                        continue;
+                    if ((topping = Topping.regularToppingsMenu(topping, "Signature")) == null) {
+                        break;
                     } else {
                         sb.setLength(0);
                         //if boolean unmodified = true; then skip toasted
@@ -264,18 +265,15 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
         ArrayList<String> list = new ArrayList<>();
 
         if (sigName.equalsIgnoreCase("BLT")) {
-            Collections.addAll(list, "8\" White Bread", "Bacon", "Cheddar", "Lettuce", "Tomato",
-                    "Ranch", "Toasted");
+            Collections.addAll(list, "Lettuce", "Tomatoes", "Ranch");
         }
 
         if (sigName.equalsIgnoreCase("Philly")) {
-            Collections.addAll(list, "8\" Rye Bread", "Steak", "American", "Peppers",
-                    "Mayo", "Toasted");
+            Collections.addAll(list, "Peppers", "Mayo");
         }
 
         if (sigName.equalsIgnoreCase("Deli")) {
-            Collections.addAll(list, "12\" Wrap Bread", "Chicken", "Provolone", "Onions",
-                    "Mushrooms", "Toasted");
+            Collections.addAll(list, "Onions", "Mushrooms");
         }
 
         return list;
@@ -286,18 +284,24 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
         ArrayList<String> removedList = new ArrayList<>();
 
         if (sigName.equalsIgnoreCase("BLT")) {
-            Collections.addAll(removedList, "8\" White Bread", "Bacon", "Cheddar", "Lettuce", "Tomato",
-                    "Ranch", "Toasted");
+            Collections.addAll(removedList, "Peppers", "Onions", "Jalapeños",
+                    "Cucumbers", "Pickles", "Guacamole", "Mushrooms", "Mayo",
+                    "Mustard", "Ketchup", "Thousand Islands", "Vinaigrette",
+                    "au jus", "Sauce");
         }
 
         if (sigName.equalsIgnoreCase("Philly")) {
-            Collections.addAll(removedList, "8\" White Bread", "Steak", "American", "Peppers",
-                    "Mayo", "Toasted");
+            Collections.addAll(removedList, "Lettuce", "Onions", "Tomatoes", "Jalapeños",
+                    "Cucumbers", "Pickles", "Guacamole", "Mushrooms",
+                    "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
+                    "au jus", "Sauce");
         }
 
         if (sigName.equalsIgnoreCase("Deli")) {
-            Collections.addAll(removedList, "12\" Rye Bread", "Chicken", "Provolone", "Onions",
-                    "Mushrooms", "Toasted");
+            Collections.addAll(removedList, "Lettuce", "Peppers", "Tomatoes", "Jalapeños",
+                    "Cucumbers", "Pickles", "Guacamole", "Mayo",
+                    "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette",
+                    "au jus", "Sauce");
         }
         return removedList;
     }

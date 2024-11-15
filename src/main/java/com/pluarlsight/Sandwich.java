@@ -7,6 +7,7 @@ public class Sandwich extends Order {
     private Topping toppings;
     private double combinedPrice;
     private boolean isToasted;
+    private String signatureName;
     private static StringBuilder sb = new StringBuilder();
     //TASK Try to have Bread and Topping become interfaces and have Sandwich implement both
     // OR have Bread and Toppings extend Sandwich (y tho???)
@@ -27,6 +28,18 @@ public class Sandwich extends Order {
         this.combinedPrice = bread.getBreadMenuPrice() + toppings.getPremToppingsTotalPrice();
     }
 
+   /* public Sandwich(Bread bread, Topping toppings, boolean isToasted, String signatureName) {
+        super();
+        this.bread = bread;
+        this.toppings = toppings;
+        this.isToasted = isToasted;
+        this.signatureName = signatureName;
+        //TASK this is only for one Sandwich, to get the Total for the whole order, will need to tally
+        // EITHER everytime that a new Sandwich & OtherProduct is made, static total++ (reset when clearing all orders)
+        // OR Have the Hashmap get all the entries and all their totals that way?
+        this.combinedPrice = bread.getBreadMenuPrice() + toppings.getPremToppingsTotalPrice();
+    }*/
+
     public Sandwich() {
         super();
     }
@@ -41,6 +54,14 @@ public class Sandwich extends Order {
         }
         Sandwich sandwich = (Sandwich) obj;
         return bread == bread.getBread() && toppings == getToppings();
+    }
+
+    public String getSignatureName() {
+        return signatureName;
+    }
+
+    public void setSignatureName(String signatureName) {
+        this.signatureName = signatureName;
     }
 
     @Override
@@ -90,11 +111,15 @@ public class Sandwich extends Order {
         sb.setLength(0);
         if (function.equalsIgnoreCase("Receipt")) {
             if ( this instanceof SignatureSandwich) {
-                //sb.append(signatureName);
-            }
-            sb.append("Custom");
-            if (isToasted) {
+                if (isToasted) {
                 sb.append("Toasted");
+                }
+                sb.append(signatureName);
+            } else {
+                sb.append("Custom");
+                if (isToasted) {
+                    sb.append("Toasted");
+                }
             }
             sb.append("Sandwich Details\n===============================\n")
                     .append("Quantity: ").append(count)

@@ -158,7 +158,7 @@ public class Topping implements Ingredient{
                     } else {
                         top = new Topping(prem);
 
-                        if ((top = Topping.regularToppingsMenu(top, "Normal")) == null) {
+                        if ((top = Topping.regularToppingsMenu(top, "Normal", "Custom")) == null) {
                             //if cancels order in regToppingsMenu() then come back here
                             continue;
                         } else {
@@ -172,7 +172,7 @@ public class Topping implements Ingredient{
                     System.out.print("No Extra Toppings? Alright!\nOnto the ");
                     //System.out.println(prem);
                     //System.out.println(top);
-                    if ((top = regularToppingsMenu(top, "Normal")) == null) {
+                    if ((top = regularToppingsMenu(top, "Normal", "Custom")) == null) {
                         return null;
                     } else {
                         prem = null;
@@ -185,9 +185,12 @@ public class Topping implements Ingredient{
 
     //FIXME 0) return, once back at Topping menu skip adding to Sandwich
     // Should probably add to Sandwich here to avoid ifs in Toppings and makes sense to be here OR extraToppingsMenu()
-    public static Topping regularToppingsMenu(Topping topping , String function) throws InterruptedException {
-        if (function.equalsIgnoreCase("Signature"))
-        currentToppingsList = Ingredient.ingredients();
+    public static Topping regularToppingsMenu(Topping topping , String function , String signatureName) throws InterruptedException {
+        if (function.equalsIgnoreCase("Signature")) {
+            currentToppingsList = SignatureSandwich.preloadedList(signatureName);
+        } else {
+            currentToppingsList = Ingredient.ingredients();
+        }
         //System.out.println("TEST PREM TOP:\n" + topping);
         byte lastChangeIndex = -1;
         //byte viableInputs = (byte) (currentToppingsList.size() - 17);
@@ -239,10 +242,14 @@ public class Topping implements Ingredient{
                         System.out.println(sb.toString());
                         sb.setLength(0);
                         removedToppingsList.clear();
+                        if (function.equalsIgnoreCase("Signature")) {
+                        removedToppingsList = SignatureSandwich.preloadedRemovedList(signatureName);
+                        }
                         //FIXME Play around with this value, maybe -1 or 18?
                         return null;
                     case 1:
                         //FIXME Check if null/empty?
+
                         if (removedToppingsList.isEmpty()) {
                             System.out.println("Nothing to undo!");
                         } else {
@@ -251,8 +258,13 @@ public class Topping implements Ingredient{
                         break;
                     case 2:
                         System.out.println("Alright, lets start over!");
-                        currentToppingsList = Ingredient.ingredients();
-                        removedToppingsList.clear();
+                        if (function.equalsIgnoreCase("Signature")) {
+                            currentToppingsList = SignatureSandwich.preloadedList(signatureName);
+                            removedToppingsList = SignatureSandwich.preloadedRemovedList(signatureName);
+                        } else {
+                            currentToppingsList = Ingredient.ingredients();
+                            removedToppingsList.clear();
+                        }
                         //System.out.println("Removed List: \n" + removedToppingsList.toString());
                         //EXPLAIN String [] Legacy code
                         //System.out.println(Arrays.toString(removedToppings));

@@ -30,7 +30,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
     }
 
     public static Sandwich signatureSandwichMenu() throws InterruptedException {
-        Sandwich sig = new SignatureSandwich();
+        Sandwich sig = null;
         PremiumTopping premiumTopping = new PremiumTopping();
         Topping topping = new Topping();
         Bread bread = new Bread();
@@ -103,8 +103,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     topping.setPremiumTopping(premiumTopping);
 
                     combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
-                    sig.setSignatureName("BLT");
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
+                    sig.setSignatureName("BLT");
                     break;
                 case 2:
                     breadSize = BreadSize.EIGHT_INCH;
@@ -134,8 +134,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     topping.setPremiumTopping(premiumTopping);
 
                     combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
-                    sig.setSignatureName("Philly Cheese Steak");
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
+                    sig.setSignatureName("Philly Cheese Steak");
                     break;
                 case 3:
                     breadSize = BreadSize.FOUR_INCH;
@@ -165,18 +165,19 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     topping.setPremiumTopping(premiumTopping);
 
                     combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
-                    sig.setSignatureName("Deli Delight");
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
+                    sig.setSignatureName("Deli Delight");
                     break;
                 default:
                     System.out.println("Error, try again");
                     scan.nextLine();
                     continue;
             }
-
-            //Preload the currentList
-            //Preload Objects
-
+            break;
+        }
+        //Preload the currentList
+        //Preload Objects
+        while (true) {
             System.out.println("""
                     What do you want to do?
                     1) Change Bread
@@ -203,14 +204,13 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                 case 0:
                     return null;
                 case 1:
-                    if ((bread = Bread.sizeAndTypeMenu()) == null) {
-                        return null;
-                    } else {
+                    if ((bread = Bread.sizeAndTypeMenu()) != null) {
                         boolean isToasted = Bread.wantsToasted();
                         sig = new Sandwich(bread, topping, isToasted);
-                        ordersMap.put(++Order.itemOrderNumber, sig);
+                        //ordersMap.put(++Order.itemOrderNumber, sig);
                     }
-                    //EXPLAIN General Premium Toppings Menu
+                    break;
+                //EXPLAIN General Premium Toppings Menu
                    /* if ((prem = PremiumTopping.premiumToppingsMenu()) == null) {
                         //if null then order was cancelled, so should return to this toppingsMenu
                         continue;
@@ -232,7 +232,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese", premiumTopping);
                     break;
                 case 4:
-                    if ((topping = Topping.regularToppingsMenu(topping, "Signature")) == null) {
+                    String sigName = sig.getSignatureName();
+                    if ((topping = Topping.regularToppingsMenu(topping, "Signature", sigName)) == null) {
                         break;
                     } else {
                         sb.setLength(0);

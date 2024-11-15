@@ -64,6 +64,10 @@ public class Sandwich extends Order {
         this.signatureName = signatureName;
     }
 
+    public void setToppings(Topping toppings) {
+        this.toppings = toppings;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(bread, toppings);

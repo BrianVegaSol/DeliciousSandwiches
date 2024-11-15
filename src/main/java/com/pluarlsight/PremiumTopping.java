@@ -78,7 +78,7 @@ public class PremiumTopping extends Topping implements Ingredient {
     }
 
     public void setPremiumToppingsMenuPrice(double premiumToppingsMenuPrice) {
-        this.premiumToppingsMenuPrice = premiumToppingsMenuPrice;
+        this.premiumToppingsMenuPrice += premiumToppingsMenuPrice;
     }
 /*public PremiumTopping(PremiumTopping premiumTopping, double premToppingsTotalPrice, CheeseSize cheeseSize,
                           CheeseType cheeseType, ExtraCheeseSize extraCheeseSize, ExtraMeatSize extraMeatSize,
@@ -135,7 +135,7 @@ public class PremiumTopping extends Topping implements Ingredient {
                         //premiumTopping = sizeAndTypeMenu("Meat", premiumTopping);
                         //FIXME Play around with having updatePrem outside or inside
                         // Probably should have it inside of size()
-                        sizeAndTypeMenu("Meat", premiumTopping);
+                        sizeAndTypeMenu("Meat", premiumTopping, "Normal");
                         //System.out.println(premiumTopping);
                         break;
                     default:
@@ -163,7 +163,7 @@ public class PremiumTopping extends Topping implements Ingredient {
                     case 0:
                         break;
                     case 1:
-                        sizeAndTypeMenu("Cheese", premiumTopping);
+                        sizeAndTypeMenu("Cheese", premiumTopping, "Normal");
                         break;
                     default:
                         System.out.println("\033[31m" + "So..." + "\033[0m");
@@ -199,7 +199,7 @@ public class PremiumTopping extends Topping implements Ingredient {
         //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }
 
-    public static PremiumTopping sizeAndTypeMenu(String topping, PremiumTopping prem) throws InterruptedException {
+    public static PremiumTopping sizeAndTypeMenu(String topping, PremiumTopping prem, String function) throws InterruptedException {
         byte input = -1;
         //PremiumTopping prem; //= new PremiumTopping(); /FIXME Add non, null base values??? then make perm null if cancelled order???
         //FIXME oof this is why Meat is never saved xO when Cheese comes through here, it makes everything null xO
@@ -284,6 +284,9 @@ public class PremiumTopping extends Topping implements Ingredient {
                     meatSize = MeatSize.values()[sizeInput - 1];
                     prem.setMeatSize(meatSize);
                     prem.premiumToppingsMenuPrice += meatSize.getMenuPrice();
+                    if (function.equalsIgnoreCase("Signature")) {
+                        prem.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
+                    }
                 }
 
                 if (topping.equalsIgnoreCase("Cheese")) {

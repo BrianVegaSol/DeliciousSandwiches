@@ -51,8 +51,6 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
             sb.append("\033[31m").append("Signature Sandwich Menu!").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
-
-
             System.out.println("""
                     Here are our Signature Sandwich Options!
                     1) BLT
@@ -81,12 +79,14 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     meatSize = MeatSize.FOUR_INCH;
                     meatType = MeatType.BACON;
                     premiumTopping.setMeatSize(meatSize);
+                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
                     premiumTopping.setMeatType(meatType);
 
                     cheeseSize = CheeseSize.FOUR_INCH;
                     cheeseType = CheeseType.CHEDDAR;
 
                     premiumTopping.setCheeseSize(cheeseSize);
+                    premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
@@ -114,12 +114,14 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     meatSize = MeatSize.EIGHT_INCH;
                     meatType = MeatType.STEAK;
                     premiumTopping.setMeatSize(meatSize);
+                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
                     premiumTopping.setMeatType(meatType);
 
                     cheeseSize = CheeseSize.EIGHT_INCH;
                     cheeseType = CheeseType.AMERICAN;
 
                     premiumTopping.setCheeseSize(cheeseSize);
+                    premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
@@ -145,12 +147,14 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     meatSize = MeatSize.EIGHT_INCH;
                     meatType = MeatType.CHICKEN;
                     premiumTopping.setMeatSize(meatSize);
+                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
                     premiumTopping.setMeatType(meatType);
 
                     cheeseSize = CheeseSize.TWELVE_INCH;
                     cheeseType = CheeseType.PROVOLONE;
 
                     premiumTopping.setCheeseSize(cheeseSize);
+                    premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
@@ -178,6 +182,11 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
         //Preload the currentList
         //Preload Objects
         while (true) {
+            System.out.println("\n");
+            sb.append("\033[33m").append("Signature Sandwich Menu!")
+                    .append("\n========================\n").append("\033[0m");
+            System.out.println(sb.toString());
+            sb.setLength(0);
             System.out.println("""
                     What do you want to do?
                     1) Change Bread
@@ -210,26 +219,13 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                         //ordersMap.put(++Order.itemOrderNumber, sig);
                     }
                     break;
-                //EXPLAIN General Premium Toppings Menu
-                   /* if ((prem = PremiumTopping.premiumToppingsMenu()) == null) {
-                        //if null then order was cancelled, so should return to this toppingsMenu
-                        continue;
-                    } else {
-                        top = new Topping(prem);
-                        //EXPLAIN Regular Toppings Menu
-                        if ((top = Topping.regularToppingsMenu(top)) == null) {
-                            //if cancels order in regToppingsMenu() then come back here
-                            continue;
-                        } else {
-                            return top;
-                        }
-                    }*/
-                    //break;
                 case 2:
-                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Meat", premiumTopping);
+                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Meat", premiumTopping, "Signature");
+                    sig.setToppings(premiumTopping);
                     break;
                 case 3:
-                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese", premiumTopping);
+                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese", premiumTopping,"Signature");
+                    sig.setToppings(premiumTopping);
                     break;
                 case 4:
                     String sigName = sig.getSignatureName();
@@ -237,14 +233,12 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                         break;
                     } else {
                         sb.setLength(0);
-                        //if boolean unmodified = true; then skip toasted
-                        //any modification means that you have to customize the sandwich from scratch?
-                        //Bread.wantsToasted();
-                        ordersMap.put(++Order.itemOrderNumber, sig);
-                        //FIXME May need to add topping to orderMap??? then return
-                        return sig;
+                        //ordersMap.put(++Order.itemOrderNumber, sig);
+                        break;
                     }
                 case 5:
+                    System.out.println("Let's go over your order");
+                    System.out.println(sig.print("Checkout" , 1));
                     if (Topping.confirmOrder("Signature Sandwich") == -1) {
                         continue;
                     } else {

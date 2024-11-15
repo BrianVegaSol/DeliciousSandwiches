@@ -57,7 +57,7 @@ o Cancel - delete order and go back to the home screen
                         // 2) I'm not paying that! And customer dines n' dashes/ leaves / police come
                         System.out.println("Thank you for visiting Delicious Sandwiches! Have a great day! :D");
                         scan.close();
-                        Order.closeWriter();
+                        //Order.closeWriter();
                         return;
                     case 1:
                         orderMenu();
@@ -75,8 +75,6 @@ o Cancel - delete order and go back to the home screen
             } catch (InputMismatchException e) {
                 System.err.println("What did you say???\n");
                 scan.nextLine();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
             }
         }
 
@@ -99,8 +97,8 @@ o Cancel - delete order and go back to the home screen
                     o 1) Add Sandwich
                     o 2) Add Drink
                     o 3) Add Chips
-                    o 4) Checkout
-                    o 5) Signature Sandwich
+                    o 4) Signature Sandwich
+                    o 5) Checkout
                     o 0) Cancel Order
                     """);
             homeSB.append("\033[34m").append("===========================================")
@@ -151,8 +149,8 @@ o Cancel - delete order and go back to the home screen
                         if (quantity < 1) {
                             System.out.println("No sandwiches? Alright\n");
                         } else {*/
-                            //EXPLAIN Sandwich Menu
-                            Bread.sandwichMenu("Normal");
+                        //EXPLAIN Sandwich Menu
+                        Bread.sandwichMenu("Normal");
                         //}
                         break;
                     //FIXME
@@ -173,8 +171,8 @@ o Cancel - delete order and go back to the home screen
                         if (numDrinks < 1) {
                             System.out.println("No drinks? Alright\n");
                         } else {*/
-                            //EXPLAIN Drinks Menu
-                            OtherProduct.addDrink();
+                        //EXPLAIN Drinks Menu
+                        OtherProduct.addDrink();
                         //}
                         break;
                     //FIXME
@@ -185,13 +183,13 @@ o Cancel - delete order and go back to the home screen
                     // Only show Unique entries and keep tally of quantity of items and total cost, sub-dividing all sections
                     //FIXME Print All Entries in ordersMap
                     case 4:
+                        SignatureSandwich.signatureSandwichMenu();
+                        break;
+                    case 5:
                         //TODO When backing out, sout Did you want something else?
                         checkout();
                         break;
                     //TODO BONUS??? Remove order and fix indices of all order! :) , remember to --itemOrderNumber!
-                        case 5:
-                            SignatureSandwich.signatureSandwichMenu();
-                            break;
                     default:
                         System.out.print("Sorry! That's not on the menu!\nLets have a look at the ");
                         continue;
@@ -210,7 +208,7 @@ o Cancel - delete order and go back to the home screen
         }
     }
 
-    public static void checkout () {
+    public static void checkout() {
         homeSB.setLength(0);
         homeSB.append("\033[36m").append("\nCheckout Menu!\n==============\n")
                 .append("\033[0m")
@@ -220,7 +218,7 @@ o Cancel - delete order and go back to the home screen
         homeSB.setLength(0);
         Order.formatReceipt("Print");
         //order.getSubtotal();
-                homeSB.append("\033[36m").append("\nReady to Checkout?\n\n").append("\033[0m")
+        homeSB.append("\033[36m").append("\nReady to Checkout?\n\n").append("\033[0m")
                 .append("\033[32m").append("1) Sure am!\n").append("\033[0m")
                 .append("\033[31m").append("0) Hold on! I forgot something!").append("\033[0m");
         System.out.println(homeSB.toString());

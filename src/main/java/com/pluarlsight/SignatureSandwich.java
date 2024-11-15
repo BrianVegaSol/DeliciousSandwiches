@@ -196,10 +196,9 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
             System.out.println("""
                     What do you want to do?
                     1) Change Bread
-                    2) Change Meat
-                    3) Change Cheese
-                    4) Change Regular Toppings
-                    5) Confirm Order
+                    2) Change Premium Toppings
+                    3) Change Regular Toppings
+                    4) Confirm Order
                     0) Exit
                     """);
 
@@ -230,20 +229,13 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     premTop = PremiumTopping.premiumToppingsMenu();//("Meat", premiumTopping, "Signature");
                     Topping top = new Topping(premTop);
                     boolean isToasted = Bread.wantsToasted();
+                    if (premTop != null) {
                     combinedPrice = bread.getBreadMenuPrice() + premTop.getPremiumToppingsMenuPrice();
+                    }
                     sig.setSignatureName(sig.getSignatureName());
                     sig = new SignatureSandwich(bread, top, isToasted, combinedPrice);
                     break;
                 case 3:
-                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese", premiumTopping,"Signature");
-                    sig.setToppings(premiumTopping);
-                    combinedPrice = bread.getBreadMenuPrice() + premiumTopping.getPremiumToppingsMenuPrice();
-                    sig.setCombinedPrice(combinedPrice);
-                     isToasted = Bread.wantsToasted();
-                    //combinedPrice = bread.getBreadMenuPrice() + premiumTopping.getPremiumToppingsMenuPrice();
-                    //sig = new SignatureSandwich(bread, topping, isToasted, combinedPrice);
-                    break;
-                case 4:
                     String sigName = sig.getSignatureName();
                     if ((topping = Topping.regularToppingsMenu(topping, "Signature", sigName)) == null) {
                         break;
@@ -252,7 +244,7 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                         //ordersMap.put(++Order.itemOrderNumber, sig);
                         break;
                     }
-                case 5:
+                case 4:
                     System.out.println("Let's go over your order");
                     System.out.println(sig.print("Checkout" , 1));
                     if (Topping.confirmOrder("Signature Sandwich") == -1) {

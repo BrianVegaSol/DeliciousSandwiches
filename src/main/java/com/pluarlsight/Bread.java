@@ -212,7 +212,7 @@ public class Bread extends Sandwich implements Ingredient{
         return total;
     }
 
-    public static Object sizeAndTypeMenu() {
+    public static Bread sizeAndTypeMenu() {
         byte input = -1;
         Bread bread = null;
         BreadSize size;

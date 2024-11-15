@@ -1,9 +1,10 @@
 package com.pluarlsight;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class UserInterface {
+public class HomeMenu {
     static Scanner scan = new Scanner(System.in);
     /*
     Home Screen
@@ -56,6 +57,7 @@ o Cancel - delete order and go back to the home screen
                         // 2) I'm not paying that! And customer dines n' dashes/ leaves / police come
                         System.out.println("Thank you for visiting Delicious Sandwiches! Have a great day! :D");
                         scan.close();
+                        Order.closeWriter();
                         return;
                     case 1:
                         orderMenu();
@@ -73,6 +75,8 @@ o Cancel - delete order and go back to the home screen
             } catch (InputMismatchException e) {
                 System.err.println("What did you say???\n");
                 scan.nextLine();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -96,6 +100,7 @@ o Cancel - delete order and go back to the home screen
                     o 2) Add Drink
                     o 3) Add Chips
                     o 4) Checkout
+                    o 5) Signature Sandwich
                     o 0) Cancel Order
                     """);
             homeSB.append("\033[34m").append("===========================================")
@@ -184,7 +189,9 @@ o Cancel - delete order and go back to the home screen
                         checkout();
                         break;
                     //TODO BONUS??? Remove order and fix indices of all order! :) , remember to --itemOrderNumber!
-                        //case 5:
+                        case 5:
+                            SignatureSandwich.signatureSandwichMenu();
+                            break;
                     default:
                         System.out.print("Sorry! That's not on the menu!\nLets have a look at the ");
                         continue;

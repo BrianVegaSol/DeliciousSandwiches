@@ -41,6 +41,9 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
         MeatSize meatSize = MeatSize.FOUR_INCH;
         MeatType meatType = MeatType.BACON;
 
+        CheeseSize cheeseSize = CheeseSize.FOUR_INCH;
+        CheeseType cheeseType = CheeseType.CHEDDAR;
+
         double combinedPrice = 0;
 
         byte input;
@@ -57,13 +60,15 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     3) Deli Delight
                     4) Jill Sandwich (Coming Soon!)
                     """);
-
-            try {
-                input = scan.nextByte();
-            } catch (InputMismatchException e) {
-                System.err.println("I'm sorry,");
-                scan.nextLine();
-                continue;
+            while (true) {
+                try {
+                    input = scan.nextByte();
+                    break;
+                } catch (InputMismatchException e) {
+                    System.out.println("I'm sorry,");
+                    scan.nextLine();
+                    continue;
+                }
             }
 
             switch (input) {
@@ -78,16 +83,22 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     premiumTopping.setMeatSize(meatSize);
                     premiumTopping.setMeatType(meatType);
 
-                    CheeseSize cheeseSize = CheeseSize.FOUR_INCH;
-                    CheeseType cheeseType = CheeseType.CHEDDAR;
+                    cheeseSize = CheeseSize.FOUR_INCH;
+                    cheeseType = CheeseType.CHEDDAR;
 
                     premiumTopping.setCheeseSize(cheeseSize);
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
-                    Topping.currentToppingsList.clear();
+                    if (Topping.currentToppingsList != null) {
+                        if (!Topping.currentToppingsList.isEmpty()) {
+                            Topping.currentToppingsList.clear();
+                        }
+                    }
                     Topping.currentToppingsList = preloadedList("BLT");
-                    Topping.removedToppingsList.clear();
+                    if (!Topping.removedToppingsList.isEmpty()) {
+                        Topping.removedToppingsList.clear();
+                    }
                     Topping.removedToppingsList = preloadedRemovedList("BLT");
                     topping.setPremiumTopping(premiumTopping);
 
@@ -112,7 +123,11 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
-                    Topping.currentToppingsList.clear();
+                    if (Topping.currentToppingsList != null) {
+                        if (!Topping.currentToppingsList.isEmpty()) {
+                            Topping.currentToppingsList.clear();
+                        }
+                    }
                     Topping.currentToppingsList = preloadedList("Philly");
                     Topping.removedToppingsList.clear();
                     Topping.removedToppingsList = preloadedRemovedList("Philly");
@@ -139,7 +154,11 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
-                    Topping.currentToppingsList.clear();
+                    if (Topping.currentToppingsList != null) {
+                        if (!Topping.currentToppingsList.isEmpty()) {
+                            Topping.currentToppingsList.clear();
+                        }
+                    }
                     Topping.currentToppingsList = preloadedList("Deli");
                     Topping.removedToppingsList.clear();
                     Topping.removedToppingsList = preloadedRemovedList("Deli");
@@ -169,12 +188,12 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
 
             //Send to menus
 
-            Bread.sandwichMenu("Signature");
+            //Bread.sandwichMenu("Signature");
             //EXPLAIN Input Validation
             try {
                 input = scan.nextByte();
             } catch (InputMismatchException e) {
-                System.err.println("I'm sorry,");
+                System.out.println("I'm sorry,");
                 scan.nextLine();
                 continue;
             }
@@ -183,7 +202,13 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                 case 0:
                     return null;
                 case 1:
-
+                    if ((bread = Bread.sizeAndTypeMenu()) == null) {
+                        return null;
+                    } else {
+                        boolean isToasted = Bread.wantsToasted();
+                        sig = new Sandwich(bread, topping, isToasted);
+                        ordersMap.put(++Order.itemOrderNumber, sig);
+                    }
                     //EXPLAIN General Premium Toppings Menu
                    /* if ((prem = PremiumTopping.premiumToppingsMenu()) == null) {
                         //if null then order was cancelled, so should return to this toppingsMenu
@@ -206,19 +231,29 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese", premiumTopping);
                     break;
                 case 4:
-                if (Topping.confirmOrder("Signature Sandwich") == -1) {
-                    continue;
-                } else {
-                    sb.setLength(0);
-                    //if boolean unmodified = true; then skip toasted
-                    //any modification means that you have to customize the sandwich from scratch?
-                    Bread.wantsToasted();
+                    if (Topping.confirmOrder("Signature Sandwich") == -1) {
+                        continue;
+                    } else {
+                        sb.setLength(0);
+                        //if boolean unmodified = true; then skip toasted
+                        //any modification means that you have to customize the sandwich from scratch?
+                        Bread.wantsToasted();
 
-                    //FIXME May need to add topping to orderMap??? then return
-                    return sig;
-                }
+                        //FIXME May need to add topping to orderMap??? then return
+                        return sig;
+                    }
+                case 5:
+                    if (Topping.confirmOrder("Signature Sandwich") == -1) {
+                        continue;
+                    } else {
+                        sb.setLength(0);
+                        ordersMap.put(++Order.itemOrderNumber, sig);
+                        //if boolean unmodified = true; then skip toasted
+                        //any modification means that you have to customize the sandwich from scratch?
+                        return sig;
+                    }
                 default:
-                    //error
+                    System.out.println("Error, try again");
                     scan.nextLine();
                     continue;
             }

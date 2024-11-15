@@ -223,6 +223,15 @@ return "";
         sb.setLength(0);
     }
 
+    public static void closeWriter() throws IOException {
+        // Using try-with-resources to ensure the FileWriter is closed
+        try (FileWriter writer = new FileWriter("")) {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Map<Object, Long> distinctMapEntriesAndQuantity() {
         //EXPLAIN Duplicate Keys error, probably closest to solution
         /*var fileredMap = ordersMap.values().stream().distinct()

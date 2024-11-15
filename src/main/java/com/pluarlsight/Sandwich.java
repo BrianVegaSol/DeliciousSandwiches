@@ -70,9 +70,9 @@ public class Sandwich extends Order {
                 }
                 sb.append(signatureName).append(" ");
             } else {
-                sb.append("Custom");
+                sb.append("Custom ");
                 if (isToasted) {
-                    sb.append("Toasted");
+                    sb.append("Toasted ");
                 }
             }
             sb.append("Sandwich Details\n===============================\n")

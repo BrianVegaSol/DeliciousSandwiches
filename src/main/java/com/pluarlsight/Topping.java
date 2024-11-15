@@ -228,9 +228,7 @@ public class Topping implements Ingredient{
                     if (input >= 4 && input < (currentToppingsList.size() + 4)) {
                         lastChangeIndex = (byte) (input - 4);
                         removeToppingsOptions(currentToppingsList, lastChangeIndex, "Signature");
-                    }
-
-                    if (input >= (currentToppingsList.size() + 4) && input <= 20) {
+                    } else if (input >= (currentToppingsList.size() + 4) && input <= 20) {
                         lastChangeIndex = (byte) (input - 4 - currentToppingsList.size());
                         addToppingsOptions(removedToppingsList, lastChangeIndex);
                     }

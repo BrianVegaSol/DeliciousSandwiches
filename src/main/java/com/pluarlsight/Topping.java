@@ -199,6 +199,9 @@ public class Topping implements Ingredient{
         while (true) {
             staticList(currentToppingsList);
             printDynamicList(currentToppingsList);
+            if (function.equalsIgnoreCase("Signature")) {
+                printDynamicAddList(removedToppingsList);
+            }
             //TODO BONUS Add a search for topping to add back from the removedToppingsList
             //currentToppingsList.stream().findAny().equals(inputTopping);
             sb.append("\033[35m")
@@ -219,12 +222,27 @@ public class Topping implements Ingredient{
 
                 }
             }*/
-            //EXPLAIN Removal Options ->
             if (input >= 4 && input <= 20) {
-                lastChangeIndex = (byte) (input - 4);
-                removeToppingsOptions(currentToppingsList, lastChangeIndex);
-                //END <-
-            } else {
+                if (function.equalsIgnoreCase("Signature")) {
+                                                                        // + 3???
+                    if (input >= 4 && input < (currentToppingsList.size() + 4)) {
+                        lastChangeIndex = (byte) (input - 4);
+                        removeToppingsOptions(currentToppingsList, lastChangeIndex, "Signature");
+                    }
+
+                    if (input >= (currentToppingsList.size() + 4) && input <= 20) {
+                        lastChangeIndex = (byte) (input - 4 - currentToppingsList.size());
+                        addToppingsOptions(removedToppingsList, lastChangeIndex);
+                    }
+
+                } else {
+                    //EXPLAIN Removal Options ->
+                    if (input >= 4 && input <= 20) {
+                        lastChangeIndex = (byte) (input - 4);
+                        removeToppingsOptions(currentToppingsList, lastChangeIndex, "Normal");
+                        //END <-
+                    }
+                }
                 //FIXME AHHHH I JUST REALIIIIZEEDDD
                 // Since the list keeps getting smaller, that makes selecting the menu and error handling harder
                 // Either, I use numbers still and do something like var dynamicInput =
@@ -235,6 +253,7 @@ public class Topping implements Ingredient{
                 // then search ArrayList.contains OR use streams to filter
 
                 //FIXME FINAL will proceed with numbers for now, worst case, have to make another ArrList
+            } else {
                 switch (input) {
                     case 0:
                         sb.append("\033[31m").append("Change your mind? No worries\nSandwich Order Cancelled\n")
@@ -243,7 +262,7 @@ public class Topping implements Ingredient{
                         sb.setLength(0);
                         removedToppingsList.clear();
                         if (function.equalsIgnoreCase("Signature")) {
-                        removedToppingsList = SignatureSandwich.preloadedRemovedList(signatureName);
+                            removedToppingsList = SignatureSandwich.preloadedRemovedList(signatureName);
                         }
                         //FIXME Play around with this value, maybe -1 or 18?
                         return null;
@@ -339,6 +358,7 @@ public class Topping implements Ingredient{
 
                 }
             }
+
         }
         //TODO Might just add to Sandwich Object here and make method void as well as take Bread and Extra Toppings
         // as parameters to this method? OR return Toppings Object so in ?
@@ -438,6 +458,17 @@ public class Topping implements Ingredient{
         return allRegularToppingsList;
     }*/
 
+    public static void printDynamicAddList(ArrayList<String> lists) {
+        //System.out.println("List Size: " + lists.size());
+        for (int i = 0; i < lists.size(); i++) {
+            System.out.println(sb.append("\033[32m").append(i + 4 + currentToppingsList.size())
+                    .append(") Add ").append(lists.get(i))
+                    .append("\033[0m")
+                    .toString());
+            sb.setLength(0);
+        }
+    }
+
     public static void printDynamicList(ArrayList<String> lists) {
         //System.out.println("List Size: " + lists.size());
         for (int i = 0; i < lists.size(); i++) {
@@ -460,12 +491,14 @@ public class Topping implements Ingredient{
         sb.setLength(0);
     }
 
-    public static void removeToppingsOptions(ArrayList<String> currentToppingsList, byte lastChangeIndex) {
+    public static void removeToppingsOptions(ArrayList<String> currentToppingsList, byte lastChangeIndex, String function) {
         //FIXME Was it not working because I didn't (input - 4) for list here? >.>
         // yes but wrong tool for the job :(
         //removedToppings[input - 4] = currentToppingsList.get(input - 4);
         try {
-            removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
+            //if (!function.equalsIgnoreCase("Signature")) {
+                removedToppingsList.add(currentToppingsList.get(lastChangeIndex));
+            //}
             currentToppingsList.remove(lastChangeIndex);
         } catch (IndexOutOfBoundsException e) {
             if (currentToppingsList.isEmpty()) {
@@ -480,6 +513,28 @@ public class Topping implements Ingredient{
             sb.append("\033[31m").append("Removed ").append("\033[0m");
             sb.append("\033[34m").append(removedToppingsList.getLast()).append("\033[0m")
                     .append(" from your sandwich!");
+            System.out.println(sb.toString());
+            sb.setLength(0);
+        }
+    }
+
+    public static void addToppingsOptions(ArrayList<String> removedList, byte lastChangeIndex) {
+        try {
+            currentToppingsList.add(removedList.get(lastChangeIndex));
+            removedList.remove(lastChangeIndex);
+        } catch (IndexOutOfBoundsException e) {
+            if (removedList.isEmpty()) {
+                System.err.println("There's nothing left to add!\n\n");
+                return;
+            } else {
+                System.err.println("Sorry! That's not a topping we offer!\nHave another look at the ");
+            }
+        }
+        //DONE make this .get so it doesnt print the whole list for final product
+        if (!removedList.isEmpty()) {
+            sb.append("\033[32m").append("Added ").append("\033[0m");
+            sb.append("\033[34m").append(currentToppingsList.getLast()).append("\033[0m")
+                    .append(" to your sandwich!");
             System.out.println(sb.toString());
             sb.setLength(0);
         }

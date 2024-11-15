@@ -78,7 +78,7 @@ public class PremiumTopping extends Topping implements Ingredient {
     }
 
     public void setPremiumToppingsMenuPrice(double premiumToppingsMenuPrice) {
-        this.premiumToppingsMenuPrice += premiumToppingsMenuPrice;
+        this.premiumToppingsMenuPrice = premiumToppingsMenuPrice;
     }
 /*public PremiumTopping(PremiumTopping premiumTopping, double premToppingsTotalPrice, CheeseSize cheeseSize,
                           CheeseType cheeseType, ExtraCheeseSize extraCheeseSize, ExtraMeatSize extraMeatSize,
@@ -283,16 +283,21 @@ public class PremiumTopping extends Topping implements Ingredient {
                 if (topping.equalsIgnoreCase("Meat")) {
                     meatSize = MeatSize.values()[sizeInput - 1];
                     prem.setMeatSize(meatSize);
-                    prem.premiumToppingsMenuPrice += meatSize.getMenuPrice();
                     if (function.equalsIgnoreCase("Signature")) {
                         prem.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
+                    } else {
+                        prem.premiumToppingsMenuPrice += meatSize.getMenuPrice();
                     }
                 }
 
                 if (topping.equalsIgnoreCase("Cheese")) {
                     cheeseSize = CheeseSize.values()[sizeInput - 1];
                     prem.setCheeseSize(cheeseSize);
-                    prem.premiumToppingsMenuPrice += cheeseSize.getMenuPrice();
+                    if (function.equalsIgnoreCase("Signature")) {
+                        prem.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
+                    } else {
+                        prem.premiumToppingsMenuPrice += cheeseSize.getMenuPrice();
+                    }
                 }
                 break;
             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -318,6 +323,9 @@ public class PremiumTopping extends Topping implements Ingredient {
                 switch (wantsExtra) {
                     case 0:
                         System.out.println("No Extra " + topping + ", got it!");
+                        if (function.equalsIgnoreCase("Signature")) {
+                            return prem;
+                        }
                         break;
                     case 1:
                         while (true) {
@@ -343,6 +351,11 @@ public class PremiumTopping extends Topping implements Ingredient {
                                     prem.setExtraCheeseSize(extraCheese);
                                     prem.premiumToppingsMenuPrice += extraCheese.getMenuPrice();
                                 }
+
+                                if (function.equalsIgnoreCase("Signature")) {
+                                    return prem;
+                                }
+
                                 break;
                             } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
                                 sb.append("\033[31m").append("Sorry! We don't have that size!").append("\033[0m");

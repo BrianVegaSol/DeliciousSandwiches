@@ -48,7 +48,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
 
         byte input;
         while (true) {
-            sb.append("\033[31m").append("Signature Sandwich Menu!").append("\033[0m");
+            sb.append("\033[33m").append("Signature Sandwich Menu!")
+                    .append("\n========================\n").append("\033[0m");
             System.out.println(sb.toString());
             sb.setLength(0);
             System.out.println("""
@@ -79,14 +80,14 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     meatSize = MeatSize.FOUR_INCH;
                     meatType = MeatType.BACON;
                     premiumTopping.setMeatSize(meatSize);
-                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
+                    //premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
                     premiumTopping.setMeatType(meatType);
 
                     cheeseSize = CheeseSize.FOUR_INCH;
                     cheeseType = CheeseType.CHEDDAR;
 
                     premiumTopping.setCheeseSize(cheeseSize);
-                    premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
+                    //premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
@@ -102,7 +103,8 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     Topping.removedToppingsList = preloadedRemovedList("BLT");
                     topping.setPremiumTopping(premiumTopping);
 
-                    combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
+                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice() + cheeseSize.getMenuPrice());
+                    combinedPrice = bread.getBreadMenuPrice() + premiumTopping.getPremiumToppingsMenuPrice();
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
                     sig.setSignatureName("BLT");
                     break;
@@ -114,14 +116,14 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     meatSize = MeatSize.EIGHT_INCH;
                     meatType = MeatType.STEAK;
                     premiumTopping.setMeatSize(meatSize);
-                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
+                    //premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
                     premiumTopping.setMeatType(meatType);
 
                     cheeseSize = CheeseSize.EIGHT_INCH;
                     cheeseType = CheeseType.AMERICAN;
 
                     premiumTopping.setCheeseSize(cheeseSize);
-                    premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
+                    //premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
@@ -135,7 +137,9 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     Topping.removedToppingsList = preloadedRemovedList("Philly");
                     topping.setPremiumTopping(premiumTopping);
 
-                    combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
+                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice() + cheeseSize.getMenuPrice());
+                    combinedPrice = bread.getBreadMenuPrice() + premiumTopping.getPremiumToppingsMenuPrice();
+                    //combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
                     sig.setSignatureName("Philly Cheese Steak");
                     break;
@@ -147,14 +151,14 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     meatSize = MeatSize.EIGHT_INCH;
                     meatType = MeatType.CHICKEN;
                     premiumTopping.setMeatSize(meatSize);
-                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
+                    //premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice());
                     premiumTopping.setMeatType(meatType);
 
                     cheeseSize = CheeseSize.TWELVE_INCH;
                     cheeseType = CheeseType.PROVOLONE;
 
                     premiumTopping.setCheeseSize(cheeseSize);
-                    premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
+                    //premiumTopping.setPremiumToppingsMenuPrice(cheeseSize.getMenuPrice());
                     premiumTopping.setCheeseType(cheeseType);
 
                     //Regular toppings
@@ -168,7 +172,9 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     Topping.removedToppingsList = preloadedRemovedList("Deli");
                     topping.setPremiumTopping(premiumTopping);
 
-                    combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
+                    premiumTopping.setPremiumToppingsMenuPrice(meatSize.getMenuPrice() + cheeseSize.getMenuPrice());
+                    combinedPrice = bread.getBreadMenuPrice() + premiumTopping.getPremiumToppingsMenuPrice();
+                    //combinedPrice = bread.getBreadMenuPrice() + topping.getPremToppingsTotalPrice();
                     sig = new SignatureSandwich(bread, topping, true, combinedPrice);
                     sig.setSignatureName("Deli Delight");
                     break;
@@ -220,12 +226,22 @@ public class SignatureSandwich extends Sandwich implements Ingredient {
                     }
                     break;
                 case 2:
-                    premiumTopping = PremiumTopping.sizeAndTypeMenu("Meat", premiumTopping, "Signature");
-                    sig.setToppings(premiumTopping);
+                    PremiumTopping premTop = new PremiumTopping();
+                    premTop = PremiumTopping.premiumToppingsMenu();//("Meat", premiumTopping, "Signature");
+                    Topping top = new Topping(premTop);
+                    boolean isToasted = Bread.wantsToasted();
+                    combinedPrice = bread.getBreadMenuPrice() + premTop.getPremiumToppingsMenuPrice();
+                    sig.setSignatureName(sig.getSignatureName());
+                    sig = new SignatureSandwich(bread, top, isToasted, combinedPrice);
                     break;
                 case 3:
                     premiumTopping = PremiumTopping.sizeAndTypeMenu("Cheese", premiumTopping,"Signature");
                     sig.setToppings(premiumTopping);
+                    combinedPrice = bread.getBreadMenuPrice() + premiumTopping.getPremiumToppingsMenuPrice();
+                    sig.setCombinedPrice(combinedPrice);
+                     isToasted = Bread.wantsToasted();
+                    //combinedPrice = bread.getBreadMenuPrice() + premiumTopping.getPremiumToppingsMenuPrice();
+                    //sig = new SignatureSandwich(bread, topping, isToasted, combinedPrice);
                     break;
                 case 4:
                     String sigName = sig.getSignatureName();

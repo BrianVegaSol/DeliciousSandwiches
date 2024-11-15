@@ -77,6 +77,10 @@ public class Sandwich extends Order {
         return combinedPrice;
     }
 
+    public void setCombinedPrice(double combinedPrice) {
+        this.combinedPrice = combinedPrice;
+    }
+
     public Bread getBread() {
         return bread;
     }
@@ -114,7 +118,7 @@ public class Sandwich extends Order {
     public String print(String function, long count) {
         sb.setLength(0);
         if (function.equalsIgnoreCase("Receipt")) {
-            if ( signatureName != null) {
+            if ( signatureName != null || this instanceof SignatureSandwich) {
                 if (isToasted) {
                 sb.append("Toasted ");
                 }

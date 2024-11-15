@@ -2,7 +2,6 @@ package com.pluarlsight;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public interface Ingredient {
     static ArrayList<String> ingredients () {
@@ -30,9 +29,6 @@ public interface Ingredient {
             return name;
         }
 
-        public int getMenuNum() {
-            return menuNum;
-        }
     }
 
      enum BreadSize {
@@ -59,11 +55,9 @@ public interface Ingredient {
              return sizeName;
          }
 
-         public int getMenuNum() {
-            return menuNum;
-        }
     }
     //END Bread Enums
+
     //EXPLAIN Meat Enums
      enum MeatType {
         STEAK(1, "Steak", false),
@@ -86,9 +80,6 @@ public interface Ingredient {
             return menuName;
         }
 
-        public int getMenuNum() {
-            return menuNum;
-        }
     }
 
      enum MeatSize {
@@ -114,10 +105,6 @@ public interface Ingredient {
          public String getSizeName() {
              return sizeName;
          }
-
-         public int getMenuNum() {
-             return menuNum;
-         }
      }
 
 
@@ -136,11 +123,6 @@ public interface Ingredient {
             this.menuPrice = menuPrice;
         }
 
-
-        public int getMenuNum() {
-            return menuNum;
-        }
-
         public String getSizeName() {
             return sizeName;
         }
@@ -151,6 +133,7 @@ public interface Ingredient {
 
     }
     //END Meat Enums
+
     //EXPLAIN Cheese Enums ->
      enum CheeseType {
         AMERICAN(1, "American"),
@@ -169,10 +152,6 @@ public interface Ingredient {
         public String getMenuName() {
             return menuName;
         }
-
-        public int getMenuNum() {
-            return menuNum;
-        }
     }
 
      enum CheeseSize {
@@ -188,10 +167,6 @@ public interface Ingredient {
             this.menuNum = menuNum;
             this.sizeName = sizeName;
             this.menuPrice = menuPrice;
-        }
-
-        public int getMenuNum() {
-            return menuNum;
         }
 
         public double getMenuPrice() {
@@ -224,10 +199,6 @@ public interface Ingredient {
 
          public double getMenuPrice() {
              return menuPrice;
-         }
-
-         public int getMenuNum() {
-             return menuNum;
          }
      }
     //END <-

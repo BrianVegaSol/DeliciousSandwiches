@@ -18,51 +18,16 @@ public class PremiumTopping extends Topping implements Ingredient {
         super();
     }
 
-    //TASK use this to fill the toppings, might need a lot of if !null
-    /*public PremiumTopping () {
-        super();
-        this.premiumToppingsMenuPrice = cheeseSize.menuPrice +
-                getExtraCheeseSize().menuPrice +
-                getMeatSize().menuPrice + getExtraMeatSize().menuPrice;
-    }*/
-
-
-    public ExtraCheeseSize getExtraCheeseSize() {
-        return extraCheeseSize;
-    }
-
-
-    public ExtraMeatSize getExtraMeatSize() {
-        return extraMeatSize;
-    }
-
-
-    public MeatSize getMeatSize() {
-        return meatSize;
-    }
-
     public void setMeatSize(MeatSize meatSize) {
         this.meatSize = meatSize;
-    }
-
-    public MeatType getMeatType() {
-        return meatType;
     }
 
     public void setMeatType(MeatType meatType) {
         this.meatType = meatType;
     }
 
-    public CheeseSize getCheeseSize() {
-        return cheeseSize;
-    }
-
     public void setCheeseSize(CheeseSize cheeseSize) {
         this.cheeseSize = cheeseSize;
-    }
-
-    public CheeseType getCheeseType() {
-        return cheeseType;
     }
 
     public void setCheeseType(CheeseType cheeseType) {
@@ -80,36 +45,12 @@ public class PremiumTopping extends Topping implements Ingredient {
     public void setPremiumToppingsMenuPrice(double premiumToppingsMenuPrice) {
         this.premiumToppingsMenuPrice = premiumToppingsMenuPrice;
     }
-/*public PremiumTopping(PremiumTopping premiumTopping, double premToppingsTotalPrice, CheeseSize cheeseSize,
-                          CheeseType cheeseType, ExtraCheeseSize extraCheeseSize, ExtraMeatSize extraMeatSize,
-                          MeatSize meatSize, MeatType meatType, double premiumToppingsMenuPrice) {
-        super(premiumTopping, premToppingsTotalPrice);
-        this.cheeseSize = cheeseSize;
-        this.cheeseType = cheeseType;
-        this.extraCheeseSize = extraCheeseSize;
-        this.extraMeatSize = extraMeatSize;
-        this.meatSize = meatSize;
-        this.meatType = meatType;
-        this.premiumToppingsMenuPrice = premiumToppingsMenuPrice;
-    }*/
-
 
     public double getPremiumToppingsMenuPrice() {
         return premiumToppingsMenuPrice;
     }
 
-    //EXPLAIN Meat Enums ->
-    //FIXME Probably gonna wanna add the type for HashMap here
-    //END <-
-
-
-    public static PremiumTopping updatePremTop(PremiumTopping premTop) {
-        return premTop;
-    }
-
-    //FIXME Always returning null, is it necessary to return a PremiumTopping now that setters are used?
     public static PremiumTopping premiumToppingsMenu() throws InterruptedException {
-        //TODO Unintended validation! Clears the prem Object everytime the user comes back here!
         PremiumTopping premiumTopping = null;
         premiumTopping = new PremiumTopping();
         byte input = -1;
@@ -132,11 +73,7 @@ public class PremiumTopping extends Topping implements Ingredient {
                     case 0:
                         break;
                     case 1:
-                        //premiumTopping = sizeAndTypeMenu("Meat", premiumTopping);
-                        //FIXME Play around with having updatePrem outside or inside
-                        // Probably should have it inside of size()
                         sizeAndTypeMenu("Meat", premiumTopping, "Normal");
-                        //System.out.println(premiumTopping);
                         break;
                     default:
                         System.out.println("\033[31m" + "So..." + "\033[0m");
@@ -150,7 +87,6 @@ public class PremiumTopping extends Topping implements Ingredient {
             //EXPLAIN Cheese Options
             while (true) {
                 System.out.println("Do you want Cheese?\n1) Yes\n0) No");
-                //FIXME # Over not working >:(
                 try {
                     input = scan.nextByte();
                 } catch (InputMismatchException | ArrayIndexOutOfBoundsException e) {
@@ -174,36 +110,20 @@ public class PremiumTopping extends Topping implements Ingredient {
             }
             //END
 
-            /*switch (input) {
-                case 0:
-                    return null;
-                case 1:
-                    premiumTopping = sizeAndTypeMenu("Meat");
-                    break;
-                case 2:
-                    premiumTopping = sizeAndTypeMenu("Cheese");
-                    break;
-            }*/
             System.out.println("Let's go over your order");
             System.out.println(premiumTopping.print("Print"));
             sb.setLength(0);
             if (Topping.confirmOrder("Premium Toppings") == -1) {
                 return premiumTopping = null;
             } else {
-                //Topping.setPremiumTopping();
                 System.out.print("Lets move onto the ");
                 return premiumTopping;
             }
         }
-        //TASK if selected no to all, then sout No Extra Toppings Added in red! then return null
-        //TASK LAST sout should say, Let's move onto the Regular Toppings Menu!
     }
 
     public static PremiumTopping sizeAndTypeMenu(String topping, PremiumTopping prem, String function) throws InterruptedException {
         byte input = -1;
-        //PremiumTopping prem; //= new PremiumTopping(); /FIXME Add non, null base values??? then make perm null if cancelled order???
-        //FIXME oof this is why Meat is never saved xO when Cheese comes through here, it makes everything null xO
-        // if (Meat/Cheese) then ???
         MeatSize meatSize;
         MeatType meatType;
         ExtraMeatSize extraMeat;
@@ -306,7 +226,6 @@ public class PremiumTopping extends Topping implements Ingredient {
             }
             //END <-
         }
-        //FIXME Start here if Extra Toppings is not working properly ._.
         int wantsExtra = -1;
         while (true) {
             System.out.println("Would you like Extra " + topping + "?");
@@ -380,22 +299,9 @@ public class PremiumTopping extends Topping implements Ingredient {
             }
             break;
         }
-
-
-        //FIXME Need to either separate the Meat and Cheese menus ANDOR add validation so that the values stay null
-        // and only get updated by user but also get nulled when user cancels order
-        //PremiumTopping prem = null;
-        /*prem.setMeatSize(meatSize);
-        prem.setMeatType(meatType);
-        prem.setExtraMeatSize(extraMeat);
-        prem.setCheeseSize(cheeseSize);
-        prem.setCheeseType(cheeseType);
-        prem.setExtraCheeseSize(extraCheese);*/
-        //prem = new Topping(type, size);
         return prem;
     }
 
-    //return null;
     @Override
     public String print(String function) {
         sb.setLength(0);
@@ -416,7 +322,7 @@ public class PremiumTopping extends Topping implements Ingredient {
 
             if (cheeseSize != null) {
                 sb.append("\nCheese\n======")
-                .append("\n").append(cheeseType.getMenuName()).append(" Cheese Added")
+                        .append("\n").append(cheeseType.getMenuName()).append(" Cheese Added")
                         .append("\nSize: ").append(cheeseSize.getSizeName())
                         .append(String.format("\nPrice: $%.2f%n", cheeseSize.getMenuPrice()));
                 if (extraCheeseSize != null) {
@@ -460,9 +366,6 @@ public class PremiumTopping extends Topping implements Ingredient {
             }
         }
         sb.append("\n");
-        //sb.append(String.format("Subtotal: $%.2f%n", premiumToppingsMenuPrice));
-        //System.out.print(sb.toString());
-        //sb.setLength(0);
         return sb.toString();
     }
 }

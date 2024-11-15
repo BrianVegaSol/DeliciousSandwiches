@@ -9,36 +9,14 @@ public class Sandwich extends Order {
     private boolean isToasted;
     private String signatureName;
     private static StringBuilder sb = new StringBuilder();
-    //TASK Try to have Bread and Topping become interfaces and have Sandwich implement both
-    // OR have Bread and Toppings extend Sandwich (y tho???)
 
-    //TASK Both Bread and Toppings need to keep track of their own prices
-    // So they can be tallied when Confirming the Sandwich order at the end of the dynamicMenu()
-
-    //FIXME Make sure that when asking for toasted or not, to add that to the String where Sandwich
-    // is being displayed, otherwise will need to make a Sandwich enum with String "Toasted"
     public Sandwich(Bread bread, Topping toppings, boolean isToasted) {
         super();
         this.bread = bread;
         this.toppings = toppings;
         this.isToasted = isToasted;
-        //TASK this is only for one Sandwich, to get the Total for the whole order, will need to tally
-        // EITHER everytime that a new Sandwich & OtherProduct is made, static total++ (reset when clearing all orders)
-        // OR Have the Hashmap get all the entries and all their totals that way?
         this.combinedPrice = bread.getBreadMenuPrice() + toppings.getPremToppingsTotalPrice();
     }
-
-   /* public Sandwich(Bread bread, Topping toppings, boolean isToasted, String signatureName) {
-        super();
-        this.bread = bread;
-        this.toppings = toppings;
-        this.isToasted = isToasted;
-        this.signatureName = signatureName;
-        //TASK this is only for one Sandwich, to get the Total for the whole order, will need to tally
-        // EITHER everytime that a new Sandwich & OtherProduct is made, static total++ (reset when clearing all orders)
-        // OR Have the Hashmap get all the entries and all their totals that way?
-        this.combinedPrice = bread.getBreadMenuPrice() + toppings.getPremToppingsTotalPrice();
-    }*/
 
     public Sandwich() {
         super();
@@ -64,10 +42,6 @@ public class Sandwich extends Order {
         this.signatureName = signatureName;
     }
 
-    public void setToppings(Topping toppings) {
-        this.toppings = toppings;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(bread, toppings);
@@ -75,10 +49,6 @@ public class Sandwich extends Order {
 
     public double getCombinedPrice() {
         return combinedPrice;
-    }
-
-    public void setCombinedPrice(double combinedPrice) {
-        this.combinedPrice = combinedPrice;
     }
 
     public Bread getBread() {
@@ -89,38 +59,14 @@ public class Sandwich extends Order {
         return toppings;
     }
 
-   /* @Override
-    public String toString() {*/
-    //@Override
-    /*public String print (String function, long count) {
-        sb.setLength(0);
-        sb.append("\033[33m").append("Custom ").append("\033[0m");
 
-        if (isToasted) {
-            sb.append("\033[93m").append("Toasted ").append("\033[0m");
-        }
-
-        sb.append("\033[33m").append("Sandwich Details\n===============================\n\n").append("\033[0m");
-        if (function.equalsIgnoreCase("Checkout")) {
-            sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
-        }
-                sb.append(bread.print())
-                .append(toppings.print());
-                //.append("\033[92m").append(String.format("Subtotal: $%.2f%n", combinedPrice)).append("\033[0m");
-        //System.out.print(sb.toString());
-        //sb.setLength(0);
-        return sb.toString();
-        //TASK if toasted, then add "Toasted", no need for else if false
-         *//*"Custom" + isToasted + "Sandwich Details\n" + bread.toString() +
-                "\n\n" +
-                toppings.toString();*//*
-    }*/
     public String print(String function, long count) {
         sb.setLength(0);
+
         if (function.equalsIgnoreCase("Receipt")) {
-            if ( signatureName != null || this instanceof SignatureSandwich) {
+            if (signatureName != null || this instanceof SignatureSandwich) {
                 if (isToasted) {
-                sb.append("Toasted ");
+                    sb.append("Toasted ");
                 }
                 sb.append(signatureName).append(" ");
             } else {
@@ -139,34 +85,28 @@ public class Sandwich extends Order {
             return sb.toString();
         }
 
+
         //EXPLAIN For most cases
-            if ( signatureName != null) {
-                if (isToasted) {
-                    sb.append("\033[33m").append("Toasted ");
-                }
-                sb.append(signatureName).append(" ").append("\033[0m");
-            } else {
-                sb.append("\033[33m").append("Custom ").append("\033[0m");
-                if (isToasted) {
-                    sb.append("\033[93m").append("Toasted ").append("\033[0m");
-                }
+        if (signatureName != null) {
+            if (isToasted) {
+                sb.append("\033[33m").append("Toasted ");
             }
+            sb.append(signatureName).append(" ").append("\033[0m");
+        } else {
+            sb.append("\033[33m").append("Custom ").append("\033[0m");
+            if (isToasted) {
+                sb.append("\033[93m").append("Toasted ").append("\033[0m");
+            }
+        }
         sb.append("\033[33m").append("Sandwich Details\n===============================\n").append("\033[0m");
         sb.append("\033[33m").append("Quantity: ").append(count).append("\033[0m");
         sb.append("\n\n");
-        //FIXME May cause issues
         sb.append(bread.print(function))
                 .append(toppings.print("Print"))
                 .append("\n----------------------------------------------------------------------------------------\n")
                 .append("\033[92m").append(String.format("Sandwich Cumulative Price: $%.2f%n%n", combinedPrice * count))
                 .append("\033[0m");
-        //System.out.print(sb.toString());
-        //sb.setLength(0);
         return sb.toString();
-        //TASK if toasted, then add "Toasted", no need for else if false
-         /*"Custom" + isToasted + "Sandwich Details\n" + bread.toString() +
-                "\n\n" +
-                toppings.toString();*/
     }
 
 }

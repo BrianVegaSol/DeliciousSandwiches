@@ -165,7 +165,6 @@ public class Bread extends Sandwich implements Ingredient {
         }
         //EXPLAIN For most cases
         sb.append("\033[34m").append("Bread Details")
-                //TODO .repeat()??? might add more workload
                 .append("\n=============").append("\033[0m")
                 .append("\nType: ").append(breadType.getName()).append(" Bread")
                 .append("\nSize: ").append(breadSize.getSizeName())

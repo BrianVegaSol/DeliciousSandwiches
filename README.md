@@ -34,7 +34,7 @@ We have a modest selection of Signature Sandwiches available, and more to come i
  
 Input 1 to get started! (or not ahaha)
 
-![image](https://github.com/user-attachments/assets/bfd621c2-b631-4018-bf4c-14047f34271f)
+![image](https://github.com/user-attachments/assets/82889357-138b-47f1-ac40-5be4eafcbe90)
 
  ### Add Sandwich
  Choose what you want in/on your sandwich!
@@ -54,9 +54,11 @@ Input 1 to get started! (or not ahaha)
 ![image](https://github.com/user-attachments/assets/787a8fa0-7da1-437d-bcaa-46c3ca1304df)
 
 ## Interesting Code
-Dynamic Removal/Addition of Regular Toppings!
+Dynamic Removal of Regular Toppings!
 
 ![image](https://github.com/user-attachments/assets/c5d2f93c-dec3-4bf5-bbee-1bde6807da55)
+
+(Addition is only accessable via the Signature Sandwich Menu)
 
 ![image](https://github.com/user-attachments/assets/b88584a5-4ba3-4761-a4d9-01a6e652906d)
 
